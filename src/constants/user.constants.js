@@ -1,3 +1,4 @@
+// 유저 관련 상수
 export const LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const LOGIN_FAIL = "USER_LOGIN_FAIL";
