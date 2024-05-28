@@ -22,7 +22,9 @@
     "react-credit-cards": "^0.8.3",
     "react-dom": "^16.14.0",
     "react-google-login": "^5.2.2",
+    "react-hook-form": "^7.51.5",
     "react-loader-spinner": "^5.3.4",
+    "react-modal": "^3.16.1",
     "react-paginate": "^8.1.4",
     "react-redux": "^8.0.5",
     "react-router": "^6.2.1",
@@ -31,6 +33,7 @@
     "react-toastify": "^9.1.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
+    "sass": "^1.77.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
