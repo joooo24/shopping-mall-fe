@@ -3,7 +3,9 @@ import { Container, Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { userActions } from "../action/userAction";
-import "../style/register.style.css";
+import { Link } from "react-router-dom";
+import "../style/users.style.css";
+
 const RegisterPage = () => {
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({

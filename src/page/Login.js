@@ -3,8 +3,7 @@ import { Container, Form, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
-
-import "../style/login.style.css";
+import "../style/users.style.css";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -27,49 +26,45 @@ const Login = () => {
         navigate("/");
     }
     return (
-        <>
-            <Container className="login-area">
-                {error && (
-                    <div className="error-message">
-                        <Alert variant="danger">{error}</Alert>
-                    </div>
-                )}
-                <Form className="login-form" onSubmit={loginWithEmail}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                            type="email"
-                            placeholder="Enter email"
-                            required
-                            onChange={(event) => setEmail(event.target.value)}
-                        />
-                    </Form.Group>
+        <div className="form-container">
+            {error && (
+                <div className="error-message">
+                    <Alert variant="danger">{error}</Alert>
+                </div>
+            )}
+            <Form className="form-box" onSubmit={loginWithEmail}>
+                <h1>로그인</h1>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>이메일</Form.Label>
+                    <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        required
+                        onChange={(event) => setEmail(event.target.value)}
+                    />
+                </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="Password"
-                            required
-                            onChange={(event) => setPassword(event.target.value)}
-                        />
-                    </Form.Group>
-                    <div className="display-space-between login-button-area">
-                        <Button variant="danger" type="submit">
-                            Login
-                        </Button>
-                        <div>
-                            아직 계정이 없으세요?<Link to="/register">회원가입 하기</Link>{" "}
-                        </div>
-                    </div>
-
-                    <div className="text-align-center mt-2">
-                        <p>-외부 계정으로 로그인하기-</p>
-                        <div className="display-center"></div>
-                    </div>
-                </Form>
-            </Container>
-        </>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>비밀번호</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        required
+                        onChange={(event) => setPassword(event.target.value)}
+                    />
+                </Form.Group>
+                <div className="button-wrap">
+                    <button variant="danger" type="submit" className="btn btn-submit">
+                        로그인
+                    </button>
+                    <p className="notice">
+                        아직 계정이 없으세요?<Link to="/register" className="link">회원가입 하기</Link>
+                    </p>
+                    <p>-외부 계정으로 로그인하기-</p>
+                    <p className="display-center"></p>
+                </div>
+            </Form>
+        </div>
     );
 };
 
