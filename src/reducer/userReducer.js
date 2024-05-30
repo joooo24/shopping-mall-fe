@@ -22,8 +22,7 @@ function userReducer(state = initialState, action) {
 		// 로그인, 회원가입 실패
 		case types.LOGIN_FAIL:
 		case types.REGISTER_USER_FAIL:
-			return { ...state, loading: false, error: payload };
-			// return { ...state, loading: false, error: { message: payload } };
+			return { ...state, loading: false, error: payload.message };
 
 		default:
 			return state;

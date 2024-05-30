@@ -33,8 +33,8 @@ const registerUser = ({ email, name, password }) => async (dispatch) => {
         dispatch({ type: types.REGISTER_USER_SUCCESS });
 
     } catch (err) {
-        // 회원가입 실패
-        dispatch({ type: types.REGISTER_USER_FAIL, payload: err.error });
+        // 회원가입 성공
+        dispatch({ type: types.REGISTER_USER_FAIL, payload: err });
     }
 };
 

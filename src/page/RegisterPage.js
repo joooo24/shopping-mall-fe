@@ -42,7 +42,7 @@ const RegisterPage = () => {
         setPolicyError(false);
 
         // FormData에 있는 값 백엔드로 넘겨주기
-        dispatch(userActions.registerUser({ email, name, password }))
+        dispatch(userActions.registerUser({ email, name, password }));
 
         // 성공 후 로그인 페이지로 넘어가기
     };
@@ -108,7 +108,7 @@ const RegisterPage = () => {
                         placeholder="Confirm Password"
                         onChange={handleChange}
                         required
-                        isInvalid={passwordError}
+                        isInvalid={!!passwordError}
                     />
                     <Form.Control.Feedback type="invalid">
                         {passwordError}
