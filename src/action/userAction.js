@@ -18,21 +18,22 @@ const loginWithGoogle = (token) => async (dispatch) => { };
 // 회원가입 액션
 const registerUser = ({ email, name, password }) => async (dispatch) => {
     try {
-        // 사용자 등록 요청이 시작됨을 리덕스 스토어에 알림
+        // 회원가입 요청
         dispatch({ type: types.REGISTER_USER_REQUEST });
 
-        // 서버에 사용자 등록 요청을 보냄
-        const response = await api.post("user");
+        // 서버에 회원가입 요청
+        const response = await api.post("/users", { email, name, password });
 
+        // 실패한다면?
         if (response.status !== 200) {
             throw new Error(response.error);
         }
 
-        // 디스패치 성공
+        // 회원가입 성공
         dispatch({ type: types.REGISTER_USER_SUCCESS });
 
     } catch (err) {
-        // 디스패치 실패
+        // 회원가입 실패
         dispatch({ type: types.REGISTER_USER_FAIL, payload: err.error });
     }
 };
