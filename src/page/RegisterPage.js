@@ -41,8 +41,8 @@ const RegisterPage = () => {
         setPasswordError("");
         setPolicyError(false);
 
-        // FormData에 있는 값 백엔드로 넘겨주기
-        dispatch(userActions.registerUser({ email, name, password }));
+        // FormData에 있는 값 백엔드로 넘겨주기 (+ navigate함수도 함께)
+        dispatch(userActions.registerUser({ email, name, password }, navigate));
 
         // 성공 후 로그인 페이지로 넘어가기
     };

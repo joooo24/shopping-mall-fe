@@ -15,7 +15,7 @@ const logout = () => async (dispatch) => { };
 const loginWithGoogle = (token) => async (dispatch) => { };
 
 // 회원가입 액션
-const registerUser = ({ email, name, password }) => async (dispatch) => {
+const registerUser = ({ email, name, password }, navigate) => async (dispatch) => {
     try {
         // 회원가입 시작 (-> 로딩 상태 표시)
         dispatch({ type: types.REGISTER_USER_REQUEST });
@@ -29,8 +29,9 @@ const registerUser = ({ email, name, password }) => async (dispatch) => {
         // 회원가입 성공
         dispatch({ type: types.REGISTER_USER_SUCCESS });
 
-        // 토스트 띄우기
+        // 토스트 띄우고 리다이렉트
         dispatch(commonUiActions.showToastMessage("회원가입을 완료했습니다!", "success"));
+        navigate("/login")
 
     } catch (err) {
         // 회원가입 실패
