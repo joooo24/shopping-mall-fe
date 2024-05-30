@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form, Button, Alert } from "react-bootstrap";
+import { Form, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { userActions } from "../action/userAction";
@@ -21,17 +21,17 @@ const RegisterPage = () => {
     const error = useSelector((state) => state.user.error);
 
     const register = (event) => {
-
         event.preventDefault();
 
         const { email, name, password, confirmPassword, policy } = formData;
 
-        // 비번 중복확인 일치하는지 확인
+        // 비밀번호 중복 확인
         if (password !== confirmPassword) {
             setPasswordError("비밀번호가 일치하지 않습니다");
             return;
         }
-        // 이용약관에 체크했는지 확인
+
+        // 이용약관에 체크 확인
         if (!policy) {
             setPolicyError(true); // 이용약관 동의 에러를 표시
             return;
@@ -41,17 +41,16 @@ const RegisterPage = () => {
         setPasswordError("");
         setPolicyError(false);
 
-        // FormData에 있는 값을 가지고 백엔드로 넘겨주기
+        // FormData에 있는 값 백엔드로 넘겨주기
         dispatch(userActions.registerUser({ email, name, password }))
 
         // 성공 후 로그인 페이지로 넘어가기
-        navigate('/login');
     };
 
+    // FormData에 입력한 값 넣는 함수
     const handleChange = (event) => {
         event.preventDefault();
 
-        // 값을 읽어서 FormData에 넣어주기
         const { id, value, checked } = event.target;
         if (id === "policy") {
             setFormData({ ...formData, [id]: checked });
@@ -130,9 +129,7 @@ const RegisterPage = () => {
                         </Form.Text>
                     )}
                 </Form.Group>
-                <button variant="danger" type="submit" className="btn btn-submit">
-                    회원가입
-                </button>
+                <button type="submit" className="btn btn-submit"> 회원가입</button>
             </Form>
             <div className="notice">비밀번호는 안전하게 암호화되어 저장됩니다.</div>
             <Link to="/login" className="link">로그인 하기</Link>
