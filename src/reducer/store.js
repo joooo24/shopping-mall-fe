@@ -10,7 +10,7 @@ const store = configureStore({
         user: userReducer,
         product: productReducer,
         cart: cartReducer,
-        ui: commonUiReducer,
+        ui: commonUiReducer, // 토스트 리듀서
         order: orderReducer,
     },
 });
