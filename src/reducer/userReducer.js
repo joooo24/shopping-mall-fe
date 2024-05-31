@@ -10,16 +10,16 @@ function userReducer(state = initialState, action) {
 	const { type, payload } = action;
 
 	switch (type) {
-		// 로그인, 회원가입 요청
+		// 로그인, 회원가입 요청 
 		case types.REGISTER_USER_REQUEST:
 		case types.LOGIN_REQUEST:
 			return { ...state, loading: true };
 
-		// 로그인 성공
+		// 로그인 성공 
 		case types.LOGIN_SUCCESS:
 			return { ...state, loading: false, user: payload.user };
 
-		// 로그인, 회원가입 실패
+		// 로그인, 회원가입 실패 
 		case types.LOGIN_FAIL:
 		case types.REGISTER_USER_FAIL:
 			return { ...state, loading: false, error: payload.message };

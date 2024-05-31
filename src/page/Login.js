@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form, Button, Alert } from "react-bootstrap";
+import { Form, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
@@ -16,15 +16,19 @@ const Login = () => {
     const loginWithEmail = (event) => {
         event.preventDefault();
         //이메일,패스워드를 가지고 백엔드로 보내기
+
+        dispatch(userActions.loginWithEmail({ email, password }))
     };
 
     const handleGoogleLogin = async (googleData) => {
         // 구글로 로그인 하기
     };
 
+    // 유저가 있다면?
     if (user) {
         navigate("/");
     }
+
     return (
         <div className="form-container">
             {error && (

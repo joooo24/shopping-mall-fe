@@ -6,7 +6,31 @@ import { commonUiActions } from './commonUiAction';
 const loginWithToken = () => async (dispatch) => { };
 
 // 이메일/비밀번호 로그인 액션
-const loginWithEmail = (payload) => async (dispatch) => { };
+const loginWithEmail = ({ email, password }) => async (dispatch) => {
+    try {
+        // 로그인 요청 (-> 로딩 상태 표시)
+        dispatch({ type: types.LOGIN_REQUEST })
+
+        // 서버에 로그인 요청
+        const response = await api.post("/auth/login", { email, password });
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+
+        // 세션 스토리지에 토큰을 저장
+        sessionStorage.setItem("token", response.data.token);
+
+        // 헤더에 토큰 값 저장
+        // api.defaults.headers["Authorization"] = "Bearer " + response.data.token;
+
+        // 로그인 성공
+        dispatch({ type: types.LOGIN_SUCCESS, payload: response.data },)
+
+    } catch (err) {
+        // 로그인 실패
+        dispatch({ type: types.LOGIN_FAIL, payload: err });
+    }
+};
 
 // 로그아웃 액션
 const logout = () => async (dispatch) => { };

@@ -8,7 +8,7 @@ const api = axios.create({
     baseURL: BACKEND_PROXY,
     headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        authorization: `Bearer ${sessionStorage.getItem("token")}`, 
     },
 });
 /**
