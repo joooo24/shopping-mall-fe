@@ -3,9 +3,27 @@ import * as types from "../constants/user.constants";
 import { commonUiActions } from './commonUiAction';
 
 // 토큰사용 로그인 액션
-const loginWithToken = () => async (dispatch) => { };
+const loginWithToken = () => async (dispatch) => {
+    try {
+        // 토큰 로그인 요청 (-> 로딩 상태 표시)
+        dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
 
-// 이메일/비밀번호 로그인 액션
+
+        // 서버에 토큰 로그인 요청
+        const response = await api.get("/user/me");
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+
+        // 토근 로그인 성공
+        dispatch({ type: types.LOGIN_WITH_TOKEN_SUCCESS, payload: response.data });
+
+    } catch (err) {
+        dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL, payload: err });
+    }
+};
+
+// 이메일 로그인 액션
 const loginWithEmail = ({ email, password }) => async (dispatch) => {
     try {
         // 로그인 요청 (-> 로딩 상태 표시)
@@ -28,7 +46,8 @@ const loginWithEmail = ({ email, password }) => async (dispatch) => {
 
     } catch (err) {
         // 로그인 실패
-        dispatch({ type: types.LOGIN_FAIL, payload: err });
+        dispatch({ type: types.LOGIN_FAIL });
+        dispatch(logout())
     }
 };
 
@@ -45,7 +64,7 @@ const registerUser = ({ email, name, password }, navigate) => async (dispatch) =
         dispatch({ type: types.REGISTER_USER_REQUEST });
 
         // 서버에 회원가입 요청
-        const response = await api.post("/users", { email, name, password });
+        const response = await api.post("/user", { email, name, password });
         if (response.status !== 200) {
             throw new Error(response.error);
         }

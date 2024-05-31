@@ -19,7 +19,7 @@ const AppLayout = ({ children }) => {
     // const { user } = useSelector((state) => state.user); // Redux 스토어로부터 user 상태를 선택
 
     useEffect(() => {
-        // 사용자 토큰 이용 -> 자동 로그인 시도
+        // 토근으로 자동 로그인
         dispatch(userActions.loginWithToken());
     }, []);
 
