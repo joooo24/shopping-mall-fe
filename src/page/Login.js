@@ -17,7 +17,7 @@ const Login = () => {
         event.preventDefault();
         //이메일,패스워드를 가지고 백엔드로 보내기
 
-        dispatch(userActions.loginWithEmail({ email, password }))
+        dispatch(userActions.loginWithEmail({ email, password }));
     };
 
     const handleGoogleLogin = async (googleData) => {
@@ -31,13 +31,13 @@ const Login = () => {
 
     return (
         <div className="form-container">
-            {error && (
-                <div className="error-message">
-                    <Alert variant="danger">{error}</Alert>
-                </div>
-            )}
             <Form className="form-box" onSubmit={loginWithEmail}>
                 <h1>로그인</h1>
+                {error && (
+                    <div className="error-message">
+                        <Alert variant="danger">{error}</Alert>
+                    </div>
+                )}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>이메일</Form.Label>
                     <Form.Control

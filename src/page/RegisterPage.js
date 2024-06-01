@@ -61,15 +61,15 @@ const RegisterPage = () => {
 
     return (
         <div className="form-container">
-            {error && (
-                <div>
-                    <Alert variant="danger" className="error-message">
-                        {error}
-                    </Alert>
-                </div>
-            )}
             <Form onSubmit={register} className="form-box">
                 <h1>회원가입</h1>
+                {error && (
+                    <div>
+                        <Alert variant="danger" className="error-message">
+                            {error}
+                        </Alert>
+                    </div>
+                )}
                 <Form.Group className="mb-3">
                     <Form.Label>이름</Form.Label>
                     <Form.Control
