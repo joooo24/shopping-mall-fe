@@ -52,7 +52,12 @@ const loginWithEmail = ({ email, password }) => async (dispatch) => {
 };
 
 // 로그아웃 액션
-const logout = () => async (dispatch) => { };
+const logout = () => async (dispatch) => {
+    // 유저 정보 지움
+    dispatch({ type: types.LOGOUT });
+    // 세선 스토리지 토큰 값 제거
+    sessionStorage.removeItem("token");
+};
 
 // Google 토큰 로그인 액션
 const loginWithGoogle = (token) => async (dispatch) => { };
