@@ -19,7 +19,7 @@ const loginWithToken = () => async (dispatch) => {
         dispatch({ type: types.LOGIN_WITH_TOKEN_SUCCESS, payload: response.data });
 
     } catch (err) {
-        dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL, payload: err });
+        dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL });
     }
 };
 
@@ -42,11 +42,11 @@ const loginWithEmail = ({ email, password }) => async (dispatch) => {
         // api.defaults.headers["Authorization"] = "Bearer " + response.data.token;
 
         // 로그인 성공
-        dispatch({ type: types.LOGIN_SUCCESS, payload: response.data },)
+        dispatch({ type: types.LOGIN_SUCCESS, payload: response.data })
 
     } catch (err) {
         // 로그인 실패
-        dispatch({ type: types.LOGIN_FAIL });
+        dispatch({ type: types.LOGIN_FAIL, payload: err });
         dispatch(logout())
     }
 };
