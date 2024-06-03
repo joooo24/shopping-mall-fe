@@ -39,7 +39,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     const dispatch = useDispatch();
     
     // 다이얼로그 닫기 핸들러
-    const handleClose = () => {};
+    const handleClose = () => {
+        setShowDialog(false);
+    };
 
     // 폼 제출 핸들러
     const handleSubmit = (event) => {
