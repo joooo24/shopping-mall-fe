@@ -56,6 +56,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         if (mode === "new") {
             //새 상품 만들기
             dispatch(productActions.createProduct({ ...formData, stock: totalStock }))
+            setShowDialog(false)
         } else {
             // 상품 수정하기
             dispatch(productActions.editProduct({ ...formData, stock: totalStock }))
@@ -145,7 +146,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
             {/* 모달 헤더 */}
             <Modal.Header closeButton>
-                <Modal.Title>{mode === "new" ? "새로우 상품 등록" : "상품 수정"}</Modal.Title>
+                <Modal.Title>{mode === "new" ? "새로운 상품 등록" : "상품 수정"}</Modal.Title>
             </Modal.Header>
 
             {/* 모달 폼 */}
@@ -262,7 +263,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                     <div className="form-group-wrap coloum" controlId="Image" required>
                         <Form.Label>상품 이미지</Form.Label>
                         <CloudinaryUploadWidget uploadImage={uploadImage} />
-
                         <img
                             id="uploadedimage"
                             src={formData.image}
