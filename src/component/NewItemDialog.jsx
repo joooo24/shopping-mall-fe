@@ -89,15 +89,22 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
     // 카테고리 변경 핸들러
     const onHandleCategory = (event) => {
+        // 선택된 카테고리가 이미 formData.category 배열에 포함되어 있는지 확인
         if (formData.category.includes(event.target.value)) {
+
+            // 포함되어 있다면, 해당 카테고리를 배열에서 제거
             const newCategory = formData.category.filter(
                 (item) => item !== event.target.value
             );
+
+            // 업데이트된 카테고리 배열을 formData 상태에 반영
             setFormData({
                 ...formData,
                 category: [...newCategory],
             });
+            
         } else {
+            // 포함되어 있지 않다면, 해당 카테고리를 배열에 추가
             setFormData({
                 ...formData,
                 category: [...formData.category, event.target.value],
@@ -108,6 +115,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     // 이미지 업로드 핸들러
     const uploadImage = (url) => {
         // 업로드된 이미지 URL 업데이트
+        setFormData({ ...formData, image: url });
     };
 
     // 다이얼로그가 열릴 때 실행되는 효과
@@ -138,9 +146,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
                     <Row className="mb-3">
 
-                        {/* Sku */}
+                        {/* 상품 코드 */}
                         <Form.Group as={Col} controlId="sku">
-                            <Form.Label>Sku</Form.Label>
+                            <Form.Label>상품 코드</Form.Label>
                             <Form.Control
                                 onChange={handleChange}
                                 type="string"
@@ -163,9 +171,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                         </Form.Group>
                     </Row>
 
-                    {/* 설명문구 */}
+                    {/* 상품 설명 */}
                     <Form.Group className="mb-3" controlId="description">
-                        <Form.Label>설명문구</Form.Label>
+                        <Form.Label>상품 설명</Form.Label>
                         <Form.Control
                             type="string"
                             placeholder="Description"
@@ -177,9 +185,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                         />
                     </Form.Group>
 
-                    {/* 재고 */}
+                    {/* 상품 재고 */}
                     <Form.Group className="mb-3" controlId="stock">
-                        <Form.Label className="mr-1">재고</Form.Label>
+                        <Form.Label className="mr-1">상품 재고</Form.Label>
                         {stockError && (
                             <span className="error-message">재고를 추가해주세요</span>
                         )}
@@ -301,7 +309,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
                     {/* 폼 제출 버튼 */}
                     <button className="btn btn-submit" type="submit">
-                        {mode === "new" ? "Submit" : "Edit"}
+                        {mode === "new" ? "상품 등록" : "수정 완료"}
                     </button>
                 </Form>
             </div>
