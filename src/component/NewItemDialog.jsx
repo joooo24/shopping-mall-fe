@@ -30,7 +30,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         // 모드가 "new"인 경우에는 초기 상태를 InitialFormData로 설정, 아니면 선택된 상품 데이터 사용
         mode === "new" ? { ...InitialFormData } : selectedProduct
     );
-    const [stock, setStock] = useState([]);
+    const [stock, setStock] = useState([]); // ex) 재고 [["s", 2], ["m", 5], ["l", 5]]
     const [stockError, setStockError] = useState(false);
     const dispatch = useDispatch();
 
@@ -72,14 +72,19 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         setStock(newStock)
     };
 
-    // 사이즈 변경 핸들러
-    const handleSizeChange = (value, index) => {
-        // 재고 사이즈 변경
+    // 재고 옵션 변경
+    // ex) [["s", 2], ["m", 5], ["l", 5]]
+    const handleOptionChange = (value, index) => {
+        const newStock = [...stock];
+        newStock[index][0] = value;
+        setStock(newStock)
     };
 
-    // 재고 수량 변경 핸들러
+    // 재고 수량 변경
     const handleStockChange = (value, index) => {
-        // 재고 수량 변경
+        const newStock = [...stock];
+        newStock[index][1] = value;
+        setStock(newStock)
     };
 
     // 카테고리 변경 핸들러
@@ -187,7 +192,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                     <Col sm={4}>
                                         <Form.Select
                                             onChange={(event) =>
-                                                handleSizeChange(event.target.value, index)
+                                                handleOptionChange(event.target.value, index)
                                             }
                                             required
                                             defaultValue={item[0] ? item[0].toLowerCase() : ""}
