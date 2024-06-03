@@ -27,7 +27,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
     // 상태 변수 초기화
     const [formData, setFormData] = useState(
-        // 모드가 "new"인 경우에는 초기 상태를 InitialFormData로 설정, 아니면 선택된 상품 데이터 사용
+        // 모드가 "new"인 라면 초기 값 InitialFormData, 아니면 selectedProduct
         mode === "new" ? { ...InitialFormData } : selectedProduct
     );
     const [stock, setStock] = useState([]); // ex) 재고 [["s", 2], ["m", 5], ["l", 5]]
