@@ -34,6 +34,10 @@ function userReducer(state = initialState, action) {
         case types.LOGOUT:
             return { ...state, user: null };
 
+        // 에러 메시지 초기화
+        case types.CLEAR_ERROR:
+            return { ...state, error: "" };
+
         default:
             return state;
     }

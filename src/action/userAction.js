@@ -87,6 +87,12 @@ const registerUser = ({ email, name, password }, navigate) => async (dispatch) =
     }
 };
 
+// 에러 초기화 액션
+const clearError = () => ({
+    type: 'CLEAR_ERROR',
+});
+
+
 // 사용자 관련 액션 모음
 export const userActions = {
     loginWithToken,
@@ -94,4 +100,5 @@ export const userActions = {
     logout,
     loginWithGoogle,
     registerUser,
+    clearError
 };

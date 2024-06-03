@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -19,6 +19,11 @@ const RegisterPage = () => {
     const [passwordError, setPasswordError] = useState("");
     const [policyError, setPolicyError] = useState(false);
     const error = useSelector((state) => state.user.error);
+
+    useEffect(() => {
+        // 컴포넌트가 마운트될 때 error 초기화하는 액션 디스패치
+        dispatch(userActions.clearError());
+    }, [dispatch])
 
     const register = (event) => {
         event.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,11 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const error = useSelector((state) => state.user.error);
+
+    useEffect(() => {
+        // 컴포넌트가 마운트될 때 error를 초기화하는 액션 디스패치
+        dispatch(userActions.clearError());
+    }, [dispatch])
 
     const loginWithEmail = (event) => {
         event.preventDefault();
