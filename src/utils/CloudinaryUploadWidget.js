@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
 import "../App.css";
 import "../style/common.style.css";
 
@@ -14,6 +13,7 @@ class CloudinaryUploadWidget extends Component {
 				cloudName: CLOUDNAME, // Cloudinary 클라우드 이름
 				uploadPreset: UPLOADPRESET, // Cloudinary 업로드 프리셋
 			},
+
 			(error, result) => {
 				// 업로드가 성공적으로 완료된 경우
 				if (!error && result && result.event === "success") {
@@ -29,7 +29,8 @@ class CloudinaryUploadWidget extends Component {
 				}
 			}
 		);
-		// 업로드 버튼 클릭 시 이벤트 핸들러를 설정
+
+		// 업로드 버튼 클릭 시 이벤트
 		document.getElementById("upload_widget").addEventListener(
 			"click",
 			function () {

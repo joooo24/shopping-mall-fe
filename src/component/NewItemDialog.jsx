@@ -8,6 +8,7 @@ import "../style/adminProduct.style.css";
 import * as types from "../constants/product.constants";
 import { commonUiActions } from "../action/commonUiAction";
 
+
 // 상품 데이터
 const InitialFormData = {
     name: "",
@@ -43,6 +44,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         // 입력 유효성 검사 및 상품 생성 또는 수정 요청
+
         // 재고를 입력했는지 확인, 아니면 에러
         // 재고를 배열에서 객체로 바꿔주기
         // [['M',2]] 에서 {M:2}로
@@ -136,7 +138,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
             {/* 모달 헤더 */}
             <Modal.Header closeButton>
-                <Modal.Title>{mode === "new" ? "Create New Product" : "Edit Product"}</Modal.Title>
+                <Modal.Title>{mode === "new" ? "새로우 상품 등록" : "상품 수정"}</Modal.Title>
             </Modal.Header>
 
             {/* 모달 폼 */}
