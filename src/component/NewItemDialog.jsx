@@ -60,14 +60,16 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         setFormData({ ...formData, [id]: value });
     };
 
-    // 재고 추가 핸들러
+    // 재고 항목 추가
     const addStock = () => {
-        // 재고 배열에 새 항목 추가
+        // 기존 배열에 새 배열 추가
+        setStock([...stock, []])
     };
 
-    // 재고 삭제 핸들러
+    // 재고 항목 삭제
     const deleteStock = (idx) => {
-        // 재고 항목 삭제
+        const newStock = stock.filter((item, index) => index !== idx);
+        setStock(newStock)
     };
 
     // 사이즈 변경 핸들러
@@ -127,7 +129,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
             {/* 모달 폼 */}
             <div className="form-container">
-                <Form className="form-box" onSubmit={handleSubmit}>
+                <Form className="form-box modal-form" onSubmit={handleSubmit}>
 
                     <Row className="mb-3">
 
@@ -218,14 +220,13 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                             required
                                         />
                                     </Col>
-                                    <Col sm={2}>
-                                        <Button
-                                            variant="danger"
-                                            size="sm"
+                                    <Col>
+                                        <button
+                                            className="btn btn-small btn-danger"
                                             onClick={() => deleteStock(index)}
                                         >
                                             -
-                                        </Button>
+                                        </button>
                                     </Col>
                                 </Row>
                             ))}

@@ -69,7 +69,7 @@
 button.btn {
     width: 100%;
     height: 40px;
-    background-color: rgb(0, 135, 55);
+    background-color: #333333;
     margin: 0;
     padding: 0;
     border-radius: 6px;
@@ -80,7 +80,7 @@ button.btn {
     cursor: pointer;
 
     &:hover {
-        background-color: rgb(0, 150, 60);
+        background-color: black;
         color: white;
     }
 
@@ -106,6 +106,13 @@ button.btn {
 
     &.btn-small {
         height: 36px;
+    }
+
+    &.btn-danger {
+        background-color: rgb(190, 40, 40);
+        &:hover {
+            background-color: rgb(209, 37, 37);
+        }
     }
 
     &.btn-submit {
