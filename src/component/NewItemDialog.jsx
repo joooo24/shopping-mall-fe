@@ -43,15 +43,22 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     // 폼 제출 핸들러
     const handleSubmit = (event) => {
         event.preventDefault();
-        // 입력 유효성 검사 및 상품 생성 또는 수정 요청
+        // 입력 유효성 검사 (재고 체크 및 타입 변경) -> 상품 생성 or 수정 요청
 
         // 재고를 입력했는지 확인, 아니면 에러
-        // 재고를 배열에서 객체로 바꿔주기
-        // [['M',2]] 에서 {M:2}로
+        if (stock.length === 0) return setStockError(true);
+
+        // 재고 타입을 배열에서 객체로 바꿔주기 [['M',2]] -> {M:2}
+        const totalStock = stock.reduce((total, item) => {
+            return { ...total, [item[0]]: parseInt(item[1]) };
+        }, {});
+
         if (mode === "new") {
             //새 상품 만들기
+            dispatch(productActions.createProduct({ ...formData, stock: totalStock }))
         } else {
             // 상품 수정하기
+            dispatch(productActions.editProduct({ ...formData, stock: totalStock }))
         }
     };
 
