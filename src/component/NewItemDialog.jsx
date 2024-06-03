@@ -8,6 +8,7 @@ import "../style/adminProduct.style.css";
 import * as types from "../constants/product.constants";
 import { commonUiActions } from "../action/commonUiAction";
 
+// 상품 데이터
 const InitialFormData = {
     name: "",
     sku: "",
@@ -18,23 +19,31 @@ const InitialFormData = {
     status: "active",
     price: 0,
 };
+
 const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
+    // Redux store에서 선택된 상품 및 에러 상태를 가져옴
     const selectedProduct = useSelector((state) => state.product.selectedProduct);
     const { error } = useSelector((state) => state.product);
+
+    // 상태 변수 초기화
     const [formData, setFormData] = useState(
+        // 모드가 "new"인 경우에는 초기 상태를 InitialFormData로 설정, 아니면 선택된 상품 데이터 사용
         mode === "new" ? { ...InitialFormData } : selectedProduct
     );
     const [stock, setStock] = useState([]);
-    const dispatch = useDispatch();
     const [stockError, setStockError] = useState(false);
+    const dispatch = useDispatch();
+
+    // 다이얼로그 닫기 핸들러
     const handleClose = () => {
-        //모든걸 초기화시키고;
-        // 다이얼로그 닫아주기
+        // 상태 초기화 및 다이얼로그 닫기
     };
 
+    // 폼 제출 핸들러
     const handleSubmit = (event) => {
         event.preventDefault();
-        //재고를 입력했는지 확인, 아니면 에러
+        // 입력 유효성 검사 및 상품 생성 또는 수정 요청
+        // 재고를 입력했는지 확인, 아니면 에러
         // 재고를 배열에서 객체로 바꿔주기
         // [['M',2]] 에서 {M:2}로
         if (mode === "new") {
@@ -44,26 +53,32 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         }
     };
 
+    // 폼 필드 변경 핸들러
     const handleChange = (event) => {
-        //form에 데이터 넣어주기
+        // 폼 데이터 업데이트
     };
 
+    // 재고 추가 핸들러
     const addStock = () => {
-        //재고타입 추가시 배열에 새 배열 추가
+        // 재고 배열에 새 항목 추가
     };
 
+    // 재고 삭제 핸들러
     const deleteStock = (idx) => {
-        //재고 삭제하기
+        // 재고 항목 삭제
     };
 
+    // 사이즈 변경 핸들러
     const handleSizeChange = (value, index) => {
-        //  재고 사이즈 변환하기
+        // 재고 사이즈 변경
     };
 
+    // 재고 수량 변경 핸들러
     const handleStockChange = (value, index) => {
-        //재고 수량 변환하기
+        // 재고 수량 변경
     };
 
+    // 카테고리 변경 핸들러
     const onHandleCategory = (event) => {
         if (formData.category.includes(event.target.value)) {
             const newCategory = formData.category.filter(
@@ -81,25 +96,30 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         }
     };
 
+    // 이미지 업로드 핸들러
     const uploadImage = (url) => {
-        //이미지 업로드
+        // 업로드된 이미지 URL 업데이트
     };
 
+    // 다이얼로그가 열릴 때 실행되는 효과
     useEffect(() => {
         if (showDialog) {
             if (mode === "edit") {
-                // 선택된 데이터값 불러오기 (재고 형태 객체에서 어레이로 바꾸기)
+                // 선택된 상품 데이터 불러오기  (재고 형태 객체에서 어레이로 바꾸기)
             } else {
-                // 초기화된 값 불러오기
+                // 초기화된 폼 데이터 불러오기
             }
         }
     }, [showDialog]);
 
     //에러나면 토스트 메세지 보여주기
 
+
     return (
         <Modal show={showDialog} onHide={handleClose}>
+            {/* 모달 헤더 */}
             <Modal.Header closeButton>
+                {/* 모달 제목 */}
                 {mode === "new" ? (
                     <Modal.Title>Create New Product</Modal.Title>
                 ) : (
@@ -107,8 +127,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                 )}
             </Modal.Header>
 
+            {/* 폼 */}
             <Form className="form-container" onSubmit={handleSubmit}>
+                {/* Sku 및 Name 입력란 */}
                 <Row className="mb-3">
+                    {/* Sku 입력란 */}
                     <Form.Group as={Col} controlId="sku">
                         <Form.Label>Sku</Form.Label>
                         <Form.Control
