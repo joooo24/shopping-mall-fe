@@ -8,7 +8,6 @@ import "../style/adminProduct.style.css";
 import * as types from "../constants/product.constants";
 import { commonUiActions } from "../action/commonUiAction";
 
-
 // 상품 데이터
 const InitialFormData = {
     name: "",
@@ -37,7 +36,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     const [stockError, setStockError] = useState(false);
 
     const dispatch = useDispatch();
-    
+
     // 다이얼로그 닫기 핸들러
     const handleClose = () => {
         setShowDialog(false);
@@ -90,7 +89,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     const handleOptionChange = (value, index) => {
         const newStock = [...stock];
         newStock[index][0] = value;
-        setStock(newStock)
+        setStock(newStock);
     };
 
     // 재고 수량 변경
@@ -112,7 +111,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                 ...formData,
                 category: [...newCategory],
             });
-
         } else {
             // 포함되어 있지 않다면, 해당 카테고리를 배열에 추가
             setFormData({
@@ -209,9 +207,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                 <div className="form-group-wrap" key={index}>
                                     <div className="form-group">
                                         <Form.Select
-                                            onChange={(event) =>
-                                                handleOptionChange(event.target.value, index)
-                                            }
+                                            onChange={(event) => handleOptionChange(event.target.value, index)}
                                             required
                                             defaultValue={item[0] ? item[0].toLowerCase() : ""}
                                         >
@@ -222,9 +218,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                                 <option
                                                     invalid="true"
                                                     value={item.toLowerCase()}
-                                                    disabled={stock.some(
-                                                        (size) => size[0] === item.toLowerCase()
-                                                    )}
+                                                    disabled={stock.some((size) => size[0] === item.toLowerCase())}
                                                     key={index}
                                                 >
                                                     {item}
@@ -234,25 +228,19 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                     </div>
                                     <div className="form-group">
                                         <Form.Control
-                                            onChange={(event) =>
-                                                handleStockChange(event.target.value, index)
-                                            }
+                                            onChange={(event) => handleStockChange(event.target.value, index)}
                                             type="number"
                                             placeholder="number of stock"
                                             value={item[1]}
                                             required
                                         />
                                     </div>
-                                    <button
-                                        className="btn btn-small btn-danger"
-                                        onClick={() => deleteStock(index)}
-                                    >
+                                    <button className="btn btn-small btn-danger" onClick={() => deleteStock(index)}>
                                         -
                                     </button>
                                 </div>
                             ))}
                         </>
-
                     </div>
 
                     {/* 상품 이미지 업로드 */}
@@ -300,12 +288,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
                         {/* 상태 */}
                         <Form.Group className="form-group" controlId="status">
-                            <Form.Label>노출</Form.Label>
-                            <Form.Select
-                                value={formData.status}
-                                onChange={handleChange}
-                                required
-                            >
                             <Form.Label>상태</Form.Label>
                             <Form.Select value={formData.status} onChange={handleChange} required>
                                 {STATUS.map((item, idx) => (
