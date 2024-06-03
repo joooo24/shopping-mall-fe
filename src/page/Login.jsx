@@ -36,7 +36,7 @@ const Login = () => {
 
     return (
         <div className="form-container">
-            <Form className="form-box" onSubmit={loginWithEmail}>
+            <Form className="form-box user-form" onSubmit={loginWithEmail}>
                 <h1>로그인</h1>
                 {error && (
                     <div className="error-message">

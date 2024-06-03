@@ -66,7 +66,7 @@ const RegisterPage = () => {
 
     return (
         <div className="form-container">
-            <Form onSubmit={register} className="form-box">
+            <Form onSubmit={register} className="form-box user-form">
                 <h1>회원가입</h1>
                 {error && (
                     <div>
