@@ -32,7 +32,7 @@ class CloudinaryUploadWidget extends Component {
             function () {
                 // 업로드 위젯을 열어 사용자가 파일을 선택할 수 있도록 함
                 myWidget.open();
-            }, //https://cloudinary.com/documentation/react_image_and_video_upload
+            },
             false
         );
     }

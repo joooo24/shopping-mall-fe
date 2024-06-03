@@ -37,7 +37,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     const [stockError, setStockError] = useState(false);
 
     const dispatch = useDispatch();
-
+    
     // 다이얼로그 닫기 핸들러
     const handleClose = () => {};
 
@@ -49,7 +49,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         // 재고를 입력했는지 확인, 아니면 에러
         if (stock.length === 0) return setStockError(true);
 
-        // 재고 타입을 배열에서 객체로 바꿔주기 [['M',2]] -> {M:2}
+        // 재고 타입 변경 (배열 -> 객체) [['M',2]] -> {M:2}
         const totalStock = stock.reduce((total, item) => {
             return { ...total, [item[0]]: parseInt(item[1]) };
         }, {});

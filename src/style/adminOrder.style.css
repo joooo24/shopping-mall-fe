@@ -1,3 +1,14 @@
+.modal{
+    width: 100vw;
+    height: 100vh;
+}
 .modal-dialog{
     max-width: 700px;
+    max-height: 80vh;
+    
+    .modal-content{
+        max-width: 700px;
+        max-height: calc(80vh - 70px);
+        overflow: auto;
+    }
 }
