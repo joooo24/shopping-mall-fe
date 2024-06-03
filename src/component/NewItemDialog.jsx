@@ -31,14 +31,15 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         // 모드가 "new"인 라면 초기 값 InitialFormData, 아니면 selectedProduct
         mode === "new" ? { ...InitialFormData } : selectedProduct
     );
+
+    // 재고 상태
     const [stock, setStock] = useState([]); // ex) 재고 [["s", 2], ["m", 5], ["l", 5]]
     const [stockError, setStockError] = useState(false);
+
     const dispatch = useDispatch();
 
     // 다이얼로그 닫기 핸들러
-    const handleClose = () => {
-        // 상태 초기화 및 다이얼로그 닫기
-    };
+    const handleClose = () => {};
 
     // 폼 제출 핸들러
     const handleSubmit = (event) => {

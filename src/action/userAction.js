@@ -77,7 +77,7 @@ const registerUser = ({ email, name, password }, navigate) => async (dispatch) =
         // 회원가입 성공
         dispatch({ type: types.REGISTER_USER_SUCCESS });
 
-        // 토스트 띄우고 리다이렉트
+        // 토스트 알림 후 리다이렉트
         dispatch(commonUiActions.showToastMessage("회원가입을 완료했습니다!", "success"));
         navigate("/login")
 
