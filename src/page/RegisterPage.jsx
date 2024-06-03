@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { userActions } from "../action/userAction";
 import { Link } from "react-router-dom";
-import "../style/users.style.css";
 
 const RegisterPage = () => {
     const dispatch = useDispatch();

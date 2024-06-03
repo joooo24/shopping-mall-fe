@@ -102,7 +102,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                 ...formData,
                 category: [...newCategory],
             });
-            
+
         } else {
             // 포함되어 있지 않다면, 해당 카테고리를 배열에 추가
             setFormData({
@@ -131,7 +131,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
     //에러나면 토스트 메세지 보여주기
 
-
     return (
         <Modal show={showDialog} onHide={handleClose}>
 
@@ -144,10 +143,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
             <div className="form-container">
                 <Form className="form-box modal-form" onSubmit={handleSubmit}>
 
-                    <Row className="mb-3">
-
+                    <div className="form-group-wrap">
                         {/* 상품 코드 */}
-                        <Form.Group as={Col} controlId="sku">
+                        <Form.Group className="form-group" controlId="sku">
                             <Form.Label>상품 코드</Form.Label>
                             <Form.Control
                                 onChange={handleChange}
@@ -159,7 +157,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                         </Form.Group>
 
                         {/* 상품명 */}
-                        <Form.Group as={Col} controlId="name">
+                        <Form.Group className="form-group" controlId="name">
                             <Form.Label>상품명</Form.Label>
                             <Form.Control
                                 onChange={handleChange}
@@ -169,35 +167,41 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                 value={formData.name}
                             />
                         </Form.Group>
-                    </Row>
+                    </div>
 
                     {/* 상품 설명 */}
-                    <Form.Group className="mb-3" controlId="description">
-                        <Form.Label>상품 설명</Form.Label>
-                        <Form.Control
-                            type="string"
-                            placeholder="Description"
-                            as="textarea"
-                            onChange={handleChange}
-                            rows={3}
-                            value={formData.description}
-                            required
-                        />
-                    </Form.Group>
+                    <div className="form-group-wrap">
+                        <Form.Group className="form-group" controlId="description">
+                            <Form.Label>상품 설명</Form.Label>
+                            <Form.Control
+                                type="string"
+                                placeholder="Description"
+                                as="textarea"
+                                onChange={handleChange}
+                                rows={3}
+                                value={formData.description}
+                                required
+                            />
+                        </Form.Group>
+                    </div>
 
                     {/* 상품 재고 */}
-                    <Form.Group className="mb-3" controlId="stock">
+                    <div className="form-group-wrap coloum" controlId="stock">
                         <Form.Label className="mr-1">상품 재고</Form.Label>
+
                         {stockError && (
                             <span className="error-message">재고를 추가해주세요</span>
                         )}
+
                         <button className="btn btn-line" onClick={addStock}>
                             Add +
                         </button>
-                        <div className="mt-2">
+
+                        {/* 상품 재고 추가 배열 */}
+                        <>
                             {stock.map((item, index) => (
-                                <Row key={index}>
-                                    <Col sm={4}>
+                                <div className="form-group-wrap" key={index}>
+                                    <div className="form-group">
                                         <Form.Select
                                             onChange={(event) =>
                                                 handleOptionChange(event.target.value, index)
@@ -221,8 +225,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                                 </option>
                                             ))}
                                         </Form.Select>
-                                    </Col>
-                                    <Col sm={6}>
+                                    </div>
+                                    <div className="form-group">
                                         <Form.Control
                                             onChange={(event) =>
                                                 handleStockChange(event.target.value, index)
@@ -232,22 +236,21 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                             value={item[1]}
                                             required
                                         />
-                                    </Col>
-                                    <Col>
-                                        <button
-                                            className="btn btn-small btn-danger"
-                                            onClick={() => deleteStock(index)}
-                                        >
-                                            -
-                                        </button>
-                                    </Col>
-                                </Row>
+                                    </div>
+                                    <button
+                                        className="btn btn-small btn-danger"
+                                        onClick={() => deleteStock(index)}
+                                    >
+                                        -
+                                    </button>
+                                </div>
                             ))}
-                        </div>
-                    </Form.Group>
+                        </>
+
+                    </div>
 
                     {/* 상품 이미지 업로드 */}
-                    <Form.Group className="mb-3" controlId="Image" required>
+                    <div className="form-group-wrap coloum" controlId="Image" required>
                         <Form.Label>상품 이미지</Form.Label>
                         <CloudinaryUploadWidget uploadImage={uploadImage} />
 
@@ -257,11 +260,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                             className="upload-image mt-2"
                             alt="uploadedimage"
                         ></img>
-                    </Form.Group>
+                    </div>
 
-                    <div className="row-wrap">
+                    <div className="form-group-wrap">
                         {/* Price */}
-                        <Form.Group as={Col} controlId="price">
+                        <Form.Group className="form-group" controlId="price">
                             <Form.Label>가격</Form.Label>
                             <Form.Control
                                 value={formData.price}
@@ -273,7 +276,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                         </Form.Group>
 
                         {/* Category */}
-                        <Form.Group as={Col} controlId="category">
+                        <Form.Group className="form-group" controlId="category">
                             <Form.Label>카테고리</Form.Label>
                             <Form.Control
                                 as="select"
@@ -291,7 +294,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                         </Form.Group>
 
                         {/* Status */}
-                        <Form.Group as={Col} controlId="status">
+                        <Form.Group className="form-group" controlId="status">
                             <Form.Label>노출</Form.Label>
                             <Form.Select
                                 value={formData.status}

@@ -1,4 +1,4 @@
-/* 회원가입/로그인 */
+/* form */
 .form-container {
     width: 100%;
     display: flex;
@@ -34,6 +34,32 @@
             font-size: 13px;
             color: rgb(190, 0, 0);
         }
+
+
+        .form-group-wrap {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-top: 10px;
+            &.coloum{
+                flex-direction: column;
+            }
+
+            .form-group {
+                width: 100%;
+                margin-right: 10px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+
+            button.btn {
+                margin-top: 0;
+            }
+        }
+
     }
 
     .notice {
@@ -51,7 +77,7 @@
 
 @media (max-width: 768px) {
 
-    /* 회원가입/로그인 */
+    /* form */
     .form-container {
         width: 100%;
         justify-content: flex-start;
