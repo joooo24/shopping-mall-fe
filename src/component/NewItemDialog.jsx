@@ -151,9 +151,20 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                 <Form className="form-box modal-form" onSubmit={handleSubmit}>
                     <div className="form-group-wrap">
                         {/* 상품 코드 */}
-                        <Form.Group className="form-group" controlId="sku">
+                        {/* <Form.Group className="form-group" controlId="sku">
                             <Form.Label>상품 코드</Form.Label>
                             <Form.Control
+                                onChange={handleChange}
+                                type="string"
+                                placeholder="상품 코드를 입력하세요"
+                                required
+                                value={formData.sku}
+                            />
+                        </Form.Group> */}
+                        <Form.Group className="form-group">
+                            <Form.Label htmlFor="sku">상품 코드</Form.Label>
+                            <Form.Control
+                                id="sku"
                                 onChange={handleChange}
                                 type="string"
                                 placeholder="상품 코드를 입력하세요"
