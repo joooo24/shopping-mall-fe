@@ -56,6 +56,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     // 폼 필드 변경 핸들러
     const handleChange = (event) => {
         // 폼 데이터 업데이트
+        const { id, value } = event.target;
+        setFormData({ ...formData, [id]: value });
     };
 
     // 재고 추가 핸들러
@@ -117,184 +119,186 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
     return (
         <Modal show={showDialog} onHide={handleClose}>
+
             {/* 모달 헤더 */}
             <Modal.Header closeButton>
-                {/* 모달 제목 */}
-                {mode === "new" ? (
-                    <Modal.Title>Create New Product</Modal.Title>
-                ) : (
-                    <Modal.Title>Edit Product</Modal.Title>
-                )}
+                <Modal.Title>{mode === "new" ? "Create New Product" : "Edit Product"}</Modal.Title>
             </Modal.Header>
 
-            {/* 폼 */}
-            <Form className="form-container" onSubmit={handleSubmit}>
-                {/* Sku 및 Name 입력란 */}
-                <Row className="mb-3">
-                    {/* Sku 입력란 */}
-                    <Form.Group as={Col} controlId="sku">
-                        <Form.Label>Sku</Form.Label>
+            {/* 모달 폼 */}
+            <div className="form-container">
+                <Form className="form-box" onSubmit={handleSubmit}>
+
+                    <Row className="mb-3">
+
+                        {/* Sku */}
+                        <Form.Group as={Col} controlId="sku">
+                            <Form.Label>Sku</Form.Label>
+                            <Form.Control
+                                onChange={handleChange}
+                                type="string"
+                                placeholder="Enter Sku"
+                                required
+                                value={formData.sku}
+                            />
+                        </Form.Group>
+
+                        {/* 상품명 */}
+                        <Form.Group as={Col} controlId="name">
+                            <Form.Label>상품명</Form.Label>
+                            <Form.Control
+                                onChange={handleChange}
+                                type="string"
+                                placeholder="Name"
+                                required
+                                value={formData.name}
+                            />
+                        </Form.Group>
+                    </Row>
+
+                    {/* 설명문구 */}
+                    <Form.Group className="mb-3" controlId="description">
+                        <Form.Label>설명문구</Form.Label>
                         <Form.Control
-                            onChange={handleChange}
                             type="string"
-                            placeholder="Enter Sku"
+                            placeholder="Description"
+                            as="textarea"
+                            onChange={handleChange}
+                            rows={3}
+                            value={formData.description}
                             required
-                            value={formData.sku}
                         />
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="name">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                            onChange={handleChange}
-                            type="string"
-                            placeholder="Name"
-                            required
-                            value={formData.name}
-                        />
-                    </Form.Group>
-                </Row>
-
-                <Form.Group className="mb-3" controlId="description">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control
-                        type="string"
-                        placeholder="Description"
-                        as="textarea"
-                        onChange={handleChange}
-                        rows={3}
-                        value={formData.description}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="stock">
-                    <Form.Label className="mr-1">Stock</Form.Label>
-                    {stockError && (
-                        <span className="error-message">재고를 추가해주세요</span>
-                    )}
-                    <Button size="sm" onClick={addStock}>
-                        Add +
-                    </Button>
-                    <div className="mt-2">
-                        {stock.map((item, index) => (
-                            <Row key={index}>
-                                <Col sm={4}>
-                                    <Form.Select
-                                        onChange={(event) =>
-                                            handleSizeChange(event.target.value, index)
-                                        }
-                                        required
-                                        defaultValue={item[0] ? item[0].toLowerCase() : ""}
-                                    >
-                                        <option value="" disabled selected hidden>
-                                            Please Choose...
-                                        </option>
-                                        {SIZE.map((item, index) => (
-                                            <option
-                                                invalid="true"
-                                                value={item.toLowerCase()}
-                                                disabled={stock.some(
-                                                    (size) => size[0] === item.toLowerCase()
-                                                )}
-                                                key={index}
-                                            >
-                                                {item}
+                    {/* 재고 */}
+                    <Form.Group className="mb-3" controlId="stock">
+                        <Form.Label className="mr-1">재고</Form.Label>
+                        {stockError && (
+                            <span className="error-message">재고를 추가해주세요</span>
+                        )}
+                        <button className="btn btn-line" onClick={addStock}>
+                            Add +
+                        </button>
+                        <div className="mt-2">
+                            {stock.map((item, index) => (
+                                <Row key={index}>
+                                    <Col sm={4}>
+                                        <Form.Select
+                                            onChange={(event) =>
+                                                handleSizeChange(event.target.value, index)
+                                            }
+                                            required
+                                            defaultValue={item[0] ? item[0].toLowerCase() : ""}
+                                        >
+                                            <option value="" disabled selected hidden>
+                                                Please Choose...
                                             </option>
-                                        ))}
-                                    </Form.Select>
-                                </Col>
-                                <Col sm={6}>
-                                    <Form.Control
-                                        onChange={(event) =>
-                                            handleStockChange(event.target.value, index)
-                                        }
-                                        type="number"
-                                        placeholder="number of stock"
-                                        value={item[1]}
-                                        required
-                                    />
-                                </Col>
-                                <Col sm={2}>
-                                    <Button
-                                        variant="danger"
-                                        size="sm"
-                                        onClick={() => deleteStock(index)}
-                                    >
-                                        -
-                                    </Button>
-                                </Col>
-                            </Row>
-                        ))}
+                                            {SIZE.map((item, index) => (
+                                                <option
+                                                    invalid="true"
+                                                    value={item.toLowerCase()}
+                                                    disabled={stock.some(
+                                                        (size) => size[0] === item.toLowerCase()
+                                                    )}
+                                                    key={index}
+                                                >
+                                                    {item}
+                                                </option>
+                                            ))}
+                                        </Form.Select>
+                                    </Col>
+                                    <Col sm={6}>
+                                        <Form.Control
+                                            onChange={(event) =>
+                                                handleStockChange(event.target.value, index)
+                                            }
+                                            type="number"
+                                            placeholder="number of stock"
+                                            value={item[1]}
+                                            required
+                                        />
+                                    </Col>
+                                    <Col sm={2}>
+                                        <Button
+                                            variant="danger"
+                                            size="sm"
+                                            onClick={() => deleteStock(index)}
+                                        >
+                                            -
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            ))}
+                        </div>
+                    </Form.Group>
+
+                    {/* 상품 이미지 업로드 */}
+                    <Form.Group className="mb-3" controlId="Image" required>
+                        <Form.Label>상품 이미지</Form.Label>
+                        <CloudinaryUploadWidget uploadImage={uploadImage} />
+
+                        <img
+                            id="uploadedimage"
+                            src={formData.image}
+                            className="upload-image mt-2"
+                            alt="uploadedimage"
+                        ></img>
+                    </Form.Group>
+
+                    <div className="row-wrap">
+                        {/* Price */}
+                        <Form.Group as={Col} controlId="price">
+                            <Form.Label>가격</Form.Label>
+                            <Form.Control
+                                value={formData.price}
+                                required
+                                onChange={handleChange}
+                                type="number"
+                                placeholder="0"
+                            />
+                        </Form.Group>
+
+                        {/* Category */}
+                        <Form.Group as={Col} controlId="category">
+                            <Form.Label>카테고리</Form.Label>
+                            <Form.Control
+                                as="select"
+                                multiple
+                                onChange={onHandleCategory}
+                                value={formData.category}
+                                required
+                            >
+                                {CATEGORY.map((item, idx) => (
+                                    <option key={idx} value={item.toLowerCase()}>
+                                        {item}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+
+                        {/* Status */}
+                        <Form.Group as={Col} controlId="status">
+                            <Form.Label>노출</Form.Label>
+                            <Form.Select
+                                value={formData.status}
+                                onChange={handleChange}
+                                required
+                            >
+                                {STATUS.map((item, idx) => (
+                                    <option key={idx} value={item.toLowerCase()}>
+                                        {item}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
                     </div>
-                </Form.Group>
 
-                <Form.Group className="mb-3" controlId="Image" required>
-                    <Form.Label>Image</Form.Label>
-                    <CloudinaryUploadWidget uploadImage={uploadImage} />
-
-                    <img
-                        id="uploadedimage"
-                        src={formData.image}
-                        className="upload-image mt-2"
-                        alt="uploadedimage"
-                    ></img>
-                </Form.Group>
-
-                <Row className="mb-3">
-                    <Form.Group as={Col} controlId="price">
-                        <Form.Label>Price</Form.Label>
-                        <Form.Control
-                            value={formData.price}
-                            required
-                            onChange={handleChange}
-                            type="number"
-                            placeholder="0"
-                        />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="category">
-                        <Form.Label>Category</Form.Label>
-                        <Form.Control
-                            as="select"
-                            multiple
-                            onChange={onHandleCategory}
-                            value={formData.category}
-                            required
-                        >
-                            {CATEGORY.map((item, idx) => (
-                                <option key={idx} value={item.toLowerCase()}>
-                                    {item}
-                                </option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="status">
-                        <Form.Label>Status</Form.Label>
-                        <Form.Select
-                            value={formData.status}
-                            onChange={handleChange}
-                            required
-                        >
-                            {STATUS.map((item, idx) => (
-                                <option key={idx} value={item.toLowerCase()}>
-                                    {item}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group>
-                </Row>
-                {mode === "new" ? (
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                ) : (
-                    <Button variant="primary" type="submit">
-                        Edit
-                    </Button>
-                )}
-            </Form>
+                    {/* 폼 제출 버튼 */}
+                    <button className="btn btn-submit" type="submit">
+                        {mode === "new" ? "Submit" : "Edit"}
+                    </button>
+                </Form>
+            </div>
         </Modal>
     );
 };
