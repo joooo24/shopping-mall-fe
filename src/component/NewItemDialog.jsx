@@ -58,11 +58,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
         if (mode === "new") {
             //새 상품 만들기
-            dispatch(productActions.createProduct({ ...formData, stock: totalStock }))
-            setShowDialog(false)
+            dispatch(productActions.createProduct({ ...formData, stock: totalStock }));
+            setShowDialog(false);
         } else {
             // 상품 수정하기
-            dispatch(productActions.editProduct({ ...formData, stock: totalStock }))
+            dispatch(productActions.editProduct({ ...formData, stock: totalStock }));
         }
     };
 
@@ -76,13 +76,13 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     // 재고 항목 추가
     const addStock = () => {
         // 기존 배열에 새 배열 추가
-        setStock([...stock, []])
+        setStock([...stock, []]);
     };
 
     // 재고 항목 삭제
     const deleteStock = (idx) => {
         const newStock = stock.filter((item, index) => index !== idx);
-        setStock(newStock)
+        setStock(newStock);
     };
 
     // 재고 옵션 변경
@@ -97,18 +97,15 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     const handleStockChange = (value, index) => {
         const newStock = [...stock];
         newStock[index][1] = value;
-        setStock(newStock)
+        setStock(newStock);
     };
 
     // 카테고리 변경 핸들러
     const onHandleCategory = (event) => {
         // 선택된 카테고리가 이미 formData.category 배열에 포함되어 있는지 확인
         if (formData.category.includes(event.target.value)) {
-
             // 포함되어 있다면, 해당 카테고리를 배열에서 제거
-            const newCategory = formData.category.filter(
-                (item) => item !== event.target.value
-            );
+            const newCategory = formData.category.filter((item) => item !== event.target.value);
 
             // 업데이트된 카테고리 배열을 formData 상태에 반영
             setFormData({
@@ -146,7 +143,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
     return (
         <Modal show={showDialog} onHide={handleClose}>
-
             {/* 모달 헤더 */}
             <Modal.Header closeButton>
                 <Modal.Title>{mode === "new" ? "새로운 상품 등록" : "상품 수정"}</Modal.Title>
@@ -155,7 +151,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
             {/* 모달 폼 */}
             <div className="form-container">
                 <Form className="form-box modal-form" onSubmit={handleSubmit}>
-
                     <div className="form-group-wrap">
                         {/* 상품 코드 */}
                         <Form.Group className="form-group" controlId="sku">
@@ -163,7 +158,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                             <Form.Control
                                 onChange={handleChange}
                                 type="string"
-                                placeholder="Enter Sku"
+                                placeholder="상품 코드를 입력하세요"
                                 required
                                 value={formData.sku}
                             />
@@ -175,7 +170,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                             <Form.Control
                                 onChange={handleChange}
                                 type="string"
-                                placeholder="Name"
+                                placeholder="상품명을 입력하세요"
                                 required
                                 value={formData.name}
                             />
@@ -202,9 +197,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                     <div className="form-group-wrap coloum" controlId="stock">
                         <Form.Label className="mr-1">상품 재고</Form.Label>
 
-                        {stockError && (
-                            <span className="error-message">재고를 추가해주세요</span>
-                        )}
+                        {stockError && <span className="error-message">재고를 추가해주세요</span>}
 
                         <button className="btn btn-line" onClick={addStock}>
                             Add +
@@ -275,7 +268,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                     </div>
 
                     <div className="form-group-wrap">
-                        {/* Price */}
+                        {/* 가격 */}
                         <Form.Group className="form-group" controlId="price">
                             <Form.Label>가격</Form.Label>
                             <Form.Control
@@ -287,7 +280,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                             />
                         </Form.Group>
 
-                        {/* Category */}
+                        {/* 카테고리 */}
                         <Form.Group className="form-group" controlId="category">
                             <Form.Label>카테고리</Form.Label>
                             <Form.Control
@@ -305,7 +298,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                             </Form.Control>
                         </Form.Group>
 
-                        {/* Status */}
+                        {/* 상태 */}
                         <Form.Group className="form-group" controlId="status">
                             <Form.Label>노출</Form.Label>
                             <Form.Select
@@ -313,6 +306,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                 onChange={handleChange}
                                 required
                             >
+                            <Form.Label>상태</Form.Label>
+                            <Form.Select value={formData.status} onChange={handleChange} required>
                                 {STATUS.map((item, idx) => (
                                     <option key={idx} value={item.toLowerCase()}>
                                         {item}
@@ -322,7 +317,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                         </Form.Group>
                     </div>
 
-                    {/* 폼 제출 버튼 */}
+                    {/* 버튼 */}
                     <button className="btn btn-submit" type="submit">
                         {mode === "new" ? "상품 등록" : "수정 완료"}
                     </button>
