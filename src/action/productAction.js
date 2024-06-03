@@ -16,9 +16,9 @@ const createProduct = (formData) => async (dispatch) => {
         dispatch({ type: types.PRODUCT_CREATE_REQUEST });
 
         // 서버에 상품 등록 요청
-        const response = await api.post("/product", { formData });
+        const response = await api.post("/product", formData);
         if (response.status !== 200) {
-            throw new Error(response.error);
+            throw new Error(response.data.error);
         }
 
         // 상품 등록 성공
@@ -32,7 +32,7 @@ const createProduct = (formData) => async (dispatch) => {
         dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: err });
 
         // 토스트 알림
-        dispatch(commonUiActions.showToastMessage("상품 등록이 실패했습니다", "fail"));
+        dispatch(commonUiActions.showToastMessage("상품 등록이 실패했습니다", "error"));
     }
 };
 
