@@ -4,10 +4,29 @@ import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
 // 상품 리스트
-const getProductList = (query) => async (dispatch) => {};
+// const getProductList = (query) => async (dispatch) => {};
+const getProductList = () => async (dispatch) => {
+    try {
+        // 상품 리스트 요청
+        dispatch({ type: types.PRODUCT_GET_REQUEST });
+
+        // 서버에 상품 리스트 요청
+        const response = await api.get("/product");
+        if (response.status !== 200) {
+            throw new Error(response.data.error);
+        }
+
+        // 상품 리스트 요청 성공
+        dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response.data });
+
+    } catch (err) {
+        // 상품 리스트 요청 실패
+        dispatch({ type: types.PRODUCT_GET_FAIL, payload: err });
+    }
+};
 
 // 상품 상세
-const getProductDetail = (id) => async (dispatch) => {};
+const getProductDetail = (id) => async (dispatch) => { };
 
 // 상품 등록
 const createProduct = (formData) => async (dispatch) => {
@@ -26,7 +45,7 @@ const createProduct = (formData) => async (dispatch) => {
 
         // 토스트 알림
         dispatch(commonUiActions.showToastMessage("상품 등록이 완료되었습니다", "success"));
-        
+
     } catch (err) {
         // 상품 등록 실패
         dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: err });
@@ -37,10 +56,10 @@ const createProduct = (formData) => async (dispatch) => {
 };
 
 // 상품 삭제
-const deleteProduct = (id) => async (dispatch) => {};
+const deleteProduct = (id) => async (dispatch) => { };
 
 // 상품 수정
-const editProduct = (formData, id) => async (dispatch) => {};
+const editProduct = (formData, id) => async (dispatch) => { };
 
 export const productActions = {
     getProductList,
