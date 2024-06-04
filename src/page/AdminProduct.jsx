@@ -66,19 +66,19 @@ const AdminProduct = () => {
     };
 
     return (
-        <div className="locate-center">
-            <Container>
-                <div className="mt-2">
-                    <SearchBox
-                        searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}
-                        placeholder="제품 이름으로 검색"
-                        field="name"
-                    />
-                </div>
-                <Button className="mt-2 mb-2" onClick={handleClickNewItem}>
+        <div className="admin-product-page">
+            <div className="admin-product-container">
+                
+                <SearchBox
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                    placeholder="제품 이름으로 검색"
+                    field="name"
+                />
+
+                <button className="btn btn-default" onClick={handleClickNewItem}>
                     Add New Item +
-                </Button>
+                </button>
 
                 <ProductTable
                     header={tableHeader}
@@ -109,7 +109,7 @@ const AdminProduct = () => {
                     activeClassName="active"
                     className="display-center list-style-none"
                 />
-            </Container>
+            </div>
 
             <NewItemDialog
                 mode={mode}

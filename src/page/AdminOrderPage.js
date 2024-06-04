@@ -60,7 +60,7 @@ const AdminOrderPage = () => {
     };
 
     return (
-        <div className="locate-center">
+        <div className="admin-product-page">
             <Container>
                 <div className="mt-2 display-center mb-2">
                     <SearchBox
