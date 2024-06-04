@@ -2,6 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import { currencyFormat } from "../utils/number";
+
 const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
     return (
         <div className="overflow-x">
@@ -17,22 +18,22 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                     {data.length > 0 ? (
                         data.map((item, index) => (
                             <tr key={index}>
-                                <th>{index}</th>
-                                <th>{item.sku}</th>
-                                <th style={{ minWidth: "100px" }}>{item.name}</th>
-                                <th>{currencyFormat(item.price)}</th>
-                                <th>
+                                <td>{index}</td>
+                                <td>{item.sku}</td>
+                                <td style={{ minWidth: "100px" }}>{item.name}</td>
+                                <td>{currencyFormat(item.price)}</td>
+                                <td>
                                     {Object.keys(item.stock).map((size, index) => (
                                         <div key={index}>
                                             {size}:{item.stock[size]}
                                         </div>
                                     ))}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <img src={item.image} width={100} alt="image" />
-                                </th>
-                                <th>{item.status}</th>
-                                <th style={{ minWidth: "100px" }}>
+                                </td>
+                                <td>{item.status}</td>
+                                <td style={{ minWidth: "100px" }}>
                                     <Button
                                         size="sm"
                                         variant="danger"
@@ -44,11 +45,13 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                                     <Button size="sm" onClick={() => openEditForm(item)}>
                                         Edit
                                     </Button>
-                                </th>
+                                </td>
                             </tr>
                         ))
                     ) : (
-                        <tr>No Data to show</tr>
+                        <tr>
+                            <td colSpan={header.length}>No Data to show</td>
+                        </tr>
                     )}
                 </tbody>
             </Table>
