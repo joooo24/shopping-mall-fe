@@ -5,11 +5,12 @@ import { useSearchParams } from "react-router-dom";
 
 const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
     const [query] = useSearchParams();
-    const [keyword, setKeyword] = useState(query.get(field) || "");
+    const [keyword, setKeyword] = useState(query.get(field) || ""); // 검색어 상태 초기화
 
+    // Enter 키를 눌렀을 때 검색어 설정 함수
     const onCheckEnter = (event) => {
         if (event.key === "Enter") {
-            setSearchQuery({ ...searchQuery, page: 1, [field]: event.target.value });
+            setSearchQuery({ ...searchQuery, page: 1, [field]: event.target.value }); // 부모 컴포넌트의 검색어 상태 업데이트
         }
     };
     return (
@@ -18,9 +19,9 @@ const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
             <input
                 type="text"
                 placeholder={placeholder}
-                onKeyPress={onCheckEnter}
-                onChange={(event) => setKeyword(event.target.value)}
-                value={keyword}
+                onKeyPress={onCheckEnter} // Enter 키 눌림 감지
+                onChange={(event) => setKeyword(event.target.value)} // 검색어 상태 업데이트
+                value={keyword} // 입력값 설정
             />
         </div>
     );

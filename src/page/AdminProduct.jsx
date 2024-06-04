@@ -4,24 +4,29 @@ import SearchBox from "../component/SearchBox";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../action/productAction";
 import NewItemDialog from "../component/NewItemDialog";
-import * as types from "../constants/product.constants";
 import ReactPaginate from "react-paginate";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { commonUiActions } from "../action/commonUiAction";
 import ProductTable from "../component/ProductTable";
 
 const AdminProduct = () => {
     const navigate = useNavigate();
     const [query, setQuery] = useSearchParams();
     const dispatch = useDispatch();
+
+    // 다이얼로그
     const [showDialog, setShowDialog] = useState(false);
+    const [mode, setMode] = useState("new"); // new, edit
+
+    // 검색 조건 초기 상태 설정
     const [searchQuery, setSearchQuery] = useState({
         page: query.get("page") || 1,
         name: query.get("name") || "",
-    }); //검색 조건들을 저장하는 객체
+    });
+
+    // Redux 상태에서 productList 가져오기
     const { productList } = useSelector((state) => state.product);
-    console.log("### productList", productList)
-    const [mode, setMode] = useState("new");
+
+    // 테이블 헤더 배열
     const tableHeader = [
         "#",
         "Sku",
@@ -33,31 +38,30 @@ const AdminProduct = () => {
         "",
     ];
 
-    // 상품리스트 가져오기 (url쿼리 맞춰서)
+    // 검색어와 페이지가 변경될 때마다 상품 리스트 가져오기 (url쿼리 맞춰서)
     useEffect(() => {
         // 검색어나 페이지가 바뀌면 url바꿔주기 
         // (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
         dispatch(productActions.getProductList());
     }, []); // [searchQuery]
 
-    const deleteItem = (id) => {
-        //아이템 삭제하기
-    };
+    // 아이템 삭제
+    const deleteItem = (id) => { };
 
+    // 상품 수정 다이얼로그 열기
     const openEditForm = (product) => {
-        //edit모드 설정하고 상품수정 다이얼로그 열기
-        setMode("edit");
+        setMode("edit"); // edit 모드 설정
         setShowDialog(true);
     };
 
+    // 상품 생성 다이얼로그 열기
     const handleClickNewItem = () => {
-        //new모드 설정하고 상품생성 다이얼로그 열기
-        setMode("new");
+        setMode("new"); // new 모드 설정
         setShowDialog(true);
     };
 
+    // 페이지 변경 시 쿼리 업데이트
     const handlePageClick = ({ selected }) => {
-        //  쿼리에 페이지값 바꿔주기
         // setSearchQuery((prev) => ({ ...prev, page: selected + 1 }));
     };
 
@@ -78,7 +82,7 @@ const AdminProduct = () => {
 
                 <ProductTable
                     header={tableHeader}
-                    data={productList?.products || []} 
+                    data={productList?.products || []}
                     deleteItem={deleteItem}
                     openEditForm={openEditForm}
                 />
@@ -86,9 +90,10 @@ const AdminProduct = () => {
                     nextLabel="next >"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={5}
-                    pageCount={100}
-                    forcePage={2} // 1페이지면 2임 여긴 한개씩 +1 해야함
-                    // forcePage={searchQuery.page - 1}
+                    pageCount={100} // ### 수정하기
+                    // pageCount={Math.ceil(productList.totalCount / 10)} 전체 페이지 수 계산
+                    forcePage={2} // ### 수정하기 - 현재 페이지 +1 해야함
+                    // forcePage={searchQuery.page - 1} 현재 페이지 설정
                     previousLabel="< previous"
                     renderOnZeroPageCount={null}
                     pageClassName="page-item"
