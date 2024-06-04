@@ -15,7 +15,7 @@ function productReducer(state = initialState, action) {
 
         // 상품 생성 성공
         case types.PRODUCT_CREATE_SUCCESS:
-            return { ...state, loading: false, formData: payload.formData };
+            return { ...state, loading: false };
 
         // 상품 생성 실패
         case types.PRODUCT_CREATE_FAIL:
