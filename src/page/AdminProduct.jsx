@@ -78,7 +78,7 @@ const AdminProduct = () => {
 
                 <ProductTable
                     header={tableHeader}
-                    data=""
+                    data={productList?.products || []} 
                     deleteItem={deleteItem}
                     openEditForm={openEditForm}
                 />
