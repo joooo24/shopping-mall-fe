@@ -19,8 +19,8 @@ const getProductList = (query) => async (dispatch) => {
         }
 
         // 상품 리스트 요청 성공
-        dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response });
-
+        dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response.data });
+        
     } catch (err) {
         // 상품 리스트 요청 실패
         dispatch({ type: types.PRODUCT_GET_FAIL, payload: err });
