@@ -38,12 +38,31 @@ const AdminProduct = () => {
         "",
     ];
 
+    // (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
     // 검색어와 페이지가 변경될 때마다 상품 리스트 가져오기 (url쿼리 맞춰서)
     useEffect(() => {
-        // 검색어나 페이지가 바뀌면 url바꿔주기 
-        // (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
+        // 검색어 입력 시 받아온 필드:값 (name:값) 없을 경우
+        if (searchQuery.name === "") {
+            console.log("searchQuery.name", searchQuery.name)
+
+            // 객체의 속성 name을 삭제
+            delete searchQuery.name;
+        }
+
+        // 검색어 입력 시 받아온 필드:값 (name:값)
+        console.log("###searchQuery.name", searchQuery.name)
+        // 객체를 URL 쿼리 문자열로 변환
+        const params = new URLSearchParams(searchQuery);
+        // 문자열로 변경
+        const query = params.toString();
+        // url에 쿼리 값 추가
+        navigate("?" + query);
+
+        // url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기
+
+        // 검색 조건 넣어주기
         dispatch(productActions.getProductList());
-    }, []); // [searchQuery]
+    }, [searchQuery]);
 
     // 아이템 삭제
     const deleteItem = (id) => { };
@@ -62,18 +81,18 @@ const AdminProduct = () => {
 
     // 페이지 변경 시 쿼리 업데이트
     const handlePageClick = ({ selected }) => {
-        // setSearchQuery((prev) => ({ ...prev, page: selected + 1 }));
+        setSearchQuery((prev) => ({ ...prev, page: selected + 1 }));
     };
 
     return (
         <div className="admin-product-page">
             <div className="admin-product-container">
-                
+
                 <SearchBox
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                     placeholder="제품 이름으로 검색"
-                    field="name"
+                    field="name" // 검색할 속성
                 />
 
                 <button className="btn btn-default" onClick={handleClickNewItem}>

@@ -10,7 +10,8 @@ const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
     // Enter 키를 눌렀을 때 검색어 설정 함수
     const onCheckEnter = (event) => {
         if (event.key === "Enter") {
-            setSearchQuery({ ...searchQuery, page: 1, [field]: event.target.value }); // 부모 컴포넌트의 검색어 상태 업데이트
+            // 부모 컴포넌트 (AdminOrderPage)의 검색어 상태를 변경 (페이지, 필드: 값)
+            setSearchQuery({ ...searchQuery, page: 1, [field]: event.target.value }); 
         }
     };
     return (

@@ -80,8 +80,8 @@ const AdminOrderPage = () => {
                     nextLabel="next >"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={5}
-                    pageCount={totalPageNum}
-                    forcePage={searchQuery.page - 1}
+                    pageCount={totalPageNum} // 총 페이지 수
+                    forcePage={searchQuery.page - 1} // 현재 페이지 수
                     previousLabel="< previous"
                     renderOnZeroPageCount={null}
                     pageClassName="page-item"
