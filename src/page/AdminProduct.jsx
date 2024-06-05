@@ -32,17 +32,14 @@ const AdminProduct = () => {
     // (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
     // 검색어와 페이지가 변경될 때마다 상품 리스트 가져오기 (url쿼리 맞춰서)
     useEffect(() => {
-        // 검색어 입력 시 받아온 필드:값 (name:값) 없을 경우
+        // 검색어 입력 시 받아온 필드:값 (name:값) 없을 경우 객체의 속성 name을 삭제
         if (searchQuery.name === "") {
-            // 객체의 속성 name을 삭제
             delete searchQuery.name;
         }
 
-        // 객체를 URL 쿼리 문자열로 변환
+        // 객체를 URL 쿼리 문자열로 변환 -> 문자열로 변경 -> url에 쿼리 값 추가
         const params = new URLSearchParams(searchQuery);
-        // 문자열로 변경
         const query = params.toString();
-        // url에 쿼리 값 추가
         navigate("?" + query);
 
         // 검색 조건 넣어서 리스트 불러오기
@@ -94,7 +91,7 @@ const AdminProduct = () => {
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={5} // 한 페이지에 보여줄 아이템 수
                     pageCount={totalPageNum} // 전체 페이지 {Math.ceil(productList.totalCount / 5)}
-                    forcePage={searchQuery.page} // 현재 페이지
+                    forcePage={searchQuery.page + 1} // 현재 페이지
                     previousLabel="< previous"
                     renderOnZeroPageCount={null}
                     pageClassName="page-item"
