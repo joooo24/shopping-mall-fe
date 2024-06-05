@@ -23,8 +23,9 @@ const AdminProduct = () => {
         name: query.get("name") || "",
     });
 
-    // Redux 상태에서 productList 가져오기
-    const { productList } = useSelector((state) => state.product);
+    // Redux 상태에서 product에 있는 productList, totalPageNum, totalItemNum 가져오기
+    const { productList, totalPageNum, totalItemNum } = useSelector((state) => state.product);
+    console.log("########## productList", productList)
 
     // 테이블 헤더 배열
     const tableHeader = [
@@ -43,14 +44,10 @@ const AdminProduct = () => {
     useEffect(() => {
         // 검색어 입력 시 받아온 필드:값 (name:값) 없을 경우
         if (searchQuery.name === "") {
-            console.log("searchQuery.name", searchQuery.name)
-
             // 객체의 속성 name을 삭제
             delete searchQuery.name;
         }
 
-        // 검색어 입력 시 받아온 필드:값 (name:값)
-        console.log("###searchQuery.name", searchQuery.name)
         // 객체를 URL 쿼리 문자열로 변환
         const params = new URLSearchParams(searchQuery);
         // 문자열로 변경
