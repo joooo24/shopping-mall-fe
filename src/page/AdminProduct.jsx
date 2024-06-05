@@ -58,10 +58,8 @@ const AdminProduct = () => {
         // url에 쿼리 값 추가
         navigate("?" + query);
 
-        // url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기
-
-        // 검색 조건 넣어주기
-        dispatch(productActions.getProductList());
+        // 검색 조건 넣어서 리스트 불러오기
+        dispatch(productActions.getProductList({ ...searchQuery }));
     }, [searchQuery]);
 
     // 아이템 삭제
