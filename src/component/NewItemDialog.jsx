@@ -140,7 +140,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     //에러나면 토스트 메세지 보여주기
 
     return (
-        <Modal show={showDialog} onHide={handleClose}>
+        <Modal show={showDialog} onHide={handleClose} className="item-dialog-modal">
             {/* 모달 헤더 */}
             <Modal.Header closeButton>
                 <Modal.Title>{mode === "new" ? "새로운 상품 등록" : "상품 수정"}</Modal.Title>
@@ -255,7 +255,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                     </div>
 
                     {/* 상품 이미지 업로드 */}
-                    <div className="form-group-wrap coloum" controlId="Image" required>
+                    {/* <div className="form-group-wrap coloum" controlId="Image" required>
                         <Form.Label>상품 이미지</Form.Label>
                         <CloudinaryUploadWidget uploadImage={uploadImage} />
                         <img
@@ -264,7 +264,23 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                             className="upload-image mt-2"
                             alt="uploadedimage"
                         ></img>
+                    </div> */}
+
+                    <div className="form-group-wrap coloum" controlId="Image" required>
+                        <Form.Label>상품 이미지</Form.Label>
+                        <CloudinaryUploadWidget uploadImage={uploadImage} />
+
+                        <img
+                            id="uploadedimage"
+                            src={formData.image}
+                            className="upload-image mt-2 visually-hidden"
+                            alt="uploadedimage"
+                        />
+                        {!formData.image && (
+                            <div className="error-message mt-1">이미지가 업로드되지 않았습니다.</div>
+                        )}
                     </div>
+
 
                     <div className="form-group-wrap">
                         {/* 가격 */}

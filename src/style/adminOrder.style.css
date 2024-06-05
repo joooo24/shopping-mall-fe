@@ -1,14 +1,27 @@
-.modal{
+.modal {
     width: 100vw;
     height: 100vh;
 }
-.modal-dialog{
+
+.modal-dialog {
     max-width: 700px;
     max-height: 80vh;
-    
-    .modal-content{
+
+    .modal-content {
         max-width: 700px;
         max-height: calc(80vh - 70px);
         overflow: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .fade.modal-backdrop.show {
+        position: fixed;
+    }
+
+    .modal-dialog {
+        .modal-content {
+            max-height: calc(100vh - 16px);
+        }
     }
 }

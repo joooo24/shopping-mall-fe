@@ -9,11 +9,6 @@
         width: 100%;
     }
 
-    .modal-dialog {
-        .form-container {
-            padding: 20px
-        }
-    }
 }
 
 .card-area {
@@ -60,15 +55,22 @@
     font-size: 10pt;
 }
 
+.item-dialog-modal {
+    .form-container{
+        padding: 20px;
+    }
+
+    .btn-submit {
+        margin-top: 30px;
+    }
+}
+
 @media (max-width: 1194px) {
     .admin-product-page {
         .admin-product-container {
             padding: 20px;
         }
 
-        .modal-dialog {
-            .form-container {}
-        }
     }
 
 
