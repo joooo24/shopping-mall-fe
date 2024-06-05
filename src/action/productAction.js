@@ -4,20 +4,22 @@ import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
 // 상품 리스트
-// const getProductList = (query) => async (dispatch) => {};
-const getProductList = () => async (dispatch) => {
+const getProductList = (query) => async (dispatch) => {
     try {
         // 상품 리스트 요청
         dispatch({ type: types.PRODUCT_GET_REQUEST });
 
         // 서버에 상품 리스트 요청
-        const response = await api.get("/product");
+        const response = await api.get("/product",
+            { params: { ...query } }
+        );
+        
         if (response.status !== 200) {
             throw new Error(response.data.error);
         }
 
         // 상품 리스트 요청 성공
-        dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response.data });
+        dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response });
 
     } catch (err) {
         // 상품 리스트 요청 실패
