@@ -103,11 +103,9 @@ const AdminProduct = () => {
                 <ReactPaginate
                     nextLabel="next >"
                     onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={100} // ### 수정하기
-                    // pageCount={Math.ceil(productList.totalCount / 10)} 전체 페이지 수 계산
-                    forcePage={2} // ### 수정하기 - 현재 페이지 +1 해야함
-                    // forcePage={searchQuery.page - 1} 현재 페이지 설정
+                    pageRangeDisplayed={5} // 한 페이지에 보여줄 아이템 수
+                    pageCount={totalPageNum} // 전체 페이지 {Math.ceil(productList.totalCount / 5)}
+                    forcePage={searchQuery.page} // 현재 페이지
                     previousLabel="< previous"
                     renderOnZeroPageCount={null}
                     pageClassName="page-item"
