@@ -47,21 +47,26 @@ const RegisterPage = () => {
 
         // FormData에 있는 값 백엔드로 넘겨주기 (+ navigate함수도 함께)
         dispatch(userActions.registerUser({ email, name, password }, navigate));
-
-        // 성공 후 로그인 페이지로 넘어가기
     };
 
     // FormData에 입력한 값 넣는 함수
     const handleChange = (event) => {
-        event.preventDefault();
+        const { id, checked, value } = event.target;
 
-        const { id, value, checked } = event.target;
-        if (id === "policy") {
-            setFormData({ ...formData, [id]: checked });
-        } else {
-            setFormData({ ...formData, [id]: value });
-        }
+        // 콜백 함수를 사용하여 상태 업데이트 후에 다음 동작을 수행
+        setFormData(prevState => ({
+            ...prevState,
+            [id]: id === "policy" ? checked : value,
+        }));
+
+        // 기존 코드
+        // if (id === "policy") {
+        //     setFormData({ ...formData, [id]: checked });
+        // } else {
+        //     setFormData({ ...formData, [id]: value });
+        // }
     };
+
 
     return (
         <div className="form-container">
@@ -128,7 +133,7 @@ const RegisterPage = () => {
                         checked={formData.policy}
                     />
                     {policyError && (
-                        <Form.Text className="text-danger">
+                        <Form.Text className="text-danger" >
                             이용약관에 동의해주세요
                         </Form.Text>
                     )}
