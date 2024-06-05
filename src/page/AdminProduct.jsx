@@ -25,19 +25,9 @@ const AdminProduct = () => {
 
     // Redux 상태에서 product에 있는 productList, totalPageNum, totalItemNum 가져오기
     const { productList, totalPageNum, totalItemNum } = useSelector((state) => state.product);
-    console.log("########## productList", productList)
 
     // 테이블 헤더 배열
-    const tableHeader = [
-        "#",
-        "Sku",
-        "Name",
-        "Price",
-        "Stock",
-        "Image",
-        "Status",
-        "",
-    ];
+    const tableHeader = ["#", "Sku", "Name", "Price", "Stock", "Image", "Status", ""];
 
     // (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
     // 검색어와 페이지가 변경될 때마다 상품 리스트 가져오기 (url쿼리 맞춰서)
@@ -60,7 +50,7 @@ const AdminProduct = () => {
     }, [searchQuery]);
 
     // 아이템 삭제
-    const deleteItem = (id) => { };
+    const deleteItem = (id) => {};
 
     // 상품 수정 다이얼로그 열기
     const openEditForm = (product) => {
@@ -82,7 +72,6 @@ const AdminProduct = () => {
     return (
         <div className="admin-product-page">
             <div className="admin-product-container">
-
                 <SearchBox
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
@@ -123,11 +112,7 @@ const AdminProduct = () => {
                 />
             </div>
 
-            <NewItemDialog
-                mode={mode}
-                showDialog={showDialog}
-                setShowDialog={setShowDialog}
-            />
+            <NewItemDialog mode={mode} showDialog={showDialog} setShowDialog={setShowDialog} />
         </div>
     );
 };
