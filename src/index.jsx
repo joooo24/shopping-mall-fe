@@ -9,12 +9,12 @@ import store from "./reducer/store";
 // const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById("root")
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>,
+    document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

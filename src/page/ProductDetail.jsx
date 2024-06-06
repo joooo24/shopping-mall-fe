@@ -69,9 +69,7 @@ const ProductDetail = () => {
                             <Dropdown.Item>M</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <div className="warning-message">
-                        {sizeError && "사이즈를 선택해주세요."}
-                    </div>
+                    <div className="warning-message">{sizeError && "사이즈를 선택해주세요."}</div>
                     <Button variant="dark" className="add-button" onClick={addItemToCart}>
                         추가
                     </Button>
