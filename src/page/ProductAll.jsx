@@ -15,7 +15,7 @@ const ProductAll = () => {
 
     // 검색 조건 초기 상태 설정
     const [searchQuery, setSearchQuery] = useState({
-        page: query.get("page") || 1,
+        // page: query.get("page") || 1,
         name: query.get("name") || "",
     });
 
