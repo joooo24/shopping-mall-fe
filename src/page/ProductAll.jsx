@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ProductCard from "../component/ProductCard";
-import { Row, Col, Container } from "react-bootstrap";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../action/productAction";
-import { commonUiActions } from "../action/commonUiAction";
 import "./../style/product.style.scss";
 
 const ProductAll = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [query, setQuery] = useSearchParams();
-    // const error = useSelector((state) => state.product.error);
+    const [query] = useSearchParams();
 
     const searchQuery = query.get("name") || "";
     console.log("searchQuery", searchQuery);
