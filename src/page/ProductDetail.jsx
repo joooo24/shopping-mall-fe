@@ -75,16 +75,18 @@ const ProductDetail = () => {
                             id="dropdown-basic"
                             align="start"
                         >
-                            {size === "" ? "사이즈 선택" : size.toUpperCase()}
+                            {size === "" ? "옵션 선택" : size.toUpperCase()}
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className="size-drop-down">
-                            {Object.entries(productDetail.stock).map(([size, quantity]) => (
-                                <Dropdown.Item key={size}>{`${size.toUpperCase()}: ${quantity}개 남음`}</Dropdown.Item>
+                            {Object.entries(productDetail.stock).map(([option, quantity]) => (
+                                <Dropdown.Item key={option}>
+                                    {`${option.toUpperCase()}: ${quantity}개 남음`}
+                                </Dropdown.Item>
                             ))}
                         </Dropdown.Menu>
                     </Dropdown>
-                    <div className="warning-message">{sizeError && "사이즈를 선택해주세요."}</div>
+                    <div className="warning-message">{sizeError && "옵션을 선택해주세요."}</div>
                     <button className="btn btn-primary" onClick={addItemToCart}>
                         추가
                     </button>
