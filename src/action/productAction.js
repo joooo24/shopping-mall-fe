@@ -13,7 +13,7 @@ const getProductList = (query) => async (dispatch) => {
         const response = await api.get("/product",
             { params: { ...query } }
         );
-        
+
         if (response.status !== 200) {
             throw new Error(response.data.error);
         }
@@ -28,7 +28,28 @@ const getProductList = (query) => async (dispatch) => {
 };
 
 // 상품 상세
-const getProductDetail = (id) => async (dispatch) => { };
+const getProductDetail = (id) => async (dispatch) => {
+
+    try {
+        // 상품 상세 요청
+        dispatch({ type: types.GET_PRODUCT_DETAIL_REQUEST });
+
+        // 서버에 상품 상세 요청
+        const response = await api.get(`/product/${id}`);
+
+        if (response.status !== 200) {
+            throw new Error(response.data.error);
+        }
+
+        // 상품 상세 요청 성공
+        dispatch({ type: types.GET_PRODUCT_DETAIL_SUCCESS, payload: response.data });
+
+    } catch (err) {
+        // 상품 상세 요청 실패
+        dispatch({ type: types.GET_PRODUCT_DETAIL_FAIL, payload: err });
+    }
+
+};
 
 // 상품 등록
 const createProduct = (formData) => async (dispatch) => {
