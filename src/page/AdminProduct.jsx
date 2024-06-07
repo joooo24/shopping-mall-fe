@@ -7,6 +7,7 @@ import NewItemDialog from "../component/NewItemDialog";
 import ReactPaginate from "react-paginate";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import ProductTable from "../component/ProductTable";
+import * as types from "../constants/product.constants";
 
 const AdminProduct = () => {
     const navigate = useNavigate();
