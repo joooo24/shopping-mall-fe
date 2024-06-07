@@ -14,19 +14,18 @@ const ProductDetail = () => {
     const { id } = useParams(); // URL에서 id 파라미터를 가져옴
     const navigate = useNavigate();
 
-    // 사이즈 관련 상태
-    const [size, setSize] = useState("");
-    const [sizeError, setSizeError] = useState(false);
-
     // 상품 상세 정보 가져오기
     useEffect(() => {
         dispatch(productActions.getProductDetail(id));
     }, [dispatch, id]);
 
+    // 사이즈 관련 상태
+    const [size, setSize] = useState("");
+    const [sizeError, setSizeError] = useState(false);
+
     // Redux 상태 선택자를 사용하여 상품 정보, 로딩 상태, 에러 상태 가져오기
     const { productDetail, loading, error } = useSelector((state) => state.product);
-
-    console.log("productDetail", productDetail)
+    // console.log("### productDetail", productDetail);
 
     // 장바구니에 상품을 추가
     const addItemToCart = () => {
@@ -36,7 +35,7 @@ const ProductDetail = () => {
     };
 
     // 사이즈 선택
-    const selectSize = (value) => { };
+    const selectSize = (value) => {};
 
     // 로딩 중이면 로딩 스피너를 표시
     if (loading) {
@@ -71,7 +70,7 @@ const ProductDetail = () => {
                         onSelect={(value) => selectSize(value)}
                     >
                         <Dropdown.Toggle
-                            className="size-drop-down"
+                            className="size-drop-down btn btn-line"
                             variant={sizeError ? "outline-danger" : "outline-dark"}
                             id="dropdown-basic"
                             align="start"
@@ -79,14 +78,14 @@ const ProductDetail = () => {
                             {size === "" ? "사이즈 선택" : size.toUpperCase()}
                         </Dropdown.Toggle>
 
-                        {/* <Dropdown.Menu className="size-drop-down">
-                            {productDetail.sizes.map((sizeOption) => (
-                                <Dropdown.Item key={sizeOption}>{sizeOption}</Dropdown.Item>
+                        <Dropdown.Menu className="size-drop-down">
+                            {Object.entries(productDetail.stock).map(([size, quantity]) => (
+                                <Dropdown.Item key={size}>{`${size.toUpperCase()}: ${quantity}개 남음`}</Dropdown.Item>
                             ))}
-                        </Dropdown.Menu> */}
+                        </Dropdown.Menu>
                     </Dropdown>
                     <div className="warning-message">{sizeError && "사이즈를 선택해주세요."}</div>
-                    <button className="btn btn-add" onClick={addItemToCart}>
+                    <button className="btn btn-primary" onClick={addItemToCart}>
                         추가
                     </button>
                 </Col>
