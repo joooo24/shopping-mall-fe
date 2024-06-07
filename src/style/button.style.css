@@ -1,4 +1,3 @@
-
 /* 버튼 */
 .button-wrap {
     width: 100%;
@@ -55,6 +54,7 @@ button.btn {
 
     &.btn-danger {
         background-color: rgb(190, 40, 40);
+
         &:hover {
             background-color: rgb(209, 37, 37);
         }
@@ -75,6 +75,7 @@ button.btn {
 .link {
     font-size: 12px;
     cursor: pointer;
+    margin: 0 auto;
 }
 
 @media (max-width: 768px) {}

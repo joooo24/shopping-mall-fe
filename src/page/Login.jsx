@@ -15,7 +15,7 @@ const Login = () => {
     useEffect(() => {
         // 컴포넌트가 마운트될 때 error를 초기화하는 액션 디스패치
         dispatch(userActions.clearError());
-    }, [dispatch])
+    }, [dispatch]);
 
     const loginWithEmail = (event) => {
         event.preventDefault();
@@ -34,45 +34,50 @@ const Login = () => {
     }
 
     return (
-        <div className="form-container">
-            <Form className="form-box user-form" onSubmit={loginWithEmail}>
-                <h1>로그인</h1>
-                {error && (
-                    <div className="error-message">
-                        <Alert variant="danger">{error}</Alert>
-                    </div>
-                )}
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>이메일</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        required
-                        onChange={(event) => setEmail(event.target.value)}
-                    />
-                </Form.Group>
+        <section className="user-page">
+            <div className="form-container">
+                <Form className="form-box user-form" onSubmit={loginWithEmail}>
+                    <h1>로그인</h1>
+                    {error && (
+                        <div className="error-message">
+                            <Alert variant="danger">{error}</Alert>
+                        </div>
+                    )}
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>이메일</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            required
+                            onChange={(event) => setEmail(event.target.value)}
+                        />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>비밀번호</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        required
-                        onChange={(event) => setPassword(event.target.value)}
-                    />
-                </Form.Group>
-                <div className="button-wrap">
-                    <button variant="danger" type="submit" className="btn btn-submit">
-                        로그인
-                    </button>
-                    <p className="notice">
-                        아직 계정이 없으세요?<Link to="/register" className="link">회원가입 하기</Link>
-                    </p>
-                    <p>-외부 계정으로 로그인하기-</p>
-                    <p className="display-center"></p>
-                </div>
-            </Form>
-        </div>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>비밀번호</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            required
+                            onChange={(event) => setPassword(event.target.value)}
+                        />
+                    </Form.Group>
+                    <div className="button-wrap">
+                        <button variant="danger" type="submit" className="btn btn-submit">
+                            로그인
+                        </button>
+                        <p className="notice">
+                            아직 계정이 없으세요?
+                            <Link to="/register" className="link">
+                                회원가입 하기
+                            </Link>
+                        </p>
+                        <p>-외부 계정으로 로그인하기-</p>
+                        <p className="display-center"></p>
+                    </div>
+                </Form>
+            </div>
+        </section>
     );
 };
 
