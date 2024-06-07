@@ -23,9 +23,9 @@ export const PRODUCT_EDIT_FAIL = "PRODUCT_EDIT_FAIL";
 
 //
 export const SET_FILTERED_LIST = "SET_FILTERED_LIST";
-export const CATEGORY = ["Top", "Dress", "Pants"];
+export const CATEGORY = ["Top", "Dress", "Pants", "Etc"];
 export const STATUS = ["active", "disactive"];
-export const SIZE = ["XS", "S", "M", "L", "XL"];
+export const SIZE = ["XS", "S", "M", "L", "XL", "Free"];
 export const TOGGLE_ITEM_DIALOG = "TOGGLE_ITEM_DIALOG";
 
 // 상품 검색

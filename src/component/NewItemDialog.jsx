@@ -56,12 +56,14 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         }, {});
 
         if (mode === "new") {
-            //새 상품 만들기
+            // 새 상품 만들기
+            // formData와 stock 정보를 따로 보냄 (stock 데이터 형식 변환 때문에)
             dispatch(productActions.createProduct({ ...formData, stock: totalStock }));
             setShowDialog(false);
         } else {
-            // 상품 수정하기
-            dispatch(productActions.editProduct({ ...formData, stock: totalStock }));
+            // 상품 수정하기 
+            dispatch(productActions.editProduct({ ...formData, stock: totalStock }, selectedProduct._id));
+            setShowDialog(false);
         }
     };
 
@@ -129,10 +131,25 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     // 다이얼로그가 열릴 때 실행되는 효과
     useEffect(() => {
         if (showDialog) {
+            // edit모드 라면?
             if (mode === "edit") {
-                // 선택된 상품 데이터 불러오기  (재고 형태 객체에서 어레이로 바꾸기)
+                // 선택된 상품 데이터로 해당 데이터 폼에 초기값으로 설정
+                setFormData(selectedProduct)
+
+                // 재고 정보를 객체에서 배열로 변환
+                // -> 재고 정보는 db에 객체로 저장되어 있음. form에 표시하기 위해 배열로 변환
+                // -> Object.keys(selectedProduct.stock)는 key 값만 받아 옴
+                const stockArray = Object.keys(selectedProduct.stock).map((option) => [
+                    option, // key
+                    selectedProduct.stock[option] // value
+                ])
+
+                // 배열로 변환한 stock 저장
+                setStock(stockArray)
+
             } else {
                 // 초기화된 폼 데이터 불러오기
+                setFormData({ ...InitialFormData });
             }
         }
     }, [showDialog]);

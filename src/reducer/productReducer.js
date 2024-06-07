@@ -16,11 +16,13 @@ function productReducer(state = initialState, action) {
         // 상품 생성/조회/수정/삭제 요청
         case types.PRODUCT_CREATE_REQUEST:
         case types.PRODUCT_GET_REQUEST:
+        case types.PRODUCT_EDIT_REQUEST:
         case types.PRODUCT_DELETE_REQUEST:
             return { ...state, loading: true };
 
         // 상품 생성/수정/삭제 성공
         case types.PRODUCT_CREATE_SUCCESS:
+        case types.PRODUCT_EDIT_SUCCESS:
         case types.PRODUCT_DELETE_SUCCESS:
             return { ...state, loading: false };
 
@@ -37,6 +39,7 @@ function productReducer(state = initialState, action) {
         // 상품 생성/조회/수정/삭제 실패
         case types.PRODUCT_CREATE_FAIL:
         case types.PRODUCT_GET_FAIL:
+        case types.PRODUCT_EDIT_FAIL:
         case types.PRODUCT_DELETE_FAIL:
             return { ...state, loading: false, error: payload.message };
 
