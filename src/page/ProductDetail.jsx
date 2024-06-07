@@ -20,22 +20,38 @@ const ProductDetail = () => {
     }, [dispatch, id]);
 
     // 사이즈 관련 상태
-    const [size, setSize] = useState("");
-    const [sizeError, setSizeError] = useState(false);
+    const [option, setOption] = useState("");
+    const [optionError, setOptionError] = useState(false);
 
-    // Redux 상태 선택자를 사용하여 상품 정보, 로딩 상태, 에러 상태 가져오기
+    // Redux 상태 선택자를 사용하여 유저 정보, 상품 정보, 로딩 상태, 에러 상태 가져오기
+    const { user } = useSelector((state) => state.user);
     const { productDetail, loading, error } = useSelector((state) => state.product);
     // console.log("### productDetail", productDetail);
+    // console.log("### user", user);
 
-    // 장바구니에 상품을 추가
+    // 장바구니에 상품 추가
     const addItemToCart = () => {
-        //사이즈를 아직 선택안했다면 에러
+        // 옵션을 선택 안했다면 에러
+        if (option === "") {
+            setOptionError(true);
+            return;
+        }
+
         // 아직 로그인을 안한유저라면 로그인페이지로
-        // 카트에 아이템 추가하기
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+
+        // 장바구니에 상품 추가하기 위한 정보 전달
+        dispatch(cartActions.addToCart({ id, option }));
     };
 
     // 사이즈 선택
-    const selectSize = (value) => {};
+    const selectOption = (value) => {
+        setOption(value);
+        setOptionError(false);
+    };
 
     // 로딩 중이면 로딩 스피너를 표시
     if (loading) {
@@ -56,7 +72,11 @@ const ProductDetail = () => {
         <Container className="product-detail-card">
             <Row>
                 <Col sm={6}>
-                    <img src={productDetail.image} className="w-100" alt="image" />
+                    {productDetail.image ? (
+                        <img src={productDetail.image} className="w-100" alt="image" />
+                    ) : (
+                        <div className="no-image-placeholder">이미지를 불러올 수 없습니다</div>
+                    )}
                 </Col>
                 <Col className="product-info-area" sm={6}>
                     <div className="product-info">{productDetail.name}</div>
@@ -65,28 +85,28 @@ const ProductDetail = () => {
 
                     <Dropdown
                         className="drop-down size-drop-down"
-                        title={size}
                         align="start"
-                        onSelect={(value) => selectSize(value)}
+                        onSelect={(value) => selectOption(value)}
                     >
                         <Dropdown.Toggle
                             className="size-drop-down btn btn-line"
-                            variant={sizeError ? "outline-danger" : "outline-dark"}
+                            variant={optionError ? "outline-danger" : "outline-dark"}
                             id="dropdown-basic"
                             align="start"
                         >
-                            {size === "" ? "옵션 선택" : size.toUpperCase()}
+                            {option === "" ? "옵션 선택" : option.toUpperCase()}
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className="size-drop-down">
                             {Object.entries(productDetail.stock).map(([option, quantity]) => (
-                                <Dropdown.Item key={option}>
+                                <Dropdown.Item key={option} eventKey={option}>
                                     {`${option.toUpperCase()}: ${quantity}개 남음`}
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Menu>
                     </Dropdown>
-                    <div className="warning-message">{sizeError && "옵션을 선택해주세요."}</div>
+                    <div className="warning-message">{optionError && "옵션을 선택해주세요."}</div>
+                    {option && <div className="selected-option">선택된 옵션: {option.toUpperCase()}</div>}
                     <button className="btn btn-primary" onClick={addItemToCart}>
                         추가
                     </button>
