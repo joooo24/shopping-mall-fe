@@ -11,44 +11,58 @@ import "../style/productDetail.style.css";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
-
-    const [size, setSize] = useState("");
-    const { id } = useParams();
-    const [sizeError, setSizeError] = useState(false);
-
+    const { id } = useParams(); // URL에서 id 파라미터를 가져옴
     const navigate = useNavigate();
 
+    // 사이즈 관련 상태
+    const [size, setSize] = useState("");
+    const [sizeError, setSizeError] = useState(false);
+
+    // 상품 상세 정보 가져오기
+    useEffect(() => {
+        dispatch(productActions.getProductDetail(id));
+    }, [dispatch, id]);
+
+    // Redux 상태 선택자를 사용하여 상품 정보, 로딩 상태, 에러 상태 가져오기
+    const { productDetail, loading, error } = useSelector((state) => state.product);
+
+    console.log("productDetail", productDetail)
+
+    // 장바구니에 상품을 추가
     const addItemToCart = () => {
         //사이즈를 아직 선택안했다면 에러
         // 아직 로그인을 안한유저라면 로그인페이지로
         // 카트에 아이템 추가하기
     };
-    const selectSize = (value) => {
-        // 사이즈 추가하기
-    };
 
-    //카트에러가 있으면 에러메세지 보여주기
+    // 사이즈 선택
+    const selectSize = (value) => { };
 
-    //에러가 있으면 에러메세지 보여주기
+    // 로딩 중이면 로딩 스피너를 표시
+    if (loading) {
+        return <ColorRing />;
+    }
 
-    useEffect(() => {
-        //상품 디테일 정보 가져오기
-    }, [id]);
+    // 에러가 있으면 에러 메시지 표시
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    // productDetail이 null이거나 undefined인 경우
+    if (!productDetail) {
+        return <div>No product found.</div>;
+    }
 
     return (
         <Container className="product-detail-card">
             <Row>
                 <Col sm={6}>
-                    <img
-                        src="https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F3a%2F04%2F3a04ededbfa6a7b535e0ffa30474853fc95d2e81.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5B%5D%2Ctype%5BLOOKBOOK%5D%2Cres%5Bm%5D%2Chmver%5B1%5D&call=url[file:/product/fullscreen]"
-                        className="w-100"
-                        alt="image"
-                    />
+                    <img src={productDetail.image} className="w-100" alt="image" />
                 </Col>
                 <Col className="product-info-area" sm={6}>
-                    <div className="product-info">리넨셔츠</div>
-                    <div className="product-info">₩ 45,000</div>
-                    <div className="product-info">샘플설명</div>
+                    <div className="product-info">{productDetail.name}</div>
+                    <div className="product-info">{currencyFormat(productDetail.price)}</div>
+                    <div className="product-info">{productDetail.description}</div>
 
                     <Dropdown
                         className="drop-down size-drop-down"
@@ -65,14 +79,16 @@ const ProductDetail = () => {
                             {size === "" ? "사이즈 선택" : size.toUpperCase()}
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu className="size-drop-down">
-                            <Dropdown.Item>M</Dropdown.Item>
-                        </Dropdown.Menu>
+                        {/* <Dropdown.Menu className="size-drop-down">
+                            {productDetail.sizes.map((sizeOption) => (
+                                <Dropdown.Item key={sizeOption}>{sizeOption}</Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu> */}
                     </Dropdown>
                     <div className="warning-message">{sizeError && "사이즈를 선택해주세요."}</div>
-                    <Button variant="dark" className="add-button" onClick={addItemToCart}>
+                    <button className="btn btn-add" onClick={addItemToCart}>
                         추가
-                    </Button>
+                    </button>
                 </Col>
             </Row>
         </Container>
