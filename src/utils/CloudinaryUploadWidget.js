@@ -26,10 +26,13 @@ class CloudinaryUploadWidget extends Component {
                 }
             } //https://cloudinary.com/documentation/react_image_and_video_upload
         );
+
         // 업로드 버튼 클릭 시 이벤트
         document.getElementById("upload_widget").addEventListener(
             "click",
-            function () {
+            (event) => {
+                event.preventDefault(); // 기본 동작 방지
+                event.stopPropagation(); // 버블링 이슈. 이벤트 전파 중지
                 // 업로드 위젯을 열어 사용자가 파일을 선택할 수 있도록 함
                 myWidget.open();
             },
