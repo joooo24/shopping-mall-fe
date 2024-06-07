@@ -272,32 +272,15 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                     </div>
 
                     {/* 상품 이미지 업로드 */}
-                    {/* <div className="form-group-wrap coloum" controlId="Image" required>
-                        <Form.Label>상품 이미지</Form.Label>
-                        <CloudinaryUploadWidget uploadImage={uploadImage} />
-                        <img
-                            id="uploadedimage"
-                            src={formData.image}
-                            className="upload-image mt-2"
-                            alt="uploadedimage"
-                        ></img>
-                    </div> */}
-
                     <div className="form-group-wrap coloum" controlId="Image" required>
                         <Form.Label>상품 이미지</Form.Label>
                         <CloudinaryUploadWidget uploadImage={uploadImage} />
-
-                        <img
-                            id="uploadedimage"
-                            src={formData.image}
-                            className="upload-image mt-2 visually-hidden"
-                            alt="uploadedimage"
-                        />
-                        {!formData.image && (
+                        {formData.image ? (
+                            <img id="uploadedimage" src={formData.image} className="upload-image mt-2" alt="uploadedimage" />
+                        ) : (
                             <div className="error-message mt-1">이미지가 업로드되지 않았습니다.</div>
                         )}
                     </div>
-
 
                     <div className="form-group-wrap">
                         {/* 가격 */}
