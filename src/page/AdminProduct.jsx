@@ -51,13 +51,18 @@ const AdminProduct = () => {
 
     // 상품 수정 다이얼로그 열기
     const openEditForm = (product) => {
-        setMode("edit"); // edit 모드 설정
+        // edit 모드 설정
+        setMode("edit");
+        // 선택된 상품 설정 (통신이 필요x 바로 리덕스로)
+        // -> 폼에 보여기주기 위함 
+        dispatch({ type: types.SET_SELECTED_PRODUCT, payload: product });
         setShowDialog(true);
     };
 
     // 상품 생성 다이얼로그 열기
     const handleClickNewItem = () => {
-        setMode("new"); // new 모드 설정
+        // new 모드 설정
+        setMode("new");
         setShowDialog(true);
     };
 

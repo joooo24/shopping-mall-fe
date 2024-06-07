@@ -21,13 +21,13 @@ const InitialFormData = {
 };
 
 const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
-    // Redux store에서 선택된 상품 및 에러 상태를 가져옴
+    // Redux store에서 선택된 상품 가져오기
     const selectedProduct = useSelector((state) => state.product.selectedProduct);
     const { error } = useSelector((state) => state.product);
 
     // 상태 변수 초기화
     const [formData, setFormData] = useState(
-        // 모드가 "new"인 라면 초기 값 InitialFormData, 아니면 selectedProduct
+        // 모드가 "new"인 라면 초기 값 InitialFormData, 모드가 "edit" selectedProduct
         mode === "new" ? { ...InitialFormData } : selectedProduct
     );
 

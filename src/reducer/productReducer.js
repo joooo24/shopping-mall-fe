@@ -6,6 +6,7 @@ const initialState = {
     totalPageNum: 1, // 총 페이지 수
     totalItemNum: 1, // 총 데이터 수
     error: "", // 에러 메시지
+    selectedProduct: null,
 };
 
 function productReducer(state = initialState, action) {
@@ -35,6 +36,10 @@ function productReducer(state = initialState, action) {
         case types.PRODUCT_CREATE_FAIL:
         case types.PRODUCT_GET_FAIL:
             return { ...state, loading: false, error: payload.message };
+
+        // 선택된 상품
+        case types.SET_SELECTED_PRODUCT:
+            return { ...state, selectedProduct: payload }
 
         // 상품 정보 초기화
         case types.CLEAR_DATA:
