@@ -48,7 +48,9 @@ const AdminProduct = () => {
     }, [searchQuery]);
 
     // 아이템 삭제
-    const deleteItem = (id) => {};
+    const deleteItem = (id) => {
+        dispatch(productActions.deleteProduct(id));
+    };
 
     // 상품 수정 다이얼로그 열기
     const openEditForm = (product) => {

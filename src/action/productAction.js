@@ -63,6 +63,33 @@ const deleteProduct = (id) => async (dispatch) => { };
 // 상품 수정
 const editProduct = (formData, id) => async (dispatch) => { };
 
+// 상품 삭제 (논리 삭제)
+const deleteProduct = (id) => async (dispatch) => {
+
+    try {
+        // 상품 삭제 요청
+        dispatch({ type: types.PRODUCT_DELETE_REQUEST });
+
+        // 서버에 상품 삭제 요청
+        const response = await api.delete(`/product/${id}`);
+        if (response.status !== 200) {
+            throw new Error(response.data.error);
+        }
+
+        // 상품 삭제 성공
+        dispatch({ type: types.PRODUCT_DELETE_SUCCESS });
+
+        // 토스트 알림
+        dispatch(commonUiActions.showToastMessage("상품이 삭제되었습니다", "success"));
+
+    } catch (err) {
+        // 상품 삭제 실패
+        dispatch({ type: types.PRODUCT_DELETE_FAIL, payload: err });
+
+        // 토스트 알림
+        dispatch(commonUiActions.showToastMessage("상품 삭제 중 오류가 발생했습니다", "error"));
+    }
+};
 export const productActions = {
     getProductList,
     createProduct,

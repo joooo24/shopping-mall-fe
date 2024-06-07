@@ -13,13 +13,15 @@ function productReducer(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        // 상품 생성/조회 요청
+        // 상품 생성/조회/수정/삭제 요청
         case types.PRODUCT_CREATE_REQUEST:
         case types.PRODUCT_GET_REQUEST:
+        case types.PRODUCT_DELETE_REQUEST:
             return { ...state, loading: true };
 
-        // 상품 생성 성공
+        // 상품 생성/수정/삭제 성공
         case types.PRODUCT_CREATE_SUCCESS:
+        case types.PRODUCT_DELETE_SUCCESS:
             return { ...state, loading: false };
 
         // 상품 조회 성공
@@ -32,9 +34,10 @@ function productReducer(state = initialState, action) {
                 totalItemNum: payload.totalItemNum
             };
 
-        // 상품 생성/조회 실패
+        // 상품 생성/조회/수정/삭제 실패
         case types.PRODUCT_CREATE_FAIL:
         case types.PRODUCT_GET_FAIL:
+        case types.PRODUCT_DELETE_FAIL:
             return { ...state, loading: false, error: payload.message };
 
         // 선택된 상품
