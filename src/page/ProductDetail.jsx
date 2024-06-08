@@ -23,11 +23,9 @@ const ProductDetail = () => {
     const [option, setOption] = useState("");
     const [optionError, setOptionError] = useState(false);
 
-    // Redux 상태 선택자를 사용하여 유저 정보, 상품 정보, 로딩 상태, 에러 상태 가져오기
+    // Redux 상태 선택자를 사용하여 유저 정보, 상품 정보, 장바구니 정보 가져오기
     const { user } = useSelector((state) => state.user);
     const { productDetail, loading, error } = useSelector((state) => state.product);
-    // console.log("### productDetail", productDetail);
-    // console.log("### user", user);
 
     // 장바구니에 상품 추가
     const addItemToCart = () => {
@@ -44,7 +42,7 @@ const ProductDetail = () => {
         }
 
         // 장바구니에 상품 추가하기 위한 정보 전달
-        dispatch(cartActions.addToCart({ id, option }));
+        dispatch(cartActions.addToCart({ id, option, qty: 1 }));
     };
 
     // 사이즈 선택

@@ -4,14 +4,14 @@ import { commonUiActions } from "../action/commonUiAction";
 
 // 장바구니 아이템 추가
 const addToCart =
-    ({ id, size, qty }) =>
+    ({ id, option, qty }) =>
     async (dispatch) => {
         try {
             // 장바구니에 아이템 추가 요청
             dispatch({ type: types.ADD_TO_CART_REQUEST });
 
             // 서버에 장바구니에 아이템 추가 요청
-            const response = await api.post("/cart", { productId: id, size, qty });
+            const response = await api.post("/cart", { productId: id, size: option, qty });
             if (response.status !== 200) {
                 throw new Error(response.error);
             }
@@ -25,13 +25,7 @@ const addToCart =
             dispatch({ type: types.ADD_TO_CART_FAIL, payload: err.error });
 
             // 토스트 알림
-            dispatch(
-                commonUiActions.showToastMessage(
-                    `일시적인 문제로 상품이 장바구니에 담기지 않았습니다.
-                다시 시도해주시기 바랍니다.`,
-                    "error"
-                )
-            );
+            dispatch(commonUiActions.showToastMessage(err.message, "error"));
         }
     };
 
