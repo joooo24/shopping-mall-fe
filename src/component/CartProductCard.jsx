@@ -7,6 +7,7 @@ import { cartActions } from "../action/cartAction";
 import { currencyFormat } from "../utils/number";
 
 const CartProductCard = ({ item }) => {
+    console.log("CartProductCard item", item)
     const dispatch = useDispatch();
 
     const handleQtyChange = () => {
