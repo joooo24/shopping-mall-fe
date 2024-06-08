@@ -9,9 +9,10 @@ import { ColorRing } from "react-loader-spinner";
 
 const CartPage = () => {
     const dispatch = useDispatch();
-    const { cart: cartData, loading, error } = useSelector((state) => state.cart);
-
-    console.log("### CartPage cartData", cartData);
+    const { cartList, totalPrice, cartItemQty, loading, error } = useSelector((state) => state.cart);
+    console.log("### CartPage cartList", cartList);
+    console.log("### CartPage cartItemQty", cartItemQty);
+    console.log("### CartPage totalPrice", totalPrice);
     useEffect(() => {
         // 카트 리스트 불러오기
         dispatch(cartActions.getCartList());
@@ -29,8 +30,8 @@ const CartPage = () => {
         <Container>
             <Row>
                 <Col xs={12} md={7}>
-                    {cartData?.length > 0 ? (
-                        cartData.map((item) => <CartProductCard item={item} key={item._id} />)
+                    {cartList && cartList?.length > 0 ? (
+                        cartList?.map((item) => <CartProductCard item={item} key={item._id} />)
                     ) : (
                         <div className="text-align-center empty-bag">
                             <h2>카트가 비어있습니다.</h2>
@@ -39,7 +40,7 @@ const CartPage = () => {
                     )}
                 </Col>
                 <Col xs={12} md={5}>
-                    <OrderReceipt cartData={cartData} />
+                    <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
                 </Col>
             </Row>
         </Container>

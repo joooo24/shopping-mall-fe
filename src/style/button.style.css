@@ -81,6 +81,15 @@ button.btn {
     }
 }
 
+.btn-close {
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
 .link {
     font-size: 12px;
     cursor: pointer;
