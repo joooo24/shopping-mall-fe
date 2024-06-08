@@ -246,7 +246,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                                 <option
                                                     invalid="true"
                                                     value={item.toLowerCase()}
-                                                    disabled={stock.some((size) => size[0] === item.toLowerCase())}
+                                                    disabled={stock.some((option) => option[0] === item.toLowerCase())}
                                                     key={index}
                                                 >
                                                     {item}

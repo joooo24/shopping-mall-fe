@@ -23,9 +23,9 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                                 <td style={{ minWidth: "100px" }}>{item.name}</td>
                                 <td>{currencyFormat(item.price)}</td>
                                 <td>
-                                    {Object.keys(item.stock).map((size, index) => (
+                                    {Object.keys(item.stock).map((option, index) => (
                                         <div key={index}>
-                                            {size}:{item.stock[size]}
+                                            {option}:{item.stock[option]}
                                         </div>
                                     ))}
                                 </td>
@@ -35,13 +35,13 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                                 <td>{item.status}</td>
                                 <td style={{ minWidth: "100px" }}>
                                     <Button
-                                        size="sm"
+                                        option="sm"
                                         variant="danger"
                                         onClick={() => deleteItem(item._id)}
                                         className="mr-1">
                                         Delete
                                     </Button>
-                                    <Button size="sm" onClick={() => openEditForm(item)}>
+                                    <Button option="sm" onClick={() => openEditForm(item)}>
                                         Edit
                                     </Button>
                                 </td>

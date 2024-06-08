@@ -16,7 +16,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
                     <li>
                         <div className="display-flex space-between">
                             <div>
-                                {item.productId.name} [{item.size}] {item.qty}개
+                                {item.productId.name} [{item.option}] {item.qty}개
                             </div>
                             <div>₩ {item.productId.price * item.qty}</div>
                         </div>

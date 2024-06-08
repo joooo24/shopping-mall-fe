@@ -11,7 +11,7 @@ const addToCart =
             dispatch({ type: types.ADD_TO_CART_REQUEST });
 
             // 서버에 장바구니에 아이템 추가 요청
-            const response = await api.post("/cart", { productId: id, size: option, qty });
+            const response = await api.post("/cart", { productId: id, option, qty });
             if (response.status !== 200) {
                 throw new Error(response.error);
             }

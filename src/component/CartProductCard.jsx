@@ -30,7 +30,7 @@ const CartProductCard = ({ item, totalPrice }) => {
                     <strong>₩ {currencyFormat(item.productId.price)}</strong>
                 </div>
                 <div>
-                    <span>옵션 :</span> {item.size}
+                    <span>옵션 :</span> {item.option}
                 </div>
                 <div className="display-flex space-between">
                     <span>수량 :</span>
