@@ -45,18 +45,73 @@ const getCartList = () => async (dispatch) => {
     }
 };
 
+// 장바구니 아이템 전체 삭제
+const emptyCart = () => async (dispatch) => {
+    try {
+        dispatch({ type: types.EMPTY_CART_REQUEST });
+        const response = await api.delete("/cart");
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+        dispatch({ type: types.EMPTY_CART_SUCCESS });
+        dispatch(commonUiActions.showToastMessage("장바구니가 비워졌습니다", "success"));
+    } catch (err) {
+        dispatch({ type: types.EMPTY_CART_FAIL, payload: err.error });
+        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+    }
+};
+
 // 장바구니 아이템 삭제
-const deleteCartItem = (id) => async (dispatch) => {};
+const deleteCartItem = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: types.DELETE_CART_ITEM_REQUEST });
+        const response = await api.post(`/cart/${id}`);
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+        dispatch({ type: types.DELETE_CART_ITEM_SUCCESS, payload: id });
+        dispatch(commonUiActions.showToastMessage("장바구니 아이템을 삭제했습니다", "success"));
+    } catch (err) {
+        dispatch({ type: types.DELETE_CART_ITEM_FAIL, payload: err.error });
+        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+    }
+};
 
 // 장바구니 아이템 수량 수정
-const updateQty = (id, value) => async (dispatch) => {};
+const updateQty = (id, qty) => async (dispatch) => {
+    try {
+        dispatch({ type: types.UPDATE_CART_ITEM_REQUEST });
+        const response = await api.put(`/cart/${id}`, { qty });
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+        dispatch({ type: types.UPDATE_CART_ITEM_SUCCESS, payload: { id, qty } });
+        dispatch(commonUiActions.showToastMessage("장바구니 아이템 수량을 수정했습니다", "success"));
+    } catch (err) {
+        dispatch({ type: types.UPDATE_CART_ITEM_FAIL, payload: err.error });
+        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+    }
+};
 
 // 장바구니 아이템 수량 가져오기
-const getCartQty = () => async (dispatch) => {};
+const getCartQty = () => async (dispatch) => {
+    try {
+        dispatch({ type: types.GET_CART_QTY_REQUEST });
+        // const response = await api.get("/cart/quantity");
+        // if (response.status !== 200) {
+        //     throw new Error(response.error);
+        // }
+        // dispatch({ type: types.GET_CART_QTY_SUCCESS, payload: response.data.quantity });
+    } catch (err) {
+        dispatch({ type: types.GET_CART_QTY_FAIL, payload: err.error });
+        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+    }
+};
 
 export const cartActions = {
     addToCart,
     getCartList,
+    emptyCart,
     deleteCartItem,
     updateQty,
     getCartQty,

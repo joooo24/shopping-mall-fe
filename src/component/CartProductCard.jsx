@@ -1,30 +1,31 @@
 import React from "react";
-import { Row, Col, Form } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../action/cartAction";
 import { currencyFormat } from "../utils/number";
 import { IoClose } from "react-icons/io5";
 
-const CartProductCard = ({ item, totalPrice }) => {
-    console.log("CartProductCard item", item);
+const CartProductCard = ({ item }) => {
     const dispatch = useDispatch();
 
-    const handleQtyChange = () => {
-        //아이템 수량을 수정한다
+    // 수량 변경 핸들러
+    const handleQtyChange = (event) => {
+        const newQty = event.target.value;
+        dispatch(cartActions.updateQty(item.productId._id, newQty));
     };
 
-    const deleteCart = (id) => {
-        //아이템을 지운다
+    // 장바구니 아이템 삭제
+    const deleteCart = () => {
+        dispatch(cartActions.deleteCartItem(item.productId._id));
     };
 
     return (
         <div className="cart-product-card">
             <div className="cart-product-img">
-                <img src={item.productId.image} width={112} />
+                <img src={item.productId.image} width={112} alt="" />
             </div>
             <div className="cart-product-info">
-                <IoClose className="btn-close" onClick={() => deleteCart("hard_code")} />
+                <IoClose className="btn-close" onClick={deleteCart} />
                 <h3>{item.productId.name}</h3>
                 <div>
                     <strong>₩ {currencyFormat(item.productId.price)}</strong>
@@ -35,11 +36,16 @@ const CartProductCard = ({ item, totalPrice }) => {
                 <div className="display-flex space-between">
                     <span>수량 :</span>
                     <Form.Select
-                        onChange={(event) => handleQtyChange()}
+                        onChange={handleQtyChange}
                         required
                         defaultValue={item.qty}
                         className="qty-dropdown"
                     >
+                        {/* {[...Array(10)].map((_, index) => (
+                            <option key={index + 1} value={index + 1}>
+                                {index + 1}
+                            </option>
+                        ))} */}
                         <option value={1}>1</option>
                         <option value={2}>2</option>
                         <option value={3}>3</option>
