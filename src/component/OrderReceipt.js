@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import { currencyFormat } from "../utils/number";
 
-const OrderReceipt = () => {
+const OrderReceipt = ({cartData}) => {
     const location = useLocation();
     const navigate = useNavigate();
 

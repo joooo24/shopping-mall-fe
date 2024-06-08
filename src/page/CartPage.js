@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../action/cartAction";
@@ -9,11 +8,21 @@ import "../style/cart.style.css";
 
 const CartPage = () => {
     const dispatch = useDispatch();
+    const { cart: cartData, loading, error } = useSelector((state) => state.cart);
 
+    console.log("### CartPage cartData", cartData)
     useEffect(() => {
-        //카트리스트 불러오기
+        // 카트 리스트 불러오기
+        dispatch(cartActions.getCartList());
     }, []);
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
     return (
         <Container>
             <Row>
@@ -24,7 +33,7 @@ const CartPage = () => {
                     </div>
                 </Col>
                 <Col xs={12} md={5}>
-                    <OrderReceipt />
+                    <OrderReceipt cartData={cartData} />
                 </Col>
             </Row>
         </Container>
