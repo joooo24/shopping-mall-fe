@@ -13,12 +13,23 @@ const addToCart =
             if (response.status !== 200) {
                 throw new Error(response.error);
             }
-            // console.log("### cart response", response)
-
+            
             // 장바구니에 아이템 담기 요청 성공
             dispatch({ type: types.ADD_TO_CART_SUCCESS, payload: response.data });
+
+            // 토스트 알림
+            dispatch(commonUiActions.showToastMessage("상품을 장바구니에 담았습니다", "success"));
         } catch (err) {
             dispatch({ type: types.ADD_TO_CART_FAIL });
+
+            // 토스트 알림
+            dispatch(
+                commonUiActions.showToastMessage(
+                    `일시적인 문제로 상품이 장바구니에 담기지 않았습니다.
+                    다시 시도해주시기 바랍니다.`,
+                    "error"
+                )
+            );
         }
     };
 
