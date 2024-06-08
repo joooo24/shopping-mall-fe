@@ -1,5 +1,4 @@
 body {
-    font-family: sans-serif;
     background-color: #FAF9F8;
 }
 
@@ -9,12 +8,10 @@ body {
     align-items: center;
     margin-right: 20px;
     margin-top: 40px;
-
 }
 
 .nav-header .nav-icon {
     margin-right: 20px;
-
 }
 
 .nav-icon span {
@@ -294,7 +291,7 @@ body {
     background-color: #FAF9F8;
 }
 
-.link-admin{
+.link-admin {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;

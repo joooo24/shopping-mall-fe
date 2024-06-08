@@ -6,6 +6,13 @@
     padding: 50px 0;
 }
 
+.no-contents{
+    padding: 50px 0;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 18px;
+}
+
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -79,5 +86,9 @@
     /* 공통 */
     .user-page {
         padding: 0 0 20px;
+    }
+
+    .no-contents{
+        font-size: 16px;
     }
 }

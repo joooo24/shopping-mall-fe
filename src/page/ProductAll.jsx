@@ -22,7 +22,14 @@ const ProductAll = () => {
     return (
         <div className="product-container">
             <div className="product-list">
-                <ProductCard productList={productList} />
+                {productList && productList.length > 0 ? (
+                    <ProductCard productList={productList} />
+                ) : (
+                    <div className="no-contents">
+                        "{searchQuery}"로 등록된 제품이 없습니다.
+                        <br />
+                    </div>
+                )}
             </div>
         </div>
     );
