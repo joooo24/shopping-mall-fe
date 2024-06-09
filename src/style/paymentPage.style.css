@@ -6,12 +6,8 @@
     margin:0 !important;
 }
 
-
 .form-area input{
     margin-bottom: 10px;
-}
-.pay-button{
-    margin-top: 30px;
 }
 
 .confirmation-page{
@@ -43,8 +39,4 @@
         display:block;
     }
 
-    /* .pay-button{
-        position: absolute;
-        bottom: 0;
-    } */
 }
