@@ -15,7 +15,7 @@ const PaymentPage = () => {
 
     const navigate = useNavigate();
     const [firstLoading, setFirstLoading] = useState(true);
-    const { cartList, totalPrice, cartItemQty, loading, error } = useSelector((state) => state.cart);
+    const { cartId, cartList, totalPrice, cartItemQty, loading, error } = useSelector((state) => state.cart);
 
     // 배송 정보
     const [shipInfo, setShipInfo] = useState({
@@ -45,6 +45,7 @@ const PaymentPage = () => {
 
         // 백엔드로 보낼 주문 정보
         const data = {
+            cartId: cartId,
             totalPrice,
             shipTo: { address, city, zip },
             contact: { firstName, lastName, contact },
