@@ -94,13 +94,14 @@ const ProductDetail = () => {
                         >
                             {option === "" ? "옵션 선택" : option.toUpperCase()}
                         </Dropdown.Toggle>
-
                         <Dropdown.Menu className="size-drop-down">
-                            {Object.entries(productDetail.stock).map(([option, quantity]) => (
-                                <Dropdown.Item key={option} eventKey={option}>
-                                    {`${option.toUpperCase()}: ${quantity}개 남음`}
-                                </Dropdown.Item>
-                            ))}
+                            {Object.entries(productDetail.stock)
+                                .filter(([option, quantity]) => quantity > 0)
+                                .map(([option, quantity]) => (
+                                    <Dropdown.Item key={option} eventKey={option}>
+                                        {`${option.toUpperCase()}: ${quantity}개 남음`}
+                                    </Dropdown.Item>
+                                ))}
                         </Dropdown.Menu>
                     </Dropdown>
                     <div className="warning-message">{optionError && "옵션을 선택해주세요."}</div>
