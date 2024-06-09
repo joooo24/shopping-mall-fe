@@ -40,7 +40,28 @@ const PaymentPage = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        //오더 생성하기
+
+        const { firstName, lastName, contact, address, city, zip } = shipInfo;
+
+        // 백엔드로 보낼 주문 정보
+        const data = {
+            totalPrice,
+            shipTo: { address, city, zip },
+            contact: { firstName, lastName, contact },
+            orderList:
+                // 주문 정보는 카트 정보에서 가져옴
+                cartList.map((item) => {
+                    return {
+                        productId: item.productId._id,
+                        price: item.productId.price,
+                        qty: item.qty,
+                        option: item.option,
+                    };
+                }),
+        };
+
+        // 오더 생성하기
+        dispatch(orderActions.createOrder(data));
     };
 
     // 배송 정보(shipInfo) 값 넣기
@@ -66,7 +87,11 @@ const PaymentPage = () => {
     const handleInputFocus = (e) => {
         setCardValue({ ...cardValue, focus: e.target.name });
     };
+
     //카트에 아이템이 없다면 다시 카트페이지로 돌아가기 (결제할 아이템이 없으니 결제페이지로 가면 안됌)
+    if (cartList.length === 0) {
+        navigate("/cart");
+    }
     return (
         <Container>
             <Row>
@@ -75,6 +100,7 @@ const PaymentPage = () => {
                         <div className="form-container">
                             <Form className="form-box" onSubmit={handleSubmit}>
                                 <h2>배송 주소</h2>
+
                                 <Row className="mb-3">
                                     <Form.Group as={Col} controlId="lastName">
                                         <Form.Label>성</Form.Label>
@@ -119,12 +145,12 @@ const PaymentPage = () => {
 
                                 <Row className="mb-3">
                                     <Form.Group as={Col} controlId="formGridCity">
-                                        <Form.Label>City</Form.Label>
+                                        <Form.Label>시/도</Form.Label>
                                         <Form.Control onChange={handleFormChange} required name="city" />
                                     </Form.Group>
 
                                     <Form.Group as={Col} controlId="formGridZip">
-                                        <Form.Label>Zip</Form.Label>
+                                        <Form.Label>우편번호</Form.Label>
                                         <Form.Control onChange={handleFormChange} required name="zip" />
                                     </Form.Group>
                                 </Row>
@@ -132,7 +158,7 @@ const PaymentPage = () => {
                                 <div className="mobile-receipt-area">
                                     <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
                                 </div>
-                                
+
                                 <div>
                                     <h2 className="payment-title">결제 정보</h2>
                                     <PaymentForm

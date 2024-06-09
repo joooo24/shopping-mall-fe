@@ -9,10 +9,8 @@ import { ColorRing } from "react-loader-spinner";
 
 const CartPage = () => {
     const dispatch = useDispatch();
-    const { cartList, totalPrice, cartItemQty, loading, error } = useSelector((state) => state.cart);
+    const { cartList, totalPrice, loading, error } = useSelector((state) => state.cart);
     console.log("### CartPage cartList", cartList);
-    console.log("### CartPage cartItemQty", cartItemQty);
-    console.log("### CartPage totalPrice", totalPrice);
     useEffect(() => {
         // 카트 리스트 불러오기
         dispatch(cartActions.getCartList());

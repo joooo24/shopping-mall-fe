@@ -3,12 +3,27 @@ import * as types from "../constants/order.constants";
 import { cartActions } from "./cartAction";
 import { commonUiActions } from "./commonUiAction";
 
-const createOrder = (payload) => async (dispatch) => { };
+const createOrder = (payload) => async (dispatch) => {
+    try {
+        dispatch({ type: types.CREATE_ORDER_REQUEST });
+        
+        const response = await api.post("/order", payload);
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
 
-const getOrder = () => async (dispatch) => { };
-const getOrderList = (query) => async (dispatch) => { };
+        dispatch({ type: types.CREATE_ORDER_SUCCESS, payload: response.data.orderNum });
+    } catch (err) {
+        dispatch({ type: types.CREATE_ORDER_FAIL, payload: err.error });
+        // 토스트 알림
+        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+    }
+};
 
-const updateOrder = (id, status) => async (dispatch) => { };
+const getOrder = () => async (dispatch) => {};
+const getOrderList = (query) => async (dispatch) => {};
+
+const updateOrder = (id, status) => async (dispatch) => {};
 
 export const orderActions = {
     createOrder,
