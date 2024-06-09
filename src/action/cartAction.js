@@ -93,17 +93,17 @@ const updateQty = (id, qty) => async (dispatch) => {
     }
 };
 
-// 장바구니 아이템 수량 가져오기
+// 장바구니 아이템 총 수량 가져오기
 const getCartQty = () => async (dispatch) => {
     try {
         dispatch({ type: types.GET_CART_QTY_REQUEST });
-        // const response = await api.get("/cart/quantity");
-        // if (response.status !== 200) {
-        //     throw new Error(response.error);
-        // }
-        // dispatch({ type: types.GET_CART_QTY_SUCCESS, payload: response.data.quantity });
+        const response = await api.get("/cart/qty");
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+        dispatch({ type: types.GET_CART_QTY_SUCCESS, payload: response.data.qty });
     } catch (err) {
-        dispatch({ type: types.GET_CART_QTY_FAIL, payload: err.error });
+        dispatch({ type: types.GET_CART_QTY_FAIL, payload: err.message });
         dispatch(commonUiActions.showToastMessage(err.message, "error"));
     }
 };

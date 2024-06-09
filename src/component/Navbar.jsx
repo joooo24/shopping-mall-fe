@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faBars, faBox, faSearch, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
+import { cartActions } from "../action/cartAction";
 
 const Navbar = ({ user }) => {
     const dispatch = useDispatch();
-    const { cartItemCount } = useSelector((state) => state.cart);
+    const { cartItemQty } = useSelector((state) => state.cart);
     const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
     const [showSearchBox, setShowSearchBox] = useState(false);
     const menuList = ["여성", "Divided", "남성", "신생아/유아", "아동", "H&M HOME", "Sale", "지속가능성"];
     const [width, setWidth] = useState(0);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        dispatch(cartActions.getCartQty());
+    }, [dispatch]);
+
 
     const onCheckEnter = (event) => {
         if (event.key === "Enter") {
@@ -77,7 +83,7 @@ const Navbar = ({ user }) => {
                         )}
                         <div onClick={() => navigate("/cart")} className="nav-icon">
                             <FontAwesomeIcon icon={faShoppingBag} />
-                            {!isMobile && <span style={{ cursor: "pointer" }}>{`쇼핑백(${cartItemCount || 0})`}</span>}
+                            {!isMobile && <span style={{ cursor: "pointer" }}>{`쇼핑백(${cartItemQty || 0})`}</span>}
                         </div>
                         <div onClick={() => navigate("/account/purchase")} className="nav-icon">
                             <FontAwesomeIcon icon={faBox} />
