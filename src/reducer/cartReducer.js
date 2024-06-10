@@ -13,23 +13,22 @@ const initialState = {
 function cartReducer(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
-        // 장바구니 관련 요청
+        case LOGOUT: {
+            return { ...state, cartItemCount: 0 };
+        }
+        // 요청 시도
         case types.ADD_TO_CART_REQUEST:
         case types.GET_CART_LIST_REQUEST:
-        case types.EMPTY_CART_REQUEST:
         case types.DELETE_CART_ITEM_REQUEST:
         case types.UPDATE_CART_ITEM_REQUEST:
         case types.GET_CART_QTY_REQUEST:
+        case types.EMPTY_CART_REQUEST:
             return { ...state, loading: true };
 
-        // 장바구니 담기 성공
+        // 장바구니 아이템 추가/삭제 성공
         case types.ADD_TO_CART_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                cartItemQty: payload, // TODO
-                // cartItemQty: state.cartItemQty + payload.qty,
-            };
+        case types.DELETE_CART_ITEM_SUCCESS:
+            return { ...state, loading: false, cartItemQty: payload };
 
         // 장바구니 목록 가져오기 성공
         case types.GET_CART_LIST_SUCCESS:
@@ -51,28 +50,16 @@ function cartReducer(state = initialState, action) {
                 totalPrice: 0,
             };
 
-        // 장바구니 아이템 삭제 성공
-        case types.DELETE_CART_ITEM_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                cartList: state.cartList.filter((item) => item._id !== payload), // 삭제된 아이템 제외
-                totalPrice: state.cartList.reduce((total, item) => total + item.productId.price * item.qty, 0),
-            };
-
-        // 장바구니 수량 업데이트 성공
+        // 장바구니 아이템 수량 변경 성공
         case types.UPDATE_CART_ITEM_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                cartList: state.cartList.map((item) => {
-                    if (item._id === payload.id) {
-                        // 수정된 아이템의 수량만 변경
-                        return { ...item, qty: payload.qty };
-                    }
-                    return item;
-                }),
-                totalPrice: state.cartList.reduce((total, item) => total + item.productId.price * item.qty, 0),
+                cartList: payload,
+                totalPrice: payload.reduce(
+                    (total, item) => (total += item.productId.price * item.qty),
+                    0
+                ),
             };
 
         // 장바구니 총 수량 가져오기
@@ -82,14 +69,14 @@ function cartReducer(state = initialState, action) {
                 cartItemQty: action.payload,
                 loading: false,
             };
-            
-        // 장바구니 관련 요청 실패
+
+        // 요청 실패
         case types.ADD_TO_CART_FAIL:
         case types.GET_CART_LIST_FAIL:
-        case types.EMPTY_CART_FAIL:
         case types.DELETE_CART_ITEM_FAIL:
         case types.UPDATE_CART_ITEM_FAIL:
         case types.GET_CART_QTY_FAIL:
+        case types.EMPTY_CART_FAIL:
             return { ...state, loading: false, error: payload };
 
         default:

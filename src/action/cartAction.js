@@ -5,29 +5,29 @@ import { commonUiActions } from "../action/commonUiAction";
 // 장바구니 아이템 추가
 const addToCart =
     ({ id, option, qty }) =>
-    async (dispatch) => {
-        try {
-            // 장바구니에 아이템 추가 요청
-            dispatch({ type: types.ADD_TO_CART_REQUEST });
+        async (dispatch) => {
+            try {
+                // 장바구니에 아이템 추가 요청
+                dispatch({ type: types.ADD_TO_CART_REQUEST });
 
-            // 서버에 장바구니에 아이템 추가 요청
-            const response = await api.post("/cart", { productId: id, option, qty });
-            if (response.status !== 200) {
-                throw new Error(response.error);
+                // 서버에 장바구니에 아이템 추가 요청
+                const response = await api.post("/cart", { productId: id, option, qty });
+                if (response.status !== 200) {
+                    throw new Error(response.error);
+                }
+
+                // 장바구니에 아이템 추가 요청 성공
+                dispatch({ type: types.ADD_TO_CART_SUCCESS, payload: response.data });
+
+                // 토스트 알림
+                dispatch(commonUiActions.showToastMessage("상품을 장바구니에 담았습니다", "success"));
+            } catch (err) {
+                dispatch({ type: types.ADD_TO_CART_FAIL, payload: err.error });
+
+                // 토스트 알림
+                dispatch(commonUiActions.showToastMessage(err.message, "error"));
             }
-
-            // 장바구니에 아이템 추가 요청 성공
-            dispatch({ type: types.ADD_TO_CART_SUCCESS, payload: response.data });
-
-            // 토스트 알림
-            dispatch(commonUiActions.showToastMessage("상품을 장바구니에 담았습니다", "success"));
-        } catch (err) {
-            dispatch({ type: types.ADD_TO_CART_FAIL, payload: err.error });
-
-            // 토스트 알림
-            dispatch(commonUiActions.showToastMessage(err.message, "error"));
-        }
-    };
+        };
 
 // 장바구니 아이템 가져오기
 const getCartList = () => async (dispatch) => {
@@ -65,15 +65,18 @@ const emptyCart = () => async (dispatch) => {
 const deleteCartItem = (id) => async (dispatch) => {
     try {
         dispatch({ type: types.DELETE_CART_ITEM_REQUEST });
-        const response = await api.post(`/cart/${id}`);
-        if (response.status !== 200) {
-            throw new Error(response.error);
-        }
-        dispatch({ type: types.DELETE_CART_ITEM_SUCCESS, payload: id });
+        const response = await api.delete(`/cart/${id}`);
+        if (response.status !== 200) throw new Error(response.error);
+
+        dispatch({
+            type: types.DELETE_CART_ITEM_SUCCESS,
+            payload: response.data.cartItemQty,
+        });
         dispatch(commonUiActions.showToastMessage("장바구니 아이템을 삭제했습니다", "success"));
-    } catch (err) {
-        dispatch({ type: types.DELETE_CART_ITEM_FAIL, payload: err.error });
-        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+        dispatch(getCartList());
+    } catch (error) {
+        dispatch({ type: types.DELETE_CART_ITEM_FAIL, payload: error });
+        dispatch(commonUiActions.showToastMessage(error, "error"));
     }
 };
 

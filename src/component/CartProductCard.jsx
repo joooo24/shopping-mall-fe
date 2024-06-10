@@ -9,9 +9,12 @@ const CartProductCard = ({ item }) => {
     const dispatch = useDispatch();
 
     // 수량 변경 핸들러
-    const handleQtyChange = (event) => {
-        const newQty = event.target.value;
-        dispatch(cartActions.updateQty(item.productId._id, newQty));
+    // const handleQtyChange = (event) => {
+    //     const newQty = event.target.value;
+    //     dispatch(cartActions.updateQty(item.productId._id, newQty));
+    // };
+    const handleQtyChange = (id, value) => {
+        dispatch(cartActions.updateQty(id, value));
     };
 
     // 장바구니 아이템 삭제
@@ -36,7 +39,9 @@ const CartProductCard = ({ item }) => {
                 <div className="display-flex space-between">
                     <span>수량 :</span>
                     <Form.Select
-                        onChange={handleQtyChange}
+                        onChange={(event) =>
+                            handleQtyChange(item._id, event.target.value)
+                        }
                         required
                         defaultValue={item.qty}
                         className="qty-dropdown"
