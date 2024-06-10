@@ -2,6 +2,12 @@ body {
     background-color: #FAF9F8;
 }
 
+.page-container {
+    max-width: 1194px;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .nav-header {
     display: flex;
     justify-content: space-between;
@@ -296,4 +302,11 @@ body {
     justify-content: flex-end;
     margin-top: 20px;
     margin-right: 20px;
+}
+
+@media (max-width: 1194px) {
+    .page-container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
 }

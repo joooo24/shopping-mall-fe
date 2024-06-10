@@ -20,7 +20,7 @@ const OrderCompletePage = () => {
             </div>
         );
     }
-    
+
     return (
         <Container className="confirmation-page">
             <img src="/image/greenCheck.png" width={100} className="check-image" alt="greenCheck.png" />
