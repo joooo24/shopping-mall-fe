@@ -15,7 +15,7 @@ const PaymentPage = () => {
 
     const navigate = useNavigate();
     const [firstLoading, setFirstLoading] = useState(true);
-    const {  cartList, totalPrice, cartItemQty, loading, error } = useSelector((state) => state.cart);
+    const { cartList, totalPrice, loading, error } = useSelector((state) => state.cart);
 
     // 배송 정보
     const [shipInfo, setShipInfo] = useState({
@@ -59,8 +59,7 @@ const PaymentPage = () => {
                     };
                 }),
         };
-
-        // 오더 생성하기
+        //오더 생성하기
         dispatch(orderActions.createOrder(data));
     };
 
@@ -92,6 +91,7 @@ const PaymentPage = () => {
     if (cartList.length === 0) {
         navigate("/cart");
     }
+
     return (
         <Container>
             <Row>
@@ -159,14 +159,12 @@ const PaymentPage = () => {
                                     <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
                                 </div>
 
-                                <div>
-                                    <h2 className="payment-title">결제 정보</h2>
-                                    <PaymentForm
-                                        cardValue={cardValue}
-                                        handleInputFocus={handleInputFocus}
-                                        handlePaymentInfoChange={handlePaymentInfoChange}
-                                    />
-                                </div>
+                                <h2 className="payment-title">결제 정보</h2>
+                                <PaymentForm
+                                    cardValue={cardValue}
+                                    handleInputFocus={handleInputFocus}
+                                    handlePaymentInfoChange={handlePaymentInfoChange}
+                                />
 
                                 <button className="btn btn-submit" type="submit">
                                     결제하기

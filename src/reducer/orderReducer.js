@@ -3,6 +3,8 @@ import * as types from "../constants/order.constants";
 const initialState = {
     loading: false,
     order: null,
+    orderNum: "",
+    myOrderList: [],
     orderList: [],
     error: null,
 };
@@ -17,19 +19,18 @@ function orderReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: true,
-                error: null,
             };
         case types.CREATE_ORDER_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                order: payload,
+                orderNum: payload,
             };
         case types.GET_ORDER_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                order: payload,
+                myOrderList: payload,
             };
         case types.GET_ORDER_LIST_SUCCESS:
             return {
@@ -41,7 +42,7 @@ function orderReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                order: payload,
+                orderList: payload,
             };
         case types.CREATE_ORDER_FAIL:
         case types.GET_ORDER_FAIL:

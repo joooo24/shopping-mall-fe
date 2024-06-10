@@ -18,6 +18,9 @@ const addToCart =
 
                 // 장바구니에 아이템 추가 요청 성공
                 dispatch({ type: types.ADD_TO_CART_SUCCESS, payload: response.data });
+                
+                // 장바구니 총 수량
+                dispatch(cartActions.getCartQty())
 
                 // 토스트 알림
                 dispatch(commonUiActions.showToastMessage("상품을 장바구니에 담았습니다", "success"));

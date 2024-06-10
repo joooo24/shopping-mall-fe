@@ -1,26 +1,27 @@
 import api from "../utils/api";
 import * as types from "../constants/order.constants";
+import { cartActions } from "./cartAction";
 import { commonUiActions } from "./commonUiAction";
 
 // 주문 생성
-const createOrder = (payload, navigate) => async (dispatch) => {
+const createOrder = (payload) => async (dispatch) => {
     try {
         dispatch({ type: types.CREATE_ORDER_REQUEST });
 
         const response = await api.post("/order", payload);
-        if (response.status !== 200) {
-            throw new Error(response.error);
-        }
+        if (response.status !== 200) throw new Error(response.error);
 
         dispatch({ type: types.CREATE_ORDER_SUCCESS, payload: response.data.orderNum });
-        dispatch(commonUiActions.showToastMessage("주문한 상품에 대한 결제가 완료되었습니다.", "success"));
-        
-        // 오더 페이지 이동
-        navigate("/payment/success");
+       console.log("payloadpayloadpayload", payload)
+
+        // order 생성 -> 카트 초기화 -> 장바구니 총 개수 업데이트
+        dispatch(cartActions.getCartQty());
+
+        // 주문 완료 페이지
+        // navigate("/payment/success");
     } catch (err) {
         dispatch({ type: types.CREATE_ORDER_FAIL, payload: err.error });
-        // 토스트 알림
-        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+        dispatch(commonUiActions.showToastMessage(err.error, "error"));
     }
 };
 

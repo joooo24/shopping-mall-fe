@@ -9,8 +9,7 @@ const PaymentForm = ({
     handlePaymentInfoChange,
 }) => {
     return (
-        <Row className="display-flex">
-            <Col md={6} xs={12}>
+        <div className="display-flex">
                 <Cards
                     cvc={cardValue.cvc}
                     expiry={cardValue.expiry}
@@ -18,8 +17,6 @@ const PaymentForm = ({
                     name={cardValue.name}
                     number={cardValue.number}
                 />
-            </Col>
-            <Col md={6} xs={12}>
                 <div className="form-area">
                     <Form.Control
                         type="tel"
@@ -69,8 +66,7 @@ const PaymentForm = ({
                         </Col>
                     </Row>
                 </div>
-            </Col>
-        </Row>
+        </div>
     );
 };
 
