@@ -52,14 +52,21 @@ function cartReducer(state = initialState, action) {
 
         // 장바구니 아이템 수량 변경 성공
         case types.UPDATE_CART_ITEM_SUCCESS:
+            const { id, qty } = payload; // payload에서 id와 qty를 추출
+
+            // 기존 아이템에서 qty를 업데이트한 새로운 아이템을 생성
+            const updatedCartList = state.cartList.map(item =>
+                item._id === id ? { ...item, qty } : item
+            );
+
             return {
                 ...state,
                 loading: false,
-                cartList: payload,
-                totalPrice: payload.reduce(
+                cartList: updatedCartList, // 장바구니 아이템 리스트를 업데이트한 리스트로 교체
+                totalPrice: updatedCartList.reduce(
                     (total, item) => (total += item.productId.price * item.qty),
                     0
-                ),
+                ), // 총 가격 재계산
             };
 
         // 장바구니 총 수량 가져오기
