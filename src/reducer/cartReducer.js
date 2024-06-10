@@ -4,7 +4,6 @@ import { LOGIN_SUCCESS, GOOGLE_LOGIN_SUCCESS, LOGOUT } from "../constants/user.c
 const initialState = {
     loading: true, // 로딩 상태
     error: "", // 에러 메시지
-    cartId: "", // 장바구니 아이디
     cartList: [], // 장바구니 리스트
     cartItemQty: 0, // 장바구니에 담긴 수량
     totalPrice: 0, // 총 합계
@@ -35,7 +34,6 @@ function cartReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                cartId: payload.data._id,
                 cartList: payload.data.items,
                 totalPrice: payload.data.items.reduce((total, item) => (total += item.productId.price * item.qty), 0),
             };
