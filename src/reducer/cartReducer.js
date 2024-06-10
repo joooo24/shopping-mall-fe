@@ -14,7 +14,7 @@ function cartReducer(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
         case LOGOUT: {
-            return { ...state, cartItemCount: 0 };
+            return { ...state, cartItemQty: 0 };
         }
         // 요청 시도
         case types.ADD_TO_CART_REQUEST:
