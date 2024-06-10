@@ -24,13 +24,13 @@ function orderReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                orderNum: payload,
+                orderNum: payload
             };
         case types.GET_ORDER_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                myOrderList: payload,
+                myOrderList: payload
             };
         case types.GET_ORDER_LIST_SUCCESS:
             return {

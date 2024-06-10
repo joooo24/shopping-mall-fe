@@ -37,7 +37,6 @@ const PaymentPage = () => {
     });
 
     //맨처음 페이지 로딩할때는 넘어가고  오더번호를 받으면 성공페이지로 넘어가기
-
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -60,7 +59,7 @@ const PaymentPage = () => {
                 }),
         };
         //오더 생성하기
-        dispatch(orderActions.createOrder(data));
+        dispatch(orderActions.createOrder(data, navigate));
     };
 
     // 배송 정보(shipInfo) 값 넣기
@@ -166,9 +165,9 @@ const PaymentPage = () => {
                                     handlePaymentInfoChange={handlePaymentInfoChange}
                                 />
 
-                                <button className="btn btn-submit" type="submit">
+                                <Button className="btn btn-submit" type="submit">
                                     결제하기
-                                </button>
+                                </Button>
                             </Form>
                         </div>
                     </div>

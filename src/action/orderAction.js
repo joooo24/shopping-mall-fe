@@ -4,21 +4,19 @@ import { cartActions } from "./cartAction";
 import { commonUiActions } from "./commonUiAction";
 
 // 주문 생성
-const createOrder = (payload) => async (dispatch) => {
+const createOrder = (payload, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.CREATE_ORDER_REQUEST });
-
         const response = await api.post("/order", payload);
         if (response.status !== 200) throw new Error(response.error);
 
         dispatch({ type: types.CREATE_ORDER_SUCCESS, payload: response.data.orderNum });
-       console.log("payloadpayloadpayload", payload)
 
         // order 생성 -> 카트 초기화 -> 장바구니 총 개수 업데이트
         dispatch(cartActions.getCartQty());
 
         // 주문 완료 페이지
-        // navigate("/payment/success");
+        navigate("/payment/success");
     } catch (err) {
         dispatch({ type: types.CREATE_ORDER_FAIL, payload: err.error });
         dispatch(commonUiActions.showToastMessage(err.error, "error"));
@@ -35,7 +33,7 @@ const getOrder = () => async (dispatch) => {
             throw new Error(response.error);
         }
 
-        dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data.orderNum });
+        dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data });
     } catch (err) {
         dispatch({ type: types.GET_ORDER_FAIL, payload: err.error });
     }
@@ -51,7 +49,7 @@ const getOrderList = (query) => async (dispatch) => {
             throw new Error(response.error);
         }
 
-        dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data.orderNum });
+        dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data });
     } catch (err) {
         dispatch({ type: types.GET_ORDER_LIST_FAIL, payload: err.error });
     }
