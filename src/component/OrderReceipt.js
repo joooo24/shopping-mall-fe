@@ -31,7 +31,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
                     <strong>₩ {totalPrice}</strong>
                 </div>
             </div>
-            {location.pathname.includes("/cart") && (
+            {location.pathname.includes("/cart") && cartList.length > 0 && (
                 <button className="btn btn-submit" onClick={() => navigate("/payment")}>
                     결제 계속하기
                 </button>

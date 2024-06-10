@@ -8,11 +8,7 @@ import { IoClose } from "react-icons/io5";
 const CartProductCard = ({ item }) => {
     const dispatch = useDispatch();
 
-    // 수량 변경 핸들러
-    // const handleQtyChange = (event) => {
-    //     const newQty = event.target.value;
-    //     dispatch(cartActions.updateQty(item.productId._id, newQty));
-    // };
+    // 수량 변경
     const handleQtyChange = (id, value) => {
         dispatch(cartActions.updateQty(id, value));
     };
