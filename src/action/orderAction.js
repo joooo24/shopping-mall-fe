@@ -1,18 +1,22 @@
 import api from "../utils/api";
 import * as types from "../constants/order.constants";
-import { cartActions } from "./cartAction";
 import { commonUiActions } from "./commonUiAction";
 
-const createOrder = (payload) => async (dispatch) => {
+// 주문 생성
+const createOrder = (payload, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.CREATE_ORDER_REQUEST });
-        
+
         const response = await api.post("/order", payload);
         if (response.status !== 200) {
             throw new Error(response.error);
         }
 
         dispatch({ type: types.CREATE_ORDER_SUCCESS, payload: response.data.orderNum });
+        dispatch(commonUiActions.showToastMessage("주문한 상품에 대한 결제가 완료되었습니다.", "success"));
+        
+        // 오더 페이지 이동
+        navigate("/payment/success");
     } catch (err) {
         dispatch({ type: types.CREATE_ORDER_FAIL, payload: err.error });
         // 토스트 알림
@@ -20,10 +24,57 @@ const createOrder = (payload) => async (dispatch) => {
     }
 };
 
-const getOrder = () => async (dispatch) => {};
-const getOrderList = (query) => async (dispatch) => {};
+// 내 주문 조회
+const getOrder = () => async (dispatch) => {
+    try {
+        dispatch({ type: types.GET_ORDER_REQUEST });
 
-const updateOrder = (id, status) => async (dispatch) => {};
+        const response = await api.get("/me");
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+
+        dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data.orderNum });
+    } catch (err) {
+        dispatch({ type: types.GET_ORDER_FAIL, payload: err.error });
+    }
+};
+
+// 모든 주문 조회
+const getOrderList = (query) => async (dispatch) => {
+    try {
+        dispatch({ type: types.GET_ORDER_LIST_REQUEST });
+
+        const response = await api.get("/");
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+
+        dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data.orderNum });
+    } catch (err) {
+        dispatch({ type: types.GET_ORDER_LIST_FAIL, payload: err.error });
+    }
+};
+
+// 주문 상태 업데이트
+const updateOrder = (id, status) => async (dispatch) => {
+    try {
+        dispatch({ type: types.UPDATE_ORDER_REQUEST });
+
+        const response = await api.put(`/order/${id}`, { status });
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+
+        dispatch({ type: types.UPDATE_ORDER_SUCCESS, payload: response.data.order });
+        // 토스트 알림
+        dispatch(commonUiActions.showToastMessage(`주문 번호 ${id}의 주문 상태가 변경되었습니다.`, "success"));
+    } catch (err) {
+        dispatch({ type: types.UPDATE_ORDER_FAIL, payload: err.error });
+        // 토스트 알림
+        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+    }
+};
 
 export const orderActions = {
     createOrder,
