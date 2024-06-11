@@ -8,10 +8,10 @@ const createOrder = (payload, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.CREATE_ORDER_REQUEST });
         const response = await api.post("/order", payload);
-        if (response.status !== 200) throw new Error(response.error);
+        if (response.status !== 201) throw new Error(response.error);
 
-        dispatch({ type: types.CREATE_ORDER_SUCCESS, payload: response.data.orderNum });
-
+        dispatch({ type: types.CREATE_ORDER_SUCCESS, payload: response.data.data.orderNum });
+        
         // order 생성 -> 카트 초기화 -> 장바구니 총 개수 업데이트
         dispatch(cartActions.getCartQty());
 
