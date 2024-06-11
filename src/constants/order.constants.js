@@ -16,9 +16,10 @@ export const ORDER_STATUS = ["preparing", "shipping", "delivered", "refund"];
 export const UPDATE_ORDER_REQUEST = "UPDATE_ORDER_REQUEST";
 export const UPDATE_ORDER_SUCCESS = "UPDATE_ORDER_SUCCESS";
 export const UPDATE_ORDER_FAIL = "UPDATE_ORDER_FAIL";
+
 export const badgeBg = {
-    preparing: "primary",
-    shipping: "warning",
-    refund: "danger",
-    delivered: "success",
+    preparing: "preparing",
+    shipping: "shipping",
+    refund: "refund",
+    delivered: "delivered",
 };

@@ -33,7 +33,7 @@ const getOrder = () => async (dispatch) => {
             throw new Error(response.error);
         }
 
-        dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data.data });
+        dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data });
     } catch (err) {
         dispatch({ type: types.GET_ORDER_FAIL, payload: err.error });
     }

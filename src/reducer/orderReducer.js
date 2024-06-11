@@ -30,7 +30,7 @@ function orderReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                myOrder: payload
+                myOrder: payload.data
             };
         case types.GET_ORDER_LIST_SUCCESS:
             return {

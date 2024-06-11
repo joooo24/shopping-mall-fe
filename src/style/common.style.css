@@ -6,11 +6,38 @@
     padding: 50px 0;
 }
 
-.no-contents{
+.no-contents {
     padding: 50px 0;
     margin: 0 auto;
     text-align: center;
     font-size: 18px;
+}
+
+.order-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    font-size: 14px;
+    color: white;
+    border-radius: 10px;
+    letter-spacing: 0;
+
+    &.preparing {
+        background-color: grey;
+    }
+
+    &.shipping {
+        background-color: darkorange;
+    }
+
+    &.refund {
+        background-color: brown;
+    }
+
+    &.delivered {
+        background-color: green;
+    }
 }
 
 .visually-hidden {
@@ -88,7 +115,7 @@
         padding: 0 0 20px;
     }
 
-    .no-contents{
+    .no-contents {
         font-size: 16px;
     }
 }
