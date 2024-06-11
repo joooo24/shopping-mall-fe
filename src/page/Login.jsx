@@ -76,13 +76,14 @@ const Login = () => {
                                 회원가입 하기
                             </Link>
                         </p>
-                        <p>-외부 계정으로 로그인하기-</p>
-                        <GoogleLogin
-                            onSuccess={handleGoogleLogin}
-                            onError={() => {
-                                console.log('구글 로그인 실패');
-                            }}
-                        />
+                        <div className="link-wrap">
+                            <GoogleLogin className=""
+                                onSuccess={handleGoogleLogin}
+                                onError={() => {
+                                    console.log('구글 로그인 실패');
+                                }}
+                            />
+                        </div>
                     </div>
                 </Form>
             </div>

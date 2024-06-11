@@ -53,11 +53,9 @@ button.btn {
 
     &.btn-primary {
         background-color: rgb(0, 38, 160);
-        color: white;
 
         &:hover {
             background-color: rgb(16, 70, 255);
-            color: white;
         }
     }
 
@@ -72,13 +70,12 @@ button.btn {
     &.btn-submit {
         height: 46px;
         background-color: rgb(0, 38, 160);
-        color: white;
 
         &:hover {
             background-color: rgb(16, 70, 255);
-            color: white;
         }
     }
+
 }
 
 .btn-close {
@@ -88,6 +85,14 @@ button.btn {
     position: absolute;
     right: 10px;
     top: 10px;
+}
+
+.link-wrap{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .link {
