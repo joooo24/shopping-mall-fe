@@ -33,7 +33,7 @@ const getOrder = () => async (dispatch) => {
             throw new Error(response.error);
         }
 
-        dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data });
+        dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data.data });
     } catch (err) {
         dispatch({ type: types.GET_ORDER_FAIL, payload: err.error });
     }
@@ -49,7 +49,7 @@ const getOrderList = (query) => async (dispatch) => {
             throw new Error(response.error);
         }
 
-        dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data });
+        dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data.data });
     } catch (err) {
         dispatch({ type: types.GET_ORDER_LIST_FAIL, payload: err.error });
     }

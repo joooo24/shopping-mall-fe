@@ -8,15 +8,17 @@ import "../style/orderStatus.style.css";
 import { Link } from "react-router-dom";
 
 const MyPage = () => {
-    const { orderNum, myOrderList } = useSelector((state) => state.order);
     const dispatch = useDispatch();
-
+    
     //오더리스트 들고오기
-    dispatch(orderActions.getOrder);
-    console.log("myOrderList", myOrderList)
+    useEffect(() => {
+        dispatch(orderActions.getOrder());
+    }, [dispatch]);
+   
+    const { myOrder } = useSelector((state) => state.order);
 
     // 오더리스트가 없다면? 주문한 상품이 없습니다 메세지 보여주기
-    if (!orderNum || orderNum === "") {
+    if (myOrder === "") {
         return (
             <div className="page-container">
                 <h1>주문 내역</h1>
@@ -30,8 +32,7 @@ const MyPage = () => {
 
     return (
         <div className="page-container">
-            <h1>주문 내역</h1>
-            <OrderStatusCard />
+            <h2>주문 내역</h2>
         </div>
     );
 };
