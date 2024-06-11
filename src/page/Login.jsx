@@ -3,6 +3,7 @@ import { Form, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -25,7 +26,10 @@ const Login = () => {
     };
 
     const handleGoogleLogin = async (googleData) => {
-        // 구글로 로그인 하기
+        // Google 인증 정보 처리
+        // 이미 로그인한적이 있는 유저 -> 로그인 시키고 토큰 값 주기
+        // 로그인한적이 없는 유저 -> 유저정보 먼저 새로 생성 -> 토큰 값 주기
+        dispatch(userActions.loginWithGoogle(googleData.credential))
     };
 
     // 유저가 있다면?
@@ -73,7 +77,12 @@ const Login = () => {
                             </Link>
                         </p>
                         <p>-외부 계정으로 로그인하기-</p>
-                        <p className="display-center"></p>
+                        <GoogleLogin
+                            onSuccess={handleGoogleLogin}
+                            onError={() => {
+                                console.log('구글 로그인 실패');
+                            }}
+                        />
                     </div>
                 </Form>
             </div>

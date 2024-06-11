@@ -60,7 +60,22 @@ const logout = () => async (dispatch) => {
 };
 
 // Google 토큰 로그인 액션
-const loginWithGoogle = (token) => async (dispatch) => { };
+const loginWithGoogle = (token) => async (dispatch) => {
+    try {
+        dispatch({ type: types.GOOGLE_LOGIN_REQUEST });
+
+        // 서버에 Google 토큰 로그인 요청
+        const response = await api.post("/auth/google", { token });
+        if (response.status !== 200) {
+            throw new Error(response.error);
+        }
+
+        dispatch({ type: types.GOOGLE_LOGIN_SUCCESS, payload: response.data });
+
+    } catch (err) {
+        dispatch({ type: types.GOOGLE_LOGIN_FAIL, payload: err });
+    }
+};
 
 // 회원가입 액션
 const registerUser = ({ email, name, password }, navigate) => async (dispatch) => {

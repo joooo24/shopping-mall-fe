@@ -14,11 +14,13 @@ function userReducer(state = initialState, action) {
         case types.REGISTER_USER_REQUEST:
         case types.LOGIN_REQUEST:
         case types.LOGIN_WITH_TOKEN_REQUEST:
+        case types.GOOGLE_LOGIN_REQUEST:
             return { ...state, loading: true };
 
-        // 로그인(이메일/토큰) 성공
+        // 로그인(이메일/토큰/구글) 성공
         case types.LOGIN_SUCCESS:
         case types.LOGIN_WITH_TOKEN_SUCCESS:
+        case types.GOOGLE_LOGIN_SUCCESS:
             return { ...state, loading: false, user: payload.user };
 
         // 로그인, 회원가입 실패
@@ -26,8 +28,9 @@ function userReducer(state = initialState, action) {
         case types.REGISTER_USER_FAIL:
             return { ...state, loading: false, error: payload.message };
 
-        // 토큰 로그인 실패
+        // 로그인(이메일/토큰/구글) 실패
         case types.LOGIN_WITH_TOKEN_FAIL:
+        case types.GOOGLE_LOGIN_FAIL:
             return { ...state, loading: false };
 
         // 로그아웃
