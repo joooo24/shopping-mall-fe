@@ -23,14 +23,15 @@ function userReducer(state = initialState, action) {
         case types.GOOGLE_LOGIN_SUCCESS:
             return { ...state, loading: false, user: payload.user };
 
-        // 로그인, 회원가입 실패
+        // 로그인(이메일, 구글), 회원가입 실패
         case types.LOGIN_FAIL:
         case types.REGISTER_USER_FAIL:
+        case types.GOOGLE_LOGIN_FAIL:
             return { ...state, loading: false, error: payload.message };
 
-        // 로그인(이메일/토큰/구글) 실패
+        // 로그인(토큰) 실패
         case types.LOGIN_WITH_TOKEN_FAIL:
-        case types.GOOGLE_LOGIN_FAIL:
+
             return { ...state, loading: false };
 
         // 로그아웃

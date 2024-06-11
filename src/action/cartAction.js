@@ -110,7 +110,8 @@ const getCartQty = () => async (dispatch) => {
         dispatch({ type: types.GET_CART_QTY_SUCCESS, payload: response.data.qty });
     } catch (err) {
         dispatch({ type: types.GET_CART_QTY_FAIL, payload: err.message });
-        dispatch(commonUiActions.showToastMessage(err.message, "error"));
+        // 로그인 안했을 때 에러메시지 떠서 주석
+        // dispatch(commonUiActions.showToastMessage(err.message, "error"));
     }
 };
 
