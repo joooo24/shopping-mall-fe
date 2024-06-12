@@ -58,9 +58,9 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                         <tbody>
                             {/* selectedOrder가 하나 이상일 때만 노출 */}
                             {selectedOrder.items.length > 0 &&
-                                selectedOrder.items.map((item) => (
-                                    <tr key={item._id}>
-                                        <td className="selected-order-td1">{item._id}</td>
+                                selectedOrder.items.map((item, index) => (
+                                    <tr key={index+item._id}>
+                                        <td className="selected-order-td1">{index}</td>
                                         <td className="selected-order-td2">{item.productId.name}</td>
                                         <td className="selected-order-td3">{currencyFormat(item.price)}원</td>
                                         <td className="selected-order-td4">{item.qty}개</td>
