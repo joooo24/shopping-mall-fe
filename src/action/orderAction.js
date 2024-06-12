@@ -68,6 +68,9 @@ const updateOrder = (id, status) => async (dispatch) => {
         dispatch({ type: types.UPDATE_ORDER_SUCCESS, payload: response.data.order });
         // 토스트 알림
         dispatch(commonUiActions.showToastMessage(`주문 번호 ${id}의 주문 상태가 변경되었습니다.`, "success"));
+
+        // 주문 상태 업데이트 후 주문 목록 다시 가져오기
+        dispatch(getOrderList("page=1"));
     } catch (err) {
         dispatch({ type: types.UPDATE_ORDER_FAIL, payload: err.error });
         // 토스트 알림
