@@ -2,7 +2,7 @@ import * as types from "../constants/order.constants";
 
 const initialState = {
     orderNum: "",
-    myOrder: [], // 내 주문
+    // myOrder: [], // 내 주문
     orderList: [], // 주문 리스트
     selectedOrder: {}, // 선택된 주문
     totalPageNum: 1, // 페이지
@@ -31,7 +31,8 @@ function orderReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                myOrder: payload.data
+                orderList: payload.data
+                // myOrder: payload.data
             };
         case types.GET_ORDER_LIST_SUCCESS:
             return {

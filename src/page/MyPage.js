@@ -15,10 +15,10 @@ const MyPage = () => {
         dispatch(orderActions.getOrder());
     }, []);
 
-    const { myOrder } = useSelector((state) => state.order);
+    const { orderList } = useSelector((state) => state.order);
 
     // 내 주문 리스트가 없다면? 주문한 상품이 없습니다 메세지 보여주기
-    if (myOrder?.length === 0) {
+    if (orderList?.length === 0) {
         return (
             <div className="page-container">
                 <h1>주문 내역</h1>
@@ -33,7 +33,7 @@ const MyPage = () => {
     return (
         <div className="page-container">
             <h2>주문 내역</h2>
-            <OrderStatusCard myOrder={myOrder} />
+            <OrderStatusCard orderList={orderList} />
         </div>
     );
 };
