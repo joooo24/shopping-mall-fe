@@ -10,6 +10,7 @@ import ReactPaginate from "react-paginate";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { commonUiActions } from "../action/commonUiAction";
 
+// AdminOrderPage 컴포넌트
 const AdminOrderPage = () => {
     const navigate = useNavigate();
     const [query, setQuery] = useSearchParams();
@@ -27,37 +28,33 @@ const AdminOrderPage = () => {
     // 주문 목록 타이틀
     const tableHeader = ["#", "Order#", "Order Date", "User", "Order Item", "Address", "Total Price", "Status"];
 
-    // 쿼리가 변경될 때 주문 목록을 가져오기
+    // (검색어또는 페이지가 바뀜 => url 바꿔줌 => url쿼리 읽어옴 => 이 쿼리값 맞춰서  주문리스트 가져오기)
+    // 검색어와 페이지가 변경될 때마다 상품 리스트 가져오기 (url쿼리 맞춰서)
     useEffect(() => {
-        dispatch(orderActions.getOrderList({ ...searchQuery }));
-    }, [query]);
-
-    useEffect(() => {
-        // ordernum이 빈 문자열일 경우 쿼리에서 제거
+        // 검색어 입력 시 받아온 필드:값 (ordernum:값) 없을 경우 객체의 속성 ordernum을 삭제
         if (searchQuery.ordernum === "") {
             delete searchQuery.ordernum;
         }
 
+        // 객체를 URL 쿼리 문자열로 변환 -> 문자열로 변경 -> url에 쿼리 값 추가
         const params = new URLSearchParams(searchQuery);
         const queryString = params.toString();
-
         // 해당 쿼리로 페이지 이동
         navigate("?" + queryString);
+
+        // 쿼리 변경 될 때 마다 검색 조건 넣어서 리스트 불러오기
+        dispatch(orderActions.getOrderList({ ...searchQuery }));
     }, [searchQuery]);
 
-    const openEditForm = (order) => {
-        // 주문 상세 모달 열기
-        setOpen(true);
-        // 선택된 주문을 Redux store에 설정
-        dispatch({ type: types.SET_SELECTED_ORDER, payload: order });
-    };
-
-    // 페이지 클릭 시 검색 쿼리를 업데이트
+    // 페이지 변경 시 쿼리 업데이트
     const handlePageClick = ({ selected }) => {
         setSearchQuery((prev) => ({ ...prev, page: selected + 1 }));
     };
 
-    // 주문 상세 다이얼로그 닫기
+    const openEditForm = (order) => {
+        setOpen(true);
+        dispatch({ type: types.SET_SELECTED_ORDER, payload: order });
+    };
     const handleClose = () => {
         setOpen(false);
     };
@@ -68,7 +65,7 @@ const AdminOrderPage = () => {
                 <div className="mt-2 display-center mb-2">
                     <SearchBox
                         searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}
+                        setSearchQuery={setSearchQuery} // setSearchQuery 전달
                         placeholder="오더번호"
                         field="ordernum"
                     />
@@ -80,8 +77,8 @@ const AdminOrderPage = () => {
                     nextLabel="next >"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={5}
-                    pageCount={totalPageNum} // 총 페이지 수
-                    forcePage={searchQuery.page - 1} // 현재 페이지 수
+                    pageCount={totalPageNum}
+                    forcePage={searchQuery.page - 1}
                     previousLabel="< previous"
                     renderOnZeroPageCount={null}
                     pageClassName="page-item"

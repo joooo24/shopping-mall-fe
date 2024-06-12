@@ -30,7 +30,7 @@ const AdminProduct = () => {
     // 테이블 헤더 배열
     const tableHeader = ["#", "Sku", "Name", "Price", "Stock", "Image", "Status", ""];
 
-    // (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
+    // (검색어또는 페이지가 바뀜 => url 바꿔줌 => url쿼리 읽어옴 => 이 쿼리값 맞춰서  상품리스트 가져오기)
     // 검색어와 페이지가 변경될 때마다 상품 리스트 가져오기 (url쿼리 맞춰서)
     useEffect(() => {
         // 검색어 입력 시 받아온 필드:값 (name:값) 없을 경우 객체의 속성 name을 삭제
@@ -41,9 +41,10 @@ const AdminProduct = () => {
         // 객체를 URL 쿼리 문자열로 변환 -> 문자열로 변경 -> url에 쿼리 값 추가
         const params = new URLSearchParams(searchQuery);
         const query = params.toString();
+        // 해당 쿼리로 페이지 이동
         navigate("?" + query);
 
-        // 검색 조건 넣어서 리스트 불러오기
+        // 쿼리 변경 될 때 마다 검색 조건 넣어서 리스트 불러오기
         dispatch(productActions.getProductList({ ...searchQuery }));
     }, [searchQuery]);
 
