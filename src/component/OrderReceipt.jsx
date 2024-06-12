@@ -7,12 +7,12 @@ import { currencyFormat } from "../utils/number";
 const OrderReceipt = ({ cartList, totalPrice }) => {
     const location = useLocation();
     const navigate = useNavigate();
-    console.log("### OrderReceipt cartList", cartList);
+    
     return (
         <div className="receipt-container">
             <h3 className="receipt-title">주문 내역</h3>
             <ul className="receipt-list">
-                {cartList.map((item, index) => (
+                {cartList?.map((item, index) => (
                     <li key={index}>
                         <div className="display-flex space-between">
                             <div>
