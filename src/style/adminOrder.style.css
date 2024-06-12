@@ -14,6 +14,36 @@
     }
 }
 
+.modal-selected-order {
+    .modal-body {
+        padding: 20px 16px;
+    }
+
+    .selected-order-td1,
+    .selected-order-td2,
+    .selected-order-td3,
+    .selected-order-td4,
+    .selected-order-td5 {
+        overflow-wrap: break-word;
+    }
+
+    .selected-order-td1 {
+        max-width: 100px;
+    }
+
+    .selected-order-td2 {
+        min-width: 100px;
+    }
+
+    .selected-order-td3 {
+        min-width: 80px;
+    }
+
+    .selected-order-td4 {
+        text-align: center;
+    }
+}
+
 @media (max-width: 768px) {
     .fade.modal-backdrop.show {
         position: fixed;

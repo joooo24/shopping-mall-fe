@@ -13,15 +13,6 @@
     justify-content: center;
 }
 
-.order-button-area{
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-}
-.order-button-area button{
-    margin-left: 20px;
-}
-
 .text-align-center{
     text-align: center;
     margin-bottom: 5px;

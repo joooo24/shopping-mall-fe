@@ -27,7 +27,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
     }
 
     return (
-        <Modal show={open} onHide={handleClose}>
+        <Modal show={open} onHide={handleClose} className="modal modal-selected-order">
             <Modal.Header closeButton>
                 <Modal.Title>Order Detail</Modal.Title>
             </Modal.Header>
@@ -57,11 +57,11 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                             {selectedOrder.items.length > 0 &&
                                 selectedOrder.items.map((item) => (
                                     <tr key={item._id}>
-                                        <td>{item._id}</td>
-                                        <td>{item.productId.name}</td>
-                                        <td>{currencyFormat(item.price)}</td>
-                                        <td>{item.qty}</td>
-                                        <td>{currencyFormat(item.price * item.qty)}</td>
+                                        <td className="selected-order-td1">{item._id}</td>
+                                        <td className="selected-order-td2">{item.productId.name}</td>
+                                        <td className="selected-order-td3">{currencyFormat(item.price)}</td>
+                                        <td className="selected-order-td4">{item.qty}</td>
+                                        <td className="selected-order-td5">{currencyFormat(item.price * item.qty)}</td>
                                     </tr>
                                 ))}
                             <tr>
@@ -82,7 +82,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                             ))}
                         </Form.Select>
                     </Form.Group>
-                    <div className="order-button-area">
+                    <div className="btn-wrap">
                         <button className="btn btn-line" onClick={handleClose}>닫기</button>
                         <button className="btn btn-submit" type="submit">저장</button>
                     </div>
