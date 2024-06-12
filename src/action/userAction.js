@@ -70,6 +70,8 @@ const loginWithGoogle = (token) => async (dispatch) => {
             throw new Error(response.error);
         }
 
+        sessionStorage.setItem("token", response.data.token);
+        
         dispatch({ type: types.GOOGLE_LOGIN_SUCCESS, payload: response.data });
 
     } catch (err) {
