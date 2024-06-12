@@ -15,8 +15,8 @@ const ProductCard = ({ productList }) => {
             {productList?.map((product, index) => (
                 <div key={product._id} className="product-card" onClick={() => showProduct(product._id)}>
                     <img src={product.image} alt={product.name} />
-                    <div>{product.name}</div>
-                    <div>{currencyFormat(product.price)}원</div> {/* currencyFormat 사용하여 가격 형식 변환 */}
+                    <div className="product-name">{product.name}</div>
+                    <div className="product-price">{currencyFormat(product.price)}원</div> {/* currencyFormat 사용하여 가격 형식 변환 */}
                 </div>
             ))}
         </>
