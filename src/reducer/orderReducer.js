@@ -1,11 +1,12 @@
 import * as types from "../constants/order.constants";
 
 const initialState = {
-    loading: false,
     orderNum: "",
     myOrder: [], // 내 주문
     orderList: [], // 주문 리스트
-    selectedOrder: null,
+    selectedOrder: {}, // 선택된 주문
+    totalPageNum: 1, // 페이지
+    loading: false,
     error: null,
 };
 
