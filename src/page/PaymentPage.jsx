@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { commonUiActions } from "../action/commonUiAction";
 import { cc_expires_format } from "../utils/number";
+import { ColorRing } from "react-loader-spinner";
 
 const PaymentPage = () => {
     const dispatch = useDispatch();
@@ -89,6 +90,15 @@ const PaymentPage = () => {
     //카트에 아이템이 없다면 다시 카트페이지로 돌아가기 (결제할 아이템이 없으니 결제페이지로 가면 안됌)
     if (cartList.length === 0) {
         navigate("/cart");
+    }
+
+    // 로딩 중이면 로딩 스피너를 표시
+    if (loading) {
+        return <ColorRing />;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
     }
 
     return (

@@ -11,6 +11,7 @@ const CartPage = () => {
     const dispatch = useDispatch();
     const { cartList, totalPrice, loading, error } = useSelector((state) => state.cart);
     console.log("### CartPage cartList", cartList);
+    
     useEffect(() => {
         // 카트 리스트 불러오기
         dispatch(cartActions.getCartList());
@@ -24,6 +25,7 @@ const CartPage = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
+
     return (
         <Container>
             <Row>

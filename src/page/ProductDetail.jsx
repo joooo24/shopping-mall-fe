@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
+import { Container, Row, Col, Dropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../action/productAction";
 import { ColorRing } from "react-loader-spinner";

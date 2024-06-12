@@ -1,11 +1,11 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../style/paymentPage.style.css";
+import { ColorRing } from "react-loader-spinner";
 
 const OrderCompletePage = () => {
-    const { orderNum } = useSelector((state) => state.order);
+    const { orderNum, error, loading } = useSelector((state) => state.order);
 
     // 만약 주문번호가 없는 상태로 이페이지에 왔다면?
     // 다시 메인페이지로 돌아가기
@@ -19,6 +19,15 @@ const OrderCompletePage = () => {
                 </div>
             </div>
         );
+    }
+
+    // 로딩 중이면 로딩 스피너를 표시
+    if (loading) {
+        return <ColorRing />;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
     }
 
     return (
