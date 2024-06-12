@@ -33,7 +33,7 @@ const OrderTable = ({ header, data, openEditForm }) => {
                                 <td>{item.shipTo.address + " " + item.shipTo.city}</td>
                                 <td>{currencyFormat(item.totalPrice)}</td>
                                 <td>
-                                    <Badge bg={badgeBg[item.status]}>{item.status}</Badge>
+                                    <span className={`${badgeBg[item.status]} order-status`}>{item.status}</span>
                                 </td>
                             </tr>
                         ))
