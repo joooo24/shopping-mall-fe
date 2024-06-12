@@ -14,13 +14,20 @@ const AdminOrderPage = () => {
     const navigate = useNavigate();
     const [query, setQuery] = useSearchParams();
     const dispatch = useDispatch();
-    const orderList = useSelector((state) => state.order.orderList);
+
+    const { orderList, totalPageNum } = useSelector((state) => state.order); // 주문 목록, 총 페이지 수
+    const [open, setOpen] = useState(false); // 주문 상세 다이얼로그 토글
+
+
+    console.log("orderListorderListorderList", orderList)
+    // 검색 쿼리
     const [searchQuery, setSearchQuery] = useState({
+        // 초기 값
         page: query.get("page") || 1,
         ordernum: query.get("ordernum") || "",
     });
-    const [open, setOpen] = useState(false);
-    const totalPageNum = useSelector((state) => state.order.totalPageNum);
+
+    // 주문 목록 타이틀
     const tableHeader = [
         "#",
         "Order#",
@@ -32,29 +39,35 @@ const AdminOrderPage = () => {
         "Status",
     ];
 
+    // 쿼리가 변경될 때 주문 목록을 가져오기
     useEffect(() => {
         dispatch(orderActions.getOrderList({ ...searchQuery }));
     }, [query]);
 
     useEffect(() => {
+        // ordernum이 빈 문자열일 경우 쿼리에서 제거
         if (searchQuery.ordernum === "") {
             delete searchQuery.ordernum;
         }
         const params = new URLSearchParams(searchQuery);
         const queryString = params.toString();
 
+        // 해당 쿼리로 페이지 이동
         navigate("?" + queryString);
     }, [searchQuery]);
 
     const openEditForm = (order) => {
+        // 주문 상세 모달 열기
         setOpen(true);
+        // 선택된 주문을 Redux store에 설정
         dispatch({ type: types.SET_SELECTED_ORDER, payload: order });
     };
 
+    // 페이지 클릭 시 검색 쿼리를 업데이트
     const handlePageClick = ({ selected }) => {
         setSearchQuery({ ...searchQuery, page: selected + 1 });
     };
-
+    // 주문 상세 다이얼로그 닫기
     const handleClose = () => {
         setOpen(false);
     };
@@ -76,6 +89,7 @@ const AdminOrderPage = () => {
                     data={orderList}
                     openEditForm={openEditForm}
                 />
+
                 <ReactPaginate
                     nextLabel="next >"
                     onPageChange={handlePageClick}
