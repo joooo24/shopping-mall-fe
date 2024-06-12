@@ -1,6 +1,10 @@
 @import url(./form.style.css);
 @import url(./button.style.css);
 
+/* 폰트 */
+/* font-family: "Lato", sans-serif; */
+/* font-family: "Noto Sans KR", sans-serif; */
+
 /* 공통 */
 .user-page {
     padding: 50px 0;
