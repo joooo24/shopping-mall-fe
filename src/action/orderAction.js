@@ -8,7 +8,7 @@ const createOrder = (payload, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.CREATE_ORDER_REQUEST });
         const response = await api.post("/order", payload);
-        if (response.status !== 201) throw new Error(response.error);
+        if (response.status !== 200) throw new Error(response.error);
 
         dispatch({ type: types.CREATE_ORDER_SUCCESS, payload: response.data.data.orderNum });
 
