@@ -18,7 +18,7 @@ const addToCart =
 
                 // 장바구니에 아이템 추가 요청 성공
                 dispatch({ type: types.ADD_TO_CART_SUCCESS, payload: response.data });
-                
+
                 // 장바구니 총 수량
                 dispatch(cartActions.getCartQty())
 
@@ -45,22 +45,6 @@ const getCartList = () => async (dispatch) => {
         dispatch({ type: types.GET_CART_LIST_SUCCESS, payload: response.data });
     } catch (err) {
         dispatch({ type: types.GET_CART_LIST_FAIL, payload: err.error });
-    }
-};
-
-// 장바구니 아이템 전체 삭제
-const emptyCart = () => async (dispatch) => {
-    try {
-        dispatch({ type: types.EMPTY_CART_REQUEST });
-        const response = await api.delete("/cart");
-        if (response.status !== 200) {
-            throw new Error(response.error);
-        }
-        dispatch({ type: types.EMPTY_CART_SUCCESS });
-        dispatch(commonUiActions.showToastMessage("장바구니가 비워졌습니다", "success"));
-    } catch (err) {
-        dispatch({ type: types.EMPTY_CART_FAIL, payload: err.error });
-        dispatch(commonUiActions.showToastMessage(err.message, "error"));
     }
 };
 
@@ -118,7 +102,6 @@ const getCartQty = () => async (dispatch) => {
 export const cartActions = {
     addToCart,
     getCartList,
-    emptyCart,
     deleteCartItem,
     updateQty,
     getCartQty,
