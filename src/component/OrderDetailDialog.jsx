@@ -62,14 +62,14 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                                     <tr key={item._id}>
                                         <td className="selected-order-td1">{item._id}</td>
                                         <td className="selected-order-td2">{item.productId.name}</td>
-                                        <td className="selected-order-td3">{currencyFormat(item.price)}</td>
-                                        <td className="selected-order-td4">{item.qty}</td>
-                                        <td className="selected-order-td5">{currencyFormat(item.price * item.qty)}</td>
+                                        <td className="selected-order-td3">{currencyFormat(item.price)}원</td>
+                                        <td className="selected-order-td4">{item.qty}개</td>
+                                        <td className="selected-order-td5">{currencyFormat(item.price * item.qty)}원</td>
                                     </tr>
                                 ))}
                             <tr>
-                                <td colSpan={4}>총계:</td>
-                                <td>{currencyFormat(selectedOrder.totalPrice)}</td>
+                                <td colSpan={4}>총 합계:</td>
+                                <td>{currencyFormat(selectedOrder.totalPrice)}원</td>
                             </tr>
                         </tbody>
                     </Table>

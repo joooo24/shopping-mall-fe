@@ -25,16 +25,7 @@ const AdminOrderPage = () => {
     });
 
     // 주문 목록 타이틀
-    const tableHeader = [
-        "#",
-        "Order#",
-        "Order Date",
-        "User",
-        "Order Item",
-        "Address",
-        "Total Price",
-        "Status",
-    ];
+    const tableHeader = ["#", "Order#", "Order Date", "User", "Order Item", "Address", "Total Price", "Status"];
 
     // 쿼리가 변경될 때 주문 목록을 가져오기
     useEffect(() => {
@@ -63,7 +54,7 @@ const AdminOrderPage = () => {
 
     // 페이지 클릭 시 검색 쿼리를 업데이트
     const handlePageClick = ({ selected }) => {
-        setSearchQuery({ ...searchQuery, page: selected + 1 });
+        setSearchQuery((prev) => ({ ...prev, page: selected + 1 }));
     };
 
     // 주문 상세 다이얼로그 닫기
@@ -83,11 +74,7 @@ const AdminOrderPage = () => {
                     />
                 </div>
 
-                <OrderTable
-                    header={tableHeader}
-                    data={orderList}
-                    openEditForm={openEditForm}
-                />
+                <OrderTable header={tableHeader} data={orderList} openEditForm={openEditForm} />
 
                 <ReactPaginate
                     nextLabel="next >"
