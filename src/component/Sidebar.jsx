@@ -17,19 +17,19 @@ const Sidebar = () => {
                 <Link to="/">
                     <img width={100} src="/image/joooomall-logo.png" alt="joooomall-logo.png" />
                 </Link>
-                <div className="sidebar-item">Admin Account</div>
+                <div className="sidebar-title">관리자 계정</div>
                 <ul className="sidebar-area">
                     <li
                         className="sidebar-item"
                         onClick={() => handleSelectMenu("/admin/product?page=1")}
                     >
-                        product
+                        상품 관리
                     </li>
                     <li
                         className="sidebar-item"
                         onClick={() => handleSelectMenu("/admin/order?page=1")}
                     >
-                        order
+                        주문 관리
                     </li>
                 </ul>
             </div>
