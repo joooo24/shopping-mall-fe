@@ -1,29 +1,27 @@
 import React, { useState } from "react";
 import { Form, Modal, Button, Col, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-
 import "../style/adminOrder.style.css";
 import { ORDER_STATUS } from "../constants/order.constants";
 import { orderActions } from "../action/orderAction";
 import { currencyFormat } from "../utils/number";
 
 const OrderDetailDialog = ({ open, handleClose }) => {
-    const dispatch = useDispatch();
     const selectedOrder = useSelector((state) => state.order.selectedOrder); // 선택된 주문
-    const [orderStatus, setOrderStatus] = useState(selectedOrder.status); // 주문 상태
+    const [orderStatus, setOrderStatus] = useState(selectedOrder?.status); // 주문 상태
+    const dispatch = useDispatch();
 
-    // 상태 변경 이벤트
+    console.log("selectedOrder", selectedOrder)
+
     const handleStatusChange = (event) => {
         setOrderStatus(event.target.value);
     };
 
-    // 주문 상태 업데이트 후 모달 닫기
     const submitStatus = () => {
         dispatch(orderActions.updateOrder(selectedOrder._id, orderStatus));
         handleClose();
     };
 
-    // 선택된 주문이 없을 경우 빈 요소 반환
     if (!selectedOrder) {
         return <></>;
     }
@@ -34,7 +32,6 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                 <Modal.Title>Order Detail</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* 주문 정보 */}
                 <p>예약번호: {selectedOrder.orderNum}</p>
                 <p>주문날짜: {selectedOrder.createdAt.slice(0, 10)}</p>
                 <p>이메일: {selectedOrder.userId.email}</p>
@@ -57,7 +54,6 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* 주문한 상품 항목 */}
                             {selectedOrder.items.length > 0 &&
                                 selectedOrder.items.map((item) => (
                                     <tr key={item._id}>

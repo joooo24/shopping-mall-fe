@@ -18,13 +18,10 @@ const AdminOrderPage = () => {
     const { orderList, totalPageNum } = useSelector((state) => state.order); // 주문 목록, 총 페이지 수
     const [open, setOpen] = useState(false); // 주문 상세 다이얼로그 토글
 
-
-    console.log("orderListorderListorderList", orderList)
     // 검색 쿼리
     const [searchQuery, setSearchQuery] = useState({
-        // 초기 값
-        page: query.get("page") || 1,
-        ordernum: query.get("ordernum") || "",
+        page: query.get("page") || 1, // 페이지 번호
+        ordernum: query.get("ordernum") || "", // 주문 번호
     });
 
     // 주문 목록 타이틀
@@ -49,6 +46,7 @@ const AdminOrderPage = () => {
         if (searchQuery.ordernum === "") {
             delete searchQuery.ordernum;
         }
+
         const params = new URLSearchParams(searchQuery);
         const queryString = params.toString();
 
@@ -67,6 +65,7 @@ const AdminOrderPage = () => {
     const handlePageClick = ({ selected }) => {
         setSearchQuery({ ...searchQuery, page: selected + 1 });
     };
+
     // 주문 상세 다이얼로그 닫기
     const handleClose = () => {
         setOpen(false);
