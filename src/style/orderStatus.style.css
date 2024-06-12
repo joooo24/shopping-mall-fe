@@ -27,11 +27,3 @@
     text-align: center;
     padding:20px
 }
-
-@media screen and (max-width: 63rem) {
-   .order-info{
-    margin-left: 20px;
-    }
-  }
-
-  

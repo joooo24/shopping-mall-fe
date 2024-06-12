@@ -32,16 +32,18 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                 <Modal.Title>Order Detail</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>예약번호: {selectedOrder.orderNum}</p>
-                <p>주문날짜: {selectedOrder.createdAt.slice(0, 10)}</p>
-                <p>이메일: {selectedOrder.userId.email}</p>
-                <p>
-                    주소: {selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}
-                </p>
-                <p>
-                    연락처: {`${selectedOrder.contact.firstName + selectedOrder.contact.lastName} ${selectedOrder.contact.contact}`}
-                </p>
-                <p>주문내역</p>
+                <div className="order-info">
+                    <p><span>예약번호:</span> {selectedOrder.orderNum}</p>
+                    <p><span>주문날짜:</span>  {selectedOrder.createdAt.slice(0, 10)}</p>
+                    <p><span>이메일:</span> {selectedOrder.userId.email}</p>
+                    <p><span>주소:</span> {selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}</p>
+                    <p><span>이름:</span>
+                        {`${selectedOrder.contact.firstName + selectedOrder.contact.lastName}`}
+                    </p>
+                    <p><span>연락처:</span>  {`${selectedOrder.contact.contact}`}</p>
+                </div>
+                <hr />
+                <h4>주문내역</h4>
                 <div className="overflow-x">
                     <Table>
                         <thead>
@@ -54,6 +56,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                             </tr>
                         </thead>
                         <tbody>
+                            {/* selectedOrder가 하나 이상일 때만 노출 */}
                             {selectedOrder.items.length > 0 &&
                                 selectedOrder.items.map((item) => (
                                     <tr key={item._id}>
@@ -73,7 +76,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                 </div>
                 <Form onSubmit={submitStatus}>
                     <Form.Group as={Col} controlId="status">
-                        <Form.Label>Status</Form.Label>
+                        <Form.Label>배송 상태</Form.Label>
                         <Form.Select value={orderStatus} onChange={handleStatusChange}>
                             {ORDER_STATUS.map((item, idx) => (
                                 <option key={idx} value={item.toLowerCase()}>

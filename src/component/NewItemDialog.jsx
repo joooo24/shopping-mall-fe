@@ -162,13 +162,13 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
             <Modal.Header closeButton>
                 <Modal.Title>{mode === "new" ? "새로운 상품 등록" : "상품 수정"}</Modal.Title>
             </Modal.Header>
-
-            {/* 모달 폼 */}
-            <div className="form-container">
-                <Form className="form-box modal-form" onSubmit={handleSubmit}>
-                    <div className="form-group-wrap">
-                        {/* 상품 코드 */}
-                        {/* <Form.Group className="form-group" controlId="sku">
+            <Modal.Body>
+                {/* 모달 폼 */}
+                <div className="form-container">
+                    <Form className="form-box modal-form" onSubmit={handleSubmit}>
+                        <div className="form-group-wrap">
+                            {/* 상품 코드 */}
+                            {/* <Form.Group className="form-group" controlId="sku">
                             <Form.Label>상품 코드</Form.Label>
                             <Form.Control
                                 onChange={handleChange}
@@ -178,160 +178,161 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                                 value={formData.sku}
                             />
                         </Form.Group> */}
-                        <Form.Group className="form-group">
-                            <Form.Label htmlFor="sku">상품 코드</Form.Label>
-                            <Form.Control
-                                id="sku"
-                                onChange={handleChange}
-                                type="string"
-                                placeholder="상품 코드를 입력하세요"
-                                required
-                                value={formData.sku}
-                            />
-                        </Form.Group>
+                            <Form.Group className="form-group">
+                                <Form.Label htmlFor="sku">상품 코드</Form.Label>
+                                <Form.Control
+                                    id="sku"
+                                    onChange={handleChange}
+                                    type="string"
+                                    placeholder="상품 코드를 입력하세요"
+                                    required
+                                    value={formData.sku}
+                                />
+                            </Form.Group>
 
-                        {/* 상품명 */}
-                        <Form.Group className="form-group" controlId="name">
-                            <Form.Label>상품명</Form.Label>
-                            <Form.Control
-                                onChange={handleChange}
-                                type="string"
-                                placeholder="상품명을 입력하세요"
-                                required
-                                value={formData.name}
-                            />
-                        </Form.Group>
-                    </div>
+                            {/* 상품명 */}
+                            <Form.Group className="form-group" controlId="name">
+                                <Form.Label>상품명</Form.Label>
+                                <Form.Control
+                                    onChange={handleChange}
+                                    type="string"
+                                    placeholder="상품명을 입력하세요"
+                                    required
+                                    value={formData.name}
+                                />
+                            </Form.Group>
+                        </div>
 
-                    {/* 상품 설명 */}
-                    <div className="form-group-wrap">
-                        <Form.Group className="form-group" controlId="description">
-                            <Form.Label>상품 설명</Form.Label>
-                            <Form.Control
-                                type="string"
-                                placeholder="Description"
-                                as="textarea"
-                                onChange={handleChange}
-                                rows={3}
-                                value={formData.description}
-                                required
-                            />
-                        </Form.Group>
-                    </div>
+                        {/* 상품 설명 */}
+                        <div className="form-group-wrap">
+                            <Form.Group className="form-group" controlId="description">
+                                <Form.Label>상품 설명</Form.Label>
+                                <Form.Control
+                                    type="string"
+                                    placeholder="Description"
+                                    as="textarea"
+                                    onChange={handleChange}
+                                    rows={3}
+                                    value={formData.description}
+                                    required
+                                />
+                            </Form.Group>
+                        </div>
 
-                    {/* 상품 재고 */}
-                    <div className="form-group-wrap coloum" controlId="stock">
-                        <Form.Label className="mr-1">상품 재고</Form.Label>
+                        {/* 상품 재고 */}
+                        <div className="form-group-wrap coloum" controlId="stock">
+                            <Form.Label className="mr-1">상품 재고</Form.Label>
 
-                        {stockError && <span className="error-message">재고를 추가해주세요</span>}
+                            {stockError && <span className="error-message">재고를 추가해주세요</span>}
 
-                        <button className="btn btn-line" onClick={addStock}>
-                            Add +
-                        </button>
+                            <button className="btn btn-line" onClick={addStock}>
+                                Add +
+                            </button>
 
-                        {/* 상품 재고 추가 배열 */}
-                        <>
-                            {stock.map((item, index) => (
-                                <div className="form-group-wrap" key={index}>
-                                    <div className="form-group">
-                                        <Form.Select
-                                            onChange={(event) => handleOptionChange(event.target.value, index)}
-                                            required
-                                            defaultValue={item[0] ? item[0].toLowerCase() : ""}
-                                        >
-                                            <option value="" disabled selected hidden>
-                                                Please Choose...
-                                            </option>
-                                            {SIZE.map((item, index) => (
-                                                <option
-                                                    invalid="true"
-                                                    value={item.toLowerCase()}
-                                                    disabled={stock.some((option) => option[0] === item.toLowerCase())}
-                                                    key={index}
-                                                >
-                                                    {item}
+                            {/* 상품 재고 추가 배열 */}
+                            <>
+                                {stock.map((item, index) => (
+                                    <div className="form-group-wrap" key={index}>
+                                        <div className="form-group">
+                                            <Form.Select
+                                                onChange={(event) => handleOptionChange(event.target.value, index)}
+                                                required
+                                                defaultValue={item[0] ? item[0].toLowerCase() : ""}
+                                            >
+                                                <option value="" disabled selected hidden>
+                                                    Please Choose...
                                                 </option>
-                                            ))}
-                                        </Form.Select>
+                                                {SIZE.map((item, index) => (
+                                                    <option
+                                                        invalid="true"
+                                                        value={item.toLowerCase()}
+                                                        disabled={stock.some((option) => option[0] === item.toLowerCase())}
+                                                        key={index}
+                                                    >
+                                                        {item}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                        </div>
+                                        <div className="form-group">
+                                            <Form.Control
+                                                onChange={(event) => handleStockChange(event.target.value, index)}
+                                                type="number"
+                                                placeholder="number of stock"
+                                                value={item[1]}
+                                                required
+                                            />
+                                        </div>
+                                        <button className="btn btn-small btn-danger" onClick={() => deleteStock(index)}>
+                                            -
+                                        </button>
                                     </div>
-                                    <div className="form-group">
-                                        <Form.Control
-                                            onChange={(event) => handleStockChange(event.target.value, index)}
-                                            type="number"
-                                            placeholder="number of stock"
-                                            value={item[1]}
-                                            required
-                                        />
-                                    </div>
-                                    <button className="btn btn-small btn-danger" onClick={() => deleteStock(index)}>
-                                        -
-                                    </button>
-                                </div>
-                            ))}
-                        </>
-                    </div>
-
-                    {/* 상품 이미지 업로드 */}
-                    <div className="form-group-wrap coloum" controlId="Image" required>
-                        <Form.Label>상품 이미지</Form.Label>
-                        <CloudinaryUploadWidget uploadImage={uploadImage} />
-                        {formData.image ? (
-                            <img id="uploadedimage" src={formData.image} className="upload-image mt-2" alt="uploadedimage" />
-                        ) : (
-                            <div className="error-message mt-1">이미지가 업로드되지 않았습니다.</div>
-                        )}
-                    </div>
-
-                    <div className="form-group-wrap">
-                        {/* 가격 */}
-                        <Form.Group className="form-group" controlId="price">
-                            <Form.Label>가격</Form.Label>
-                            <Form.Control
-                                value={formData.price}
-                                required
-                                onChange={handleChange}
-                                type="number"
-                                placeholder="0"
-                            />
-                        </Form.Group>
-
-                        {/* 카테고리 */}
-                        <Form.Group className="form-group" controlId="category">
-                            <Form.Label>카테고리</Form.Label>
-                            <Form.Control
-                                as="select"
-                                multiple
-                                onChange={onHandleCategory}
-                                value={formData.category}
-                                required
-                            >
-                                {CATEGORY.map((item, idx) => (
-                                    <option key={idx} value={item.toLowerCase()}>
-                                        {item}
-                                    </option>
                                 ))}
-                            </Form.Control>
-                        </Form.Group>
+                            </>
+                        </div>
 
-                        {/* 상태 */}
-                        <Form.Group className="form-group" controlId="status">
-                            <Form.Label>상태</Form.Label>
-                            <Form.Select value={formData.status} onChange={handleChange} required>
-                                {STATUS.map((item, idx) => (
-                                    <option key={idx} value={item.toLowerCase()}>
-                                        {item}
-                                    </option>
-                                ))}
-                            </Form.Select>
-                        </Form.Group>
-                    </div>
+                        {/* 상품 이미지 업로드 */}
+                        <div className="form-group-wrap coloum" controlId="Image" required>
+                            <Form.Label>상품 이미지</Form.Label>
+                            <CloudinaryUploadWidget uploadImage={uploadImage} />
+                            {formData.image ? (
+                                <img id="uploadedimage" src={formData.image} className="upload-image mt-2" alt="uploadedimage" />
+                            ) : (
+                                <div className="error-message mt-1">이미지가 업로드되지 않았습니다.</div>
+                            )}
+                        </div>
 
-                    {/* 버튼 */}
-                    <button className="btn btn-submit" type="submit">
-                        {mode === "new" ? "상품 등록" : "수정 완료"}
-                    </button>
-                </Form>
-            </div>
+                        <div className="form-group-wrap">
+                            {/* 가격 */}
+                            <Form.Group className="form-group" controlId="price">
+                                <Form.Label>가격</Form.Label>
+                                <Form.Control
+                                    value={formData.price}
+                                    required
+                                    onChange={handleChange}
+                                    type="number"
+                                    placeholder="0"
+                                />
+                            </Form.Group>
+
+                            {/* 카테고리 */}
+                            <Form.Group className="form-group" controlId="category">
+                                <Form.Label>카테고리</Form.Label>
+                                <Form.Control
+                                    as="select"
+                                    multiple
+                                    onChange={onHandleCategory}
+                                    value={formData.category}
+                                    required
+                                >
+                                    {CATEGORY.map((item, idx) => (
+                                        <option key={idx} value={item.toLowerCase()}>
+                                            {item}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            </Form.Group>
+
+                            {/* 상태 */}
+                            <Form.Group className="form-group" controlId="status">
+                                <Form.Label>상태</Form.Label>
+                                <Form.Select value={formData.status} onChange={handleChange} required>
+                                    {STATUS.map((item, idx) => (
+                                        <option key={idx} value={item.toLowerCase()}>
+                                            {item}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </div>
+
+                        {/* 버튼 */}
+                        <button className="btn btn-submit" type="submit">
+                            {mode === "new" ? "상품 등록" : "수정 완료"}
+                        </button>
+                    </Form>
+                </div>
+            </Modal.Body>
         </Modal>
     );
 };
