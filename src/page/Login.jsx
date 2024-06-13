@@ -16,7 +16,7 @@ const Login = () => {
     useEffect(() => {
         // 컴포넌트가 마운트될 때 error를 초기화하는 액션 디스패치
         dispatch(userActions.clearError());
-    }, [dispatch]);
+    }, []);
 
     const loginWithEmail = (event) => {
         event.preventDefault();
