@@ -19,16 +19,10 @@ const Sidebar = () => {
                 </Link>
                 <div className="sidebar-title">관리자 계정</div>
                 <ul className="sidebar-area">
-                    <li
-                        className="sidebar-item"
-                        onClick={() => handleSelectMenu("/admin/product?page=1")}
-                    >
+                    <li className="sidebar-item" onClick={() => handleSelectMenu("/admin/product?page=1")}>
                         상품 관리
                     </li>
-                    <li
-                        className="sidebar-item"
-                        onClick={() => handleSelectMenu("/admin/order?page=1")}
-                    >
+                    <li className="sidebar-item" onClick={() => handleSelectMenu("/admin/order?page=1")}>
                         주문 관리
                     </li>
                 </ul>
@@ -41,12 +35,12 @@ const Sidebar = () => {
 
             <Navbar bg="light" expand={false} className="mobile-sidebar-toggle">
                 <Container fluid>
-                    <img width={80} src="/image/joooomall-logo.png" alt="joooomall-logo.png" />
+                    <Link to="/" className="">
+                        <img width={80} src="/image/joooomall-logo.png" alt="joooomall-logo.png" />
+                    </Link>
+
                     <Navbar.Brand href="#"></Navbar.Brand>
-                    <Navbar.Toggle
-                        aria-controls={`offcanvasNavbar-expand`}
-                        onClick={() => setShow(true)}
-                    />
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} onClick={() => setShow(true)} />
                     <Navbar.Offcanvas
                         id={`offcanvasNavbar-expand`}
                         aria-labelledby={`offcanvasNavbarLabel-expand`}

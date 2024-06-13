@@ -28,6 +28,9 @@ const AdminOrderPage = () => {
     // 주문 목록 타이틀
     const tableHeader = ["#", "Order#", "Order Date", "User", "Order Item", "Address", "Total Price", "Status"];
 
+    // 쿼리 변경 될 때 마다 검색 조건 넣어서 리스트 불러오기
+    useEffect(() => {
+        dispatch(orderActions.getOrderList({ ...searchQuery }));
     // (검색어또는 페이지가 바뀜 => url 바꿔줌 => url쿼리 읽어옴 => 이 쿼리값 맞춰서  주문리스트 가져오기)
     // 검색어와 페이지가 변경될 때마다 상품 리스트 가져오기 (url쿼리 맞춰서)
     useEffect(() => {
@@ -41,7 +44,6 @@ const AdminOrderPage = () => {
         const queryString = params.toString();
         // 해당 쿼리로 페이지 이동
         navigate("?" + queryString);
-
         // 쿼리 변경 될 때 마다 검색 조건 넣어서 리스트 불러오기
         dispatch(orderActions.getOrderList({ ...searchQuery }));
     }, [searchQuery]);
