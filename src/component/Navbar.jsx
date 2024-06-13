@@ -18,8 +18,7 @@ const Navbar = ({ user }) => {
 
     useEffect(() => {
         dispatch(cartActions.getCartQty());
-    }, [dispatch]);
-
+    }, [user]);
 
     const onCheckEnter = (event) => {
         if (event.key === "Enter") {
