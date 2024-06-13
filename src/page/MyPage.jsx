@@ -9,13 +9,12 @@ import { Link } from "react-router-dom";
 
 const MyPage = () => {
     const dispatch = useDispatch();
+    const { orderList } = useSelector((state) => state.order);
 
     // 내 주문 리스트 들고오기
     useEffect(() => {
         dispatch(orderActions.getOrder());
     }, []);
-
-    const { orderList } = useSelector((state) => state.order);
 
     // 내 주문 리스트가 없다면? 주문한 상품이 없습니다 메세지 보여주기
     if (orderList?.length === 0) {
